@@ -1,0 +1,142 @@
+@import url('https://fonts.cdnfonts.com/css/minecraft-4');
+
+body {
+    background: url('mc-background.png');
+    background-attachment: fixed;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.minecraft-title {
+    width: 500px;
+    height: 100px;
+}
+h1 img {
+    width: 30px;
+    height: 30px;
+    vertical-align: text-top;
+    margin-right: 5px;
+    margin-left: 150px;
+}
+h1 {
+    font-family: 'Minecraft', sans-serif;
+    font-weight: 100;
+    color: rgb(41, 40, 40);
+}
+.top-container {
+    margin-top: 50px;
+}
+.gui {
+    margin-top: 50px;
+    width: 500px;
+    height: 500px;
+    background-color: #fff;
+    box-shadow: 5px 5px 5px #000;
+    border: 1px solid #000;
+}
+input {
+    margin-left: 5px;
+    width: 480px;
+    height: 20px;
+    margin-bottom: 8px;
+}
+.forgot {
+    margin-left: 5px;
+    text-decoration: none;
+}
+.button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.btn {
+    padding: 10px 80px;
+    border: none;
+}
+#resetBtn {
+    background-color: rgb(199, 198, 198);
+    cursor: pointer;
+}
+#nextBtn {
+    background-color: rgb(32, 110, 211);
+    color: #fff;
+    cursor: pointer;
+}
+
+/* LAUNCHER */
+
+.launcher {
+    width: 1280px;
+    height: 720px;
+    background-color: #36393e;
+    color: #fff;
+}
+.left-bar {
+    width: 200px;
+    height: 720px;
+    background-color: #282b30;
+}
+.accout-display {
+    border: 2px inset;
+    padding-top: 10px;
+    display: grid;
+    grid-template-columns: 80px 100px;
+    padding-bottom: 10px;
+}
+#profile-picture {
+    width: 50px;
+    height: 50px;
+    margin-left: 10px;
+}
+.username {
+    font-weight: bold;
+    margin-top: 12px;
+}
+.date {
+    border: 2px inset;
+    padding: 10px 20px;
+}
+.time {
+    border: 2px inset;
+    padding: 10px 20px;
+}
+#background-minecraft-image {
+    position: relative;
+    top: -700px;
+    left: 210px;
+    width: 1050px;
+    height: 500px;
+}
+.play-now {
+    color: #fff;
+    margin-left: 30px;
+}
+.play-gui {
+    position: relative;
+    top: -710px;
+    left: 610px;
+}
+.play-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: -660px;
+    left: 80px;
+}
+.play {
+    font-family: 'Minecraft', sans-serif;
+    background-color: rgb(24, 126, 24);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    padding: 12px 50px;
+    margin-top: -20px;
+    font-size: 18px;
+}
+.news-title {
+    font-weight: bold;
+    margin-left: 70px;
+    text-decoration: underline;
+}

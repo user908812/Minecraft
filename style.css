@@ -64,81 +64,139 @@ body {
     font-family: 'Minecraft', sans-serif;
     font-size: 60px;
     text-shadow: 1px 1px 1px #000;
-    margin-left: 1300px;
+    margin-left: 1430px;
 }
 .player {
-    z-index: 1;
-    width: 200px;
-    height: 200px;
+    z-index: 0;
+    width: 180px;
+    height: 180px;
     position: relative;
     top: 315px;
     right: 0;
     bottom: 0;
     left: 0;
 }
+#creeper {
+    z-index: 0;
+    width: 180px;
+    height: 180px;
+    position: relative;
+    top: -450px;
+    left: 1500px;
+    
+    animation: creeperAnimation;
+    animation-duration: 5s;
+    animation-delay: 1s;
+    animation-iteration-count: infinite;
+}
+@keyframes creeperAnimation {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-100px);
+        filter: brightness(500%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
 .blocks {
     margin-top: 248px;
 }
-.grass-container {
-    display: grid;
-    grid-template-columns: repeat(11, 149px);
-}
-#grass_block1,
-#grass_block2,
-#grass_block3,
-#grass_block4,
-#grass_block5,
-#grass_block6,
-#grass_block7,
-#grass_block8,
-#grass_block9,
-#grass_block10,
-#grass_block11,
-#dirt1,
-#dirt2,
-#dirt3,
-#dirt4,
-#dirt5,
-#dirt6,
-#dirt7,
-#dirt8,
-#dirt9,
-#dirt10,
-#dirt11,
-#stone_block1,
-#stone_block2,
-#stone_block3,
-#stone_block4,
-#stone_block5,
-#stone_block6,
-#stone_block7,
-#stone_block8,
-#stone_block9,
-#stone_block10,
-#stone_block11  {
+#grass_block1:hover,
+#grass_block2:hover,
+#grass_block3:hover,
+#grass_block4:hover,
+#grass_block5:hover,
+#grass_block6:hover,
+#grass_block7:hover,
+#grass_block8:hover,
+#grass_block9:hover,
+#grass_block10:hover,
+#grass_block11:hover,
+#grass_block12:hover,
+#grass_block13:hover,
+#grass_block14:hover,
+#grass_block15:hover,
+#grass_block16:hover,
+#grass_block17:hover,
+#grass_block18:hover,
+#grass_block19:hover,
+#grass_block20:hover,
+#grass_block21:hover,
+#grass_block22:hover,
+#dirt1:hover,
+#dirt2:hover,
+#dirt3:hover,
+#dirt4:hover,
+#dirt5:hover,
+#dirt6:hover,
+#dirt7:hover,
+#dirt8:hover,
+#dirt9:hover,
+#dirt10:hover,
+#dirt11:hover,
+#dirt12:hover,
+#dirt13:hover,
+#dirt14:hover,
+#dirt15:hover,
+#dirt16:hover,
+#dirt17:hover,
+#dirt18:hover,
+#dirt19:hover,
+#dirt20:hover,
+#dirt21:hover,
+#dirt22:hover,
+#stone_block1:hover,
+#stone_block2:hover,
+#stone_block3:hover,
+#stone_block4:hover,
+#stone_block5:hover,
+#stone_block6:hover,
+#stone_block7:hover,
+#stone_block8:hover,
+#stone_block9:hover,
+#stone_block10:hover,
+#stone_block11:hover,
+#stone_block12:hover,
+#stone_block13:hover,
+#stone_block14:hover,
+#stone_block15:hover,
+#stone_block16:hover,
+#stone_block17:hover,
+#stone_block18:hover,
+#stone_block19:hover,
+#stone_block20:hover,
+#stone_block21:hover,
+#stone_block22:hover  {
     border: 1px solid #000;
 }
+.grass-container {
+    display: grid;
+    grid-template-columns: repeat(22, 80px);
+}
 .grass_block {
-    width: 150px;
-    height: 150px;
+    width: 80px;
+    height: 80px;
 }
 .dirt-container {
     display: grid;
-    grid-template-columns: repeat(11, 149px);
-    margin-top: -5px;
+    grid-template-columns: repeat(22, 80px);
+    margin-top: -6px;
 }
 .dirt {
-    width: 150px;
-    height: 150px;
+    width: 80px;
+    height: 80px;
 }
 .stone-container {
     display: grid;
-    grid-template-columns: repeat(11, 149px);
-    margin-top: -5px;
+    grid-template-columns: repeat(22, 80px);
+    margin-top: -6px;
 }
 .stone_block {
-    width: 150px;
-    height: 150px;
+    width: 80px;
+    height: 80px;
 }
 #hotbar {
     z-index: 1;
@@ -148,23 +206,19 @@ body {
     width: 500px;
     height: 50px;
 }
-#oak_plank {
+.block {
     cursor: pointer;
     position: relative;
     top: -157px;
-    left: 10px;
     width: 35px;
     height: 35px;
     z-index: 1;
 }
+#oak_plank {
+    left: 10px;
+}
 #cobblestone {
-    cursor: pointer;
-    position: relative;
-    top: -157px;
-    left: 27px;
-    width: 35px;
-    height: 35px;
-    z-index: 1;
+    left: 27px; 
 }
 @keyframes playerJump {
     from { transform: translateY(0);}
@@ -181,4 +235,55 @@ body {
     position: absolute;
     width: 50px;
     height: 50px;
+}
+.message {
+    position: relative;
+    top: -400px;
+    right: 1750px;
+    font-size: 22px;
+    color: #000;
+}
+.inventory-container {
+    position: relative;
+    left: -1200px;
+}
+.inventory-title {
+    margin-left: 60px;
+}
+.gui-inventory {
+    z-index: 1;
+    position: relative;
+    top: -50px;
+    border: 1px solid #000;
+    width: 500px;
+    height: 500px;
+    background-color: grey;
+}
+.blocks-display {
+    margin-left: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 120px);
+}
+.b {
+   position: relative;
+   top: -150px; 
+}
+.blockDisplay {
+    position: relative;
+    top: 180px;
+    cursor: pointer;
+}
+.block-info {
+    border: 1px solid #000;
+    background-color: #fff;
+    width: 100px;
+    position: relative;
+    top: -140px;
+    padding-left: 6px;
+}
+.block-nm {
+    font-weight: bold;
+}
+.block-id {
+    margin-left: 2px;
 }

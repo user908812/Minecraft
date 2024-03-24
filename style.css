@@ -68,10 +68,10 @@ body {
 }
 .player {
     z-index: 0;
-    width: 180px;
-    height: 180px;
+    width: 80px;
+    height: 130px;
     position: relative;
-    top: 315px;
+    top: 260px;
     right: 0;
     bottom: 0;
     left: 0;
@@ -81,6 +81,7 @@ body {
     width: 180px;
     height: 180px;
     position: relative;
+    /* top: -500px; */
     top: -450px;
     left: 1500px;
     
@@ -126,6 +127,19 @@ body {
 #grass_block20:hover,
 #grass_block21:hover,
 #grass_block22:hover,
+#grass_block23:hover,
+#grass_block24:hover,
+#grass_block25:hover,
+#grass_block26:hover,
+#grass_block27:hover,
+#grass_block28:hover,
+#grass_block29:hover,
+#grass_block30:hover,
+#grass_block31:hover,
+#grass_block32:hover,
+#grass_block33:hover,
+#grass_block34:hover,
+#grass_block35:hover,
 #dirt1:hover,
 #dirt2:hover,
 #dirt3:hover,
@@ -148,6 +162,19 @@ body {
 #dirt20:hover,
 #dirt21:hover,
 #dirt22:hover,
+#dirt23:hover,
+#dirt24:hover,
+#dirt25:hover,
+#dirt26:hover,
+#dirt27:hover,
+#dirt28:hover,
+#dirt29:hover,
+#dirt30:hover,
+#dirt31:hover,
+#dirt32:hover,
+#dirt33:hover,
+#dirt34:hover,
+#dirt35:hover,
 #stone_block1:hover,
 #stone_block2:hover,
 #stone_block3:hover,
@@ -169,7 +196,20 @@ body {
 #stone_block19:hover,
 #stone_block20:hover,
 #stone_block21:hover,
-#stone_block22:hover  {
+#stone_block22:hover,
+#stone_block23:hover,
+#stone_block24:hover,
+#stone_block25:hover,
+#stone_block26:hover,
+#stone_block27:hover,
+#stone_block28:hover,
+#stone_block29:hover,
+#stone_block30:hover,
+#stone_block31:hover,
+#stone_block32:hover,
+#stone_block33:hover,
+#stone_block34:hover,
+#stone_block35:hover  {
     border: 1px solid #000;
 }
 .grass-container {
@@ -194,6 +234,11 @@ body {
     grid-template-columns: repeat(22, 80px);
     margin-top: -6px;
 }
+/* .stone-container2 {
+    display: grid;
+    grid-template-columns: repeat(35, 80px);
+    margin-top: -12px;
+} */
 .stone_block {
     width: 80px;
     height: 80px;
@@ -259,7 +304,22 @@ body {
     height: 500px;
     background-color: grey;
 }
+.chat {
+    z-index: 1;
+    position: relative;
+    top: -50px;
+    border: 1px solid #000;
+    width: 500px;
+    height: 500px;
+    background-color: grey;
+}
 .blocks-display {
+    margin-left: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 120px);
+}
+.blocks-display2 {
+    margin-top: 25px;
     margin-left: 20px;
     display: grid;
     grid-template-columns: repeat(4, 120px);
@@ -286,4 +346,10 @@ body {
 }
 .block-id {
     margin-left: 2px;
+}
+.coloredMessages {
+    position: relative;
+    top: -400px;
+    right: 1750px;
+    font-size: 22px;
 }

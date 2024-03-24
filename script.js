@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     music.play();
 });
 
+// mc.style.marginLeft = '950px';
 mc.style.width = '1762px';
 mc.style.height = '900px';
 
@@ -120,14 +121,10 @@ let s21 = document.getElementById('s21');
 let s22 = document.getElementById('s22');
 // ----------------------------------------------- \\
 
-let playerPosition = 0;
-let walking = false;
-
-let player = document.querySelector('.player');
-
 function setLowGraphic() {
 
     mc.style.background = 'skyblue';
+    creeper.src = 'low_creeper.png';
 
     g1.setAttribute('src', 'low_grass_block.png');
     g2.setAttribute('src', 'low_grass_block.png');
@@ -202,6 +199,7 @@ function setLowGraphic() {
 function setNormalGraphic() {
 
     mc.style.background = 'url(\'sky.png\')';
+    creeper.src = 'creeper.png';
 
     g1.setAttribute('src', 'grass_block.png');
     g2.setAttribute('src', 'grass_block.png');
@@ -276,6 +274,7 @@ function setNormalGraphic() {
 function setHighGraphic() {
 
     mc.style.background = 'url(\'high_sky.png\')';
+    creeper.src = 'high_creeper.png';
 
     g1.setAttribute('src', 'high_grass_block.png');
     g2.setAttribute('src', 'high_grass_block.png');
@@ -347,17 +346,51 @@ function setHighGraphic() {
    s22.setAttribute('src', 'high_stone_block.png');
 }
 
+let playerPosition = 0;
+let player = document.querySelector('.player');
+
 let chat = null;
+let isInventoryOpen;
+
+let playerCrouching = false;
+let walking = false;
+let ctrlPressed = false;
 
 document.body.addEventListener('keydown', (e) => {
-    if (e.key == 'ArrowLeft' || e.key == 's' || e.key == 'a') {
-        walking = true;
-        playerPosition -= 15;
-        player.style.left = playerPosition + 'px';
+    if (e.key === 'Control') {
+        ctrlPressed = true;
+    }
+    
+    if (e.key == 'Shift') {
+        if (!playerCrouching) {
+            player.src = 'steve_crouching.png';
+            playerCrouching = true;
+        } else {
+            player.src = 'steve_standing.png';
+            playerCrouching = false;
+        }
+    } else if (e.key == 'ArrowLeft' || e.key == 's' || e.key == 'a') {
+        if (playerCrouching) {
+            player.src = 'steve_crouching_reversed.png';
+            playerPosition -= 4;
+            player.style.left = playerPosition + 'px';
+        } else {
+            player.src = 'steve_standing_revered.png';
+            walking = true;
+            playerPosition -= (ctrlPressed ? 20 : 10);
+            player.style.left = playerPosition + 'px';
+        }
     } else if (e.key == 'w' || e.key == 'd') {
-        walking = true;
-        playerPosition += 15;
-        player.style.left = playerPosition + 'px';
+        if (playerCrouching) {
+            player.src = 'steve_crouching.png';
+            playerPosition += 4;
+            player.style.left = playerPosition + 'px';
+        } else {
+            player.src = 'steve_standing.png';
+            walking = true;
+            playerPosition += (ctrlPressed ? 20 : 10);
+            player.style.left = playerPosition + 'px';
+        }
     } else if (e.key == 'ArrowUp' || e.key == ' ') {
         walking = false;
         player.classList.add('jump');
@@ -366,19 +399,28 @@ document.body.addEventListener('keydown', (e) => {
             player.classList.remove('jump');
         }, 500);
     } else if (e.key == 'ArrowRight') {
-        player.classList.add('jump');
-        playerPosition += 15;
-        player.style.left = playerPosition + 'px';
-
-        setTimeout(() => {
-            player.classList.remove('jump');
-        }, 500);
+        if (playerCrouching) {
+            player.src = 'steve_crouching.png';
+            playerPosition += 4;
+            player.style.left = playerPosition + 'px';
+        } else {
+            player.src = 'steve_standing.png';
+            walking = true;
+            playerPosition += (ctrlPressed ? 20 : 10);
+            player.style.left = playerPosition + 'px';
+        }
     } else if (e.key == '/') {
-        player.style.top = '315px';
+        player.style.top = '260px';
+    }
+});
+document.body.addEventListener('keyup', (e) => {
+    if (e.key === 'Control') {
+        ctrlPressed = false;
     } else if (e.key == 'F4') {
         if (!chat) {
             chat = document.createElement('textarea');
-            chat.setAttribute('placeholder', 'Press \'F2\' to send the message.');
+            chat.setAttribute('placeholder', `Press \'F2\' to send the message.\n`);
+            chat.setAttribute('autofocus', true);
             chat.style.width = '1000px';
             chat.style.height = '500px';
             chat.style.fontSize = '15px';
@@ -408,359 +450,601 @@ document.body.addEventListener('keydown', (e) => {
                 creeper.style.display = 'none';
             }
 
-            chat.setAttribute('hidden', true);
+            if (message.startsWith('.r')) {
+                chat.setAttribute('hidden', true);
+                let redMessage = message.slice(3);
             
-            let messageContainer = document.createElement('div');
+                let messageContainer = document.createElement('div');
+                messageContainer.classList.add('message');
+                messageContainer.style.color = 'red';
+            
+                messageContainer.innerHTML = redMessage;
+                document.body.append(messageContainer);
+            
+                setTimeout(() => {
+                    messageContainer.setAttribute('hidden', true);
+                }, 3500);
+            } else if (message.startsWith('.o')) {
+                chat.setAttribute('hidden', true);
+                let orangeMessage = message.slice(3);
+            
+                let messageContainer = document.createElement('div');
+                messageContainer.classList.add('message');
+                messageContainer.style.color = 'orange';
+            
+                messageContainer.innerHTML = orangeMessage;
+                document.body.append(messageContainer);
+            
+                setTimeout(() => {
+                    messageContainer.setAttribute('hidden', true);
+                }, 3500);
+            } else if (message.startsWith('.y')) {
+                chat.setAttribute('hidden', true);
+                let yellowMessage = message.slice(3);
+            
+                let messageContainer = document.createElement('div');
+                messageContainer.classList.add('message');
+                messageContainer.style.color = 'yellow';
+            
+                messageContainer.innerHTML = yellowMessage;
+                document.body.append(messageContainer);
+            
+                setTimeout(() => {
+                    messageContainer.setAttribute('hidden', true);
+                }, 3500);
+            } else if (message.startsWith('.g')) {
+                chat.setAttribute('hidden', true);
+                let greenMessage = message.slice(3);
+            
+                let messageContainer = document.createElement('div');
+                messageContainer.classList.add('message');
+                messageContainer.style.color = 'lightgreen';
+            
+                messageContainer.innerHTML = greenMessage;
+                document.body.append(messageContainer);
+            
+                setTimeout(() => {
+                    messageContainer.setAttribute('hidden', true);
+                }, 3500);
+            } else if (message.startsWith('.b')) {
+                chat.setAttribute('hidden', true);
+                let blueMessage = message.slice(3);
+            
+                let messageContainer = document.createElement('div');
+                messageContainer.classList.add('message');
+                messageContainer.style.color = 'blue';
+            
+                messageContainer.innerHTML = blueMessage;
+                document.body.append(messageContainer);
+            
+                setTimeout(() => {
+                    messageContainer.setAttribute('hidden', true);
+                }, 3500);
+            } else if (message.startsWith('.p')) {
+                chat.setAttribute('hidden', true);
+                let pinkMessage = message.slice(3);
+            
+                let messageContainer = document.createElement('div');
+                messageContainer.classList.add('message');
+                messageContainer.style.color = 'pink';
+            
+                messageContainer.innerHTML = pinkMessage;
+                document.body.append(messageContainer);
+            
+                setTimeout(() => {
+                    messageContainer.setAttribute('hidden', true);
+                }, 3500);
+            } else if (message.startsWith('.w')) {
+                chat.setAttribute('hidden', true);
+                let whiteMessage = message.slice(3);
+            
+                let messageContainer = document.createElement('div');
+                messageContainer.classList.add('message');
+                messageContainer.style.color = 'white';
+            
+                messageContainer.innerHTML = whiteMessage;
+                document.body.append(messageContainer);
+            
+                setTimeout(() => {
+                    messageContainer.setAttribute('hidden', true);
+                }, 3500);
+            } else if (message.startsWith('.i')) {
+                chat.setAttribute('hidden', true);
+                let italicFont = message.slice(3);
+            
+                let messageContainer = document.createElement('div');
+                messageContainer.classList.add('message');
+                messageContainer.style.fontStyle = 'italic';
+            
+                messageContainer.innerHTML = italicFont;
+                document.body.append(messageContainer);
+            
+                setTimeout(() => {
+                    messageContainer.setAttribute('hidden', true);
+                }, 3500);
+            } else if (message.startsWith('.u')) {
+                chat.setAttribute('hidden', true);
+                let underLine = message.slice(3);
+            
+                let messageContainer = document.createElement('div');
+                messageContainer.classList.add('message');
+                messageContainer.style.textDecoration = 'underline';
+            
+                messageContainer.innerHTML = underLine;
+                document.body.append(messageContainer);
+            
+                setTimeout(() => {
+                    messageContainer.setAttribute('hidden', true);
+                }, 3500);
+            } else if (message.includes('.musicoff')) {
+                chat.setAttribute('hidden', true);
+                music.pause();
+            } else if (message.includes('.math')) {
+                chat.setAttribute('hidden', true);
+                try {
+                    let number1 = Number(prompt('Podaj pierwszą liczbę: '));
+                    let operation = prompt('Podaj znak (+ - / * ^): ');
+                    let number2 = Number(prompt('Podaj drugą liczbę: '));
+                
+                    if (isNaN(number1) || isNaN(number2)) {
+                        throw new Error('Nie podano prawidłowych liczb!');
+                    }
+                
+                    switch (operation) {
+                        case '+':
+                            let addition = number1 + number2;
+                            alert(`Wynik to: ${addition}`);
+                            break;
+                        case '-':
+                            let subtraction = number1 - number2;
+                            alert(`Wynik to: ${subtraction}`);
+                            break;
+                        case '/':
+                            let division = number1 / number2;
+                            alert(`Wynik to: ${division}`);
+                            break;
+                        case '*':
+                            let multiplication = number1 * number2;
+                            alert(`Wynik to: ${multiplication}`);
+                            break;
+                        case '^':
+                            let toPower = Math.pow(number1, number2);
+                            alert(`Wynik to: ${toPower}`);
+                            break;
+                        default:
+                            alert('Błąd! Zły operator.');
+                    }
+                } catch (error) {
+                    alert(error.message);
+                }                
+            } else {
+                chat.setAttribute('hidden', true);
+            
+                let messageContainer = document.createElement('div');
 
-            messageContainer.classList.add('message');
+                messageContainer.classList.add('message');
 
-            messageContainer.textContent = message;
-            document.body.append(messageContainer);
-            setTimeout(() => {
-                messageContainer.setAttribute('hidden', true);
-            }, 3500);
+                messageContainer.innerHTML = message;
+                document.body.append(messageContainer);
+                setTimeout(() => {
+                    messageContainer.setAttribute('hidden', true);
+                }, 3500);
+            }
         }
     }
 });
+
+let grassBreaking = document.getElementById('grassBreaking');
 
 function grassBlockBreak() {
     g1.addEventListener('click', () => {
         g1.style.display = 'none';
         g1.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
+        grassBreaking.play();
     });
     g2.addEventListener('click', () => {
         g2.style.display = 'none';
         g2.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
     g3.addEventListener('click', () => {
         g3.style.display = 'none';
         g3.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
     g4.addEventListener('click', () => {
         g4.style.display = 'none';
         g4.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
     g5.addEventListener('click', () => {
         g5.style.display = 'none';
         g5.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
     g6.addEventListener('click', () => {
         g6.style.display = 'none';
         g6.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
     g7.addEventListener('click', () => {
         g7.style.display = 'none';
         g7.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
     g8.addEventListener('click', () => {
         g8.style.display = 'none';
         g8.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
     g9.addEventListener('click', () => {
         g9.style.display = 'none';
         g9.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
     g10.addEventListener('click', () => {
         g10.style.display = 'none';
         g10.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
     g11.addEventListener('click', () => {
         g11.style.display = 'none';
         g11.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
     g12.addEventListener('click', () => {
         g12.style.display = 'none';
         g12.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
     g13.addEventListener('click', () => {
         g13.style.display = 'none';
         g13.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
     g14.addEventListener('click', () => {
         g14.style.display = 'none';
         g14.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
     g15.addEventListener('click', () => {
         g15.style.display = 'none';
         g15.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
     g16.addEventListener('click', () => {
         g16.style.display = 'none';
         g16.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
     g17.addEventListener('click', () => {
         g17.style.display = 'none';
         g17.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
     g18.addEventListener('click', () => {
         g18.style.display = 'none';
         g18.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
     g19.addEventListener('click', () => {
         g19.style.display = 'none';
         g19.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
     g20.addEventListener('click', () => {
         g20.style.display = 'none';
         g20.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
     g21.addEventListener('click', () => {
         g21.style.display = 'none';
         g21.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
     g22.addEventListener('click', () => {
         g22.style.display = 'none';
         g22.style.border = 'none';
-        player.style.top = '390px'
+        player.style.top = '350px';
+        grassBreaking.play();
     });
 }
 grassBlockBreak();
+
+let dirtBreaking = document.getElementById('dirtBreaking');
 
 function dirtBreak() {
     d1.addEventListener('click', () => {
         d1.style.display = 'none';
         d1.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d2.addEventListener('click', () => {
         d2.style.display = 'none';
         d2.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d3.addEventListener('click', () => {
         d3.style.display = 'none';
         d3.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d4.addEventListener('click', () => {
         d4.style.display = 'none';
         d4.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d5.addEventListener('click', () => {
         d5.style.display = 'none';
         d5.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d6.addEventListener('click', () => {
         d6.style.display = 'none';
         d6.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d7.addEventListener('click', () => {
         d7.style.display = 'none';
         d7.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d8.addEventListener('click', () => {
         d8.style.display = 'none';
         d8.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d9.addEventListener('click', () => {
         d9.style.display = 'none';
         d9.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d10.addEventListener('click', () => {
         d10.style.display = 'none';
         d10.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d11.addEventListener('click', () => {
         d11.style.display = 'none';
         d11.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d12.addEventListener('click', () => {
         d12.style.display = 'none';
         d12.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d13.addEventListener('click', () => {
         d13.style.display = 'none';
         d13.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d14.addEventListener('click', () => {
         d14.style.display = 'none';
         d14.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d15.addEventListener('click', () => {
         d15.style.display = 'none';
         d15.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d16.addEventListener('click', () => {
         d16.style.display = 'none';
         d16.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d17.addEventListener('click', () => {
         d17.style.display = 'none';
         d17.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d18.addEventListener('click', () => {
         d18.style.display = 'none';
         d18.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d19.addEventListener('click', () => {
         d19.style.display = 'none';
         d19.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d20.addEventListener('click', () => {
         d20.style.display = 'none';
         d20.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d21.addEventListener('click', () => {
         d21.style.display = 'none';
         d21.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
     d22.addEventListener('click', () => {
         d22.style.display = 'none';
         d22.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '420px';
+        dirtBreaking.play();
     });
 }
 dirtBreak();
+
+let stoneBreaking = document.getElementById('stoneBreaking');
 
 function stoneBlockBreak() {
     s1.addEventListener('click', () => {
         s1.style.display = 'none';
         s1.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s2.addEventListener('click', () => {
         s2.style.display = 'none';
         s2.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s3.addEventListener('click', () => {
         s3.style.display = 'none';
         s3.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s4.addEventListener('click', () => {
         s4.style.display = 'none';
         s4.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s5.addEventListener('click', () => {
         s5.style.display = 'none';
         s5.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s6.addEventListener('click', () => {
         s6.style.display = 'none';
         s6.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s7.addEventListener('click', () => {
         s7.style.display = 'none';
         s7.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s8.addEventListener('click', () => {
         s8.style.display = 'none';
         s8.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s9.addEventListener('click', () => {
         s9.style.display = 'none';
         s9.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s10.addEventListener('click', () => {
         s10.style.display = 'none';
         s10.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s11.addEventListener('click', () => {
         s11.style.display = 'none';
         s11.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s12.addEventListener('click', () => {
         s12.style.display = 'none';
         s12.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s13.addEventListener('click', () => {
         s13.style.display = 'none';
         s13.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s14.addEventListener('click', () => {
         s14.style.display = 'none';
         s14.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s15.addEventListener('click', () => {
         s15.style.display = 'none';
         s15.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s16.addEventListener('click', () => {
         s16.style.display = 'none';
         s16.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s17.addEventListener('click', () => {
         s17.style.display = 'none';
         s17.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s18.addEventListener('click', () => {
         s18.style.display = 'none';
         s18.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s19.addEventListener('click', () => {
         s19.style.display = 'none';
         s19.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s20.addEventListener('click', () => {
         s20.style.display = 'none';
         s20.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s21.addEventListener('click', () => {
         s21.style.display = 'none';
         s21.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
     s22.addEventListener('click', () => {
         s22.style.display = 'none';
         s22.style.border = 'none';
-        player.style.top = '470px'
+        player.style.top = '490px';
+        stoneBreaking.play();
     });
 }
 stoneBlockBreak();
@@ -771,6 +1055,10 @@ let sandStone = false;
 let oakLeaves = false;
 let dirt = false;
 let stone = false;
+let whiteWool = false;
+let diamondBlock = false;
+let barrierBlock = false;
+let tntBlock = false;
 
 function oakPlanksChosen() {
     oakPlanks = true;
@@ -779,6 +1067,10 @@ function oakPlanksChosen() {
     oakLeaves = false;
     dirt = false;
     stone = false;
+    whiteWool = false;
+    diamondBlock = false;
+    barrierBlock = false;
+    tntBlock = false;
 }
 function cobbleStoneChosen() {
     cobbleStone = true;
@@ -787,6 +1079,10 @@ function cobbleStoneChosen() {
     oakLeaves = false;
     dirt = false;
     stone = false;
+    whiteWool = false;
+    diamondBlock = false;
+    barrierBlock = false;
+    tntBlock = false;
 }
 function sandStoneChosen() {
     sandStone = true;
@@ -795,6 +1091,10 @@ function sandStoneChosen() {
     oakLeaves = false;
     dirt = false;
     stone = false;
+    whiteWool = false;
+    diamondBlock = false;
+    barrierBlock = false;
+    tntBlock = false;
 }
 function oakLeavesChosen() {
     oakLeaves = true;
@@ -803,6 +1103,10 @@ function oakLeavesChosen() {
     oakPlanks = false;
     dirt = false;
     stone = false;
+    whiteWool = false;
+    diamondBlock = false;
+    barrierBlock = false;
+    tntBlock = false;
 }
 function dirtChosen() {
     dirt = true;
@@ -811,6 +1115,10 @@ function dirtChosen() {
     cobbleStone = false;
     oakPlanks = false;
     stone = false;
+    whiteWool = false;
+    diamondBlock = false;
+    barrierBlock = false;
+    tntBlock = false;
 }
 function stoneChosen() {
     stone = true;
@@ -819,9 +1127,64 @@ function stoneChosen() {
     sandStone = false;
     cobbleStone = false;
     oakPlanks = false;
+    whiteWool = false;
+    diamondBlock = false;
+    barrierBlock = false;
+    tntBlock = false;
+}
+function whiteWoolChosen() {
+    whiteWool = true;
+    stone = false;
+    dirt = false;
+    oakLeaves = false;
+    sandStone = false;
+    cobbleStone = false;
+    oakPlanks = false;
+    diamondBlock = false;
+    barrierBlock = false;
+    tntBlock = false;
+}
+function diamondBlockChosen() {
+    diamondBlock = true;
+    whiteWool = false;
+    stone = false;
+    dirt = false;
+    oakLeaves = false;
+    sandStone = false;
+    cobbleStone = false;
+    oakPlanks = false;
+    barrierBlock = false;
+    tntBlock = false;
+}
+function barrierChosen() {
+    barrierBlock = true;
+    diamondBlock = false;
+    whiteWool = false;
+    stone = false;
+    dirt = false;
+    oakLeaves = false;
+    sandStone = false;
+    cobbleStone = false;
+    oakPlanks = false;
+    tntBlock = false;
+}
+function tntChosen() {
+    tntBlock = true;
+    barrierBlock = false;
+    diamondBlock = false;
+    whiteWool = false;
+    stone = false;
+    dirt = false;
+    oakLeaves = false;
+    sandStone = false;
+    cobbleStone = false;
+    oakPlanks = false;
 }
 
 document.body.addEventListener('keydown', (e) => {
+    if (e.key == 'F1') {
+        e.preventDefault();
+    }
     if (e.key == '1') {
         oakPlanksChosen();
     } else if (e.key == '2') {
@@ -830,13 +1193,13 @@ document.body.addEventListener('keydown', (e) => {
 });
 
 let Inventory = document.createElement('div');
-let isInventoryOpen;
 
 document.body.addEventListener('keydown', (e) => {
 
     isInventoryOpen = true;
 
-    if (e.key == 'e') {
+    if (isInventoryOpen && e.key == 'F3') {
+        e.preventDefault();
         Inventory.hidden = false;
         let menu = `
         <div class="inventory-container">
@@ -875,10 +1238,39 @@ document.body.addEventListener('keydown', (e) => {
                 </div>
             </div>
         </div>
+        <div class="blocks-display2">
+            <div class="blockDisplay">
+                <div class="b"><img title="White Wool" id="white_wool" onclick="whiteWoolChosen()" width="50" height="50" src="white_wool.png" alt="white_wool.png"></div>
+                <div class="block-info">
+                    <div class="block-nm">White Wool</div>
+                    <div class="block-id">ID: 35</div>
+                </div>
+            </div>
+            <div class="blockDisplay">
+                <div class="b"><img title="Diamond Block" id="diamond_block" onclick="diamondBlockChosen()" width="50" height="50" src="diamond_block.png" alt="diamond_block.png"></div>
+                <div class="block-info">
+                    <div class="block-nm">Diamond Block</div>
+                    <div class="block-id">ID: 57</div>
+                </div>
+            </div>
+            <div class="blockDisplay">
+                <div class="b"><img title="Barrier" id="barrier" onclick="barrierChosen()" width="50" height="50" src="barrier.png" alt="barrier.png"></div>
+                <div class="block-info">
+                    <div class="block-nm">Barrier</div>
+                    <div class="block-id">ID: 166</div>
+                </div>
+            </div>
+            <div class="blockDisplay">
+                <div class="b"><img title="TNT" id="tnt" onclick="tntChosen()" width="50" height="50" src="tnt.png" alt="tnt.png"></div>
+                <div class="block-info">
+                    <div class="block-nm">TNT</div>
+                    <div class="block-id">ID: 46</div>
+                </div>
+            </div>
+        </div>
         </div>
     </div>
         `;
-
         Inventory.innerHTML = menu;
         document.body.append(Inventory);
     }
@@ -887,6 +1279,8 @@ function closeInventoryGUI() {
     isInventoryOpen = false;
     Inventory.hidden = true;
 }
+
+let tntExplosion = document.getElementById('tntExplosion');
 
 document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('contextmenu', function(event) {
@@ -910,12 +1304,79 @@ document.addEventListener('DOMContentLoaded', function() {
             clickedPlace.style.background = "url('dirt.png')";
         } else if (stone) {
             clickedPlace.style.background = "url('stone_block.png')";
+        } else if (whiteWool) {
+            clickedPlace.style.background = "url('white_wool.png')";
+        } else if (diamondBlock) {
+            clickedPlace.style.background = "url('diamond_block.png')";
+        } else if (barrierBlock) {
+            clickedPlace.style.background = "url('barrier.png')";
+            setTimeout(() => {
+                clickedPlace.style.display = 'none';
+            }, 2000);
+        }  else if (tntBlock) {
+            clickedPlace.style.background = "url('tnt.png')";
+            let allBlocks = 
+            [g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22,
+            d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22,
+            s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22];
+
+            let numOfBlocks = [1, 2, 3, 4, 5];
+            let randomNumberOfBlocks = Math.floor(Math.random() * numOfBlocks.length);
+            let numberOfBlocks = numOfBlocks[randomNumberOfBlocks];
+
+            let rand1 = Math.floor(Math.random() * allBlocks.length);
+            let rand2 = Math.floor(Math.random() * allBlocks.length);
+            let rand3 = Math.floor(Math.random() * allBlocks.length);
+            let rand4 = Math.floor(Math.random() * allBlocks.length);
+            let rand5 = Math.floor(Math.random() * allBlocks.length);
+
+            let randomBlock1 = allBlocks[rand1];
+            let randomBlock2 = allBlocks[rand2];
+            let randomBlock3 = allBlocks[rand3];
+            let randomBlock4 = allBlocks[rand4];
+            let randomBlock5 = allBlocks[rand5];
+
+            setTimeout(() => {
+                clickedPlace.style.display = 'none';
+
+                switch (numberOfBlocks) {
+                    case 1:
+                        randomBlock1.style.display = 'none';
+                        tntExplosion.play();
+                        break;
+                    case 2:
+                        randomBlock1.style.display = 'none';
+                        randomBlock2.style.display = 'none';
+                        tntExplosion.play();
+                        break;
+                    case 3:
+                        randomBlock1.style.display = 'none';
+                        randomBlock2.style.display = 'none';
+                        randomBlock3.style.display = 'none';
+                        tntExplosion.play();
+                        break;
+                    case 4:
+                        randomBlock1.style.display = 'none';
+                        randomBlock2.style.display = 'none';
+                        randomBlock3.style.display = 'none';
+                        randomBlock4.style.display = 'none';
+                        tntExplosion.play();
+                        break;
+                    case 5:
+                        randomBlock1.style.display = 'none';
+                        randomBlock2.style.display = 'none';
+                        randomBlock3.style.display = 'none';
+                        randomBlock4.style.display = 'none';
+                        randomBlock5.style.display = 'none';
+                        tntExplosion.play();
+                }
+            }, 1000);
+
         }
         document.body.appendChild(clickedPlace);
     });
 });
 document.addEventListener('DOMContentLoaded', function() {
-    music.play();
     let creeper = document.createElement('div');
     creeper.innerHTML = `<img id="creeper" draggable="false" src="creeper.png" alt="creeper.png">`;
     mc.appendChild(creeper);
@@ -946,8 +1407,7 @@ function checkCollisionsPeriodically() {
 
             creeper.style.display = 'none';
 
-        }, 500);
+        }, 100);
     }
 }
-
 setInterval(checkCollisionsPeriodically, 1000);

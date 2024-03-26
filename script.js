@@ -1181,14 +1181,50 @@ function tntChosen() {
     oakPlanks = false;
 }
 
+let hotbarContainer = document.querySelector('.hotbar-container');
+let hotbarHidden = false;
+
 document.body.addEventListener('keydown', (e) => {
-    if (e.key == 'F1') {
+
+    let keyPressed = e.key;
+
+    if (keyPressed == 'F1') {
         e.preventDefault();
+        hotbarHidden = !hotbarHidden;
+        hotbarContainer.hidden = hotbarHidden;
+
+        if (!hotbarHidden) {
+            creeper.style.top = '-450px';
+        } else if (hotbarHidden) {
+            creeper.style.top = '-396px';
+        }
     }
-    if (e.key == '1') {
-        oakPlanksChosen();
-    } else if (e.key == '2') {
-        cobbleStoneChosen();
+
+    switch (keyPressed) {
+        case '1':
+            oakPlanksChosen();
+            break;
+        case '2':
+            cobbleStoneChosen();
+            break;
+        case '3':
+            stoneChosen();
+            break;
+        case '4':
+            tntChosen();
+            break;
+        case '5':
+            barrierChosen();
+            break;
+        case '6':
+            oakLeavesChosen();
+            break;
+        case '7':
+            dirtChosen();
+            break;
+        case '8':
+            sandStoneChosen();
+            break;
     }
 });
 
@@ -1374,8 +1410,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
         }
         document.body.appendChild(clickedPlace);
+
+        clickedPlace.addEventListener('click', () => {
+            if (!tntBlock) {
+                clickedPlace.hidden = true;
+            }
+        });
     });
 });
+
 document.addEventListener('DOMContentLoaded', function() {
     let creeper = document.createElement('div');
     creeper.innerHTML = `<img id="creeper" draggable="false" src="creeper.png" alt="creeper.png">`;

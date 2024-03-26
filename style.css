@@ -265,6 +265,24 @@ body {
 #cobblestone {
     left: 27px; 
 }
+#stone {
+    left: 42px; 
+}
+#tnt {
+    left: 58px; 
+}
+#barrier {
+    left: 72px; 
+}
+#oak_leaves {
+    left: 88px; 
+}
+#dirt {
+    left: 102px; 
+}
+#sandstone {
+    left: 116px; 
+}
 @keyframes playerJump {
     from { transform: translateY(0);}
     to { transform: translateY(-160px);}

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" ondblclick="event.preventDefault()">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,8 +10,8 @@
 
     <title>Minecraft - Gra 2D</title>
 
-    <link rel="icon" href="grass_block.png">
-    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="grass_block.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
     <section id="minecraft">
@@ -177,6 +177,12 @@
         <img id="hotbar" draggable="false" src="hotbar.png" alt="hotbar.png">
         <img title="Oak Planks" id="oak_plank" class="block" onclick="oakPlanksChosen()" draggable="false" src="oak_plank.png" alt="oak_plank.png">
         <img title="Cobblestone" id="cobblestone" class="block" onclick="cobbleStoneChosen()" draggable="false" src="cobblestone.png" alt="cobblestone.png">
+        <img title="Stone" id="stone" class="block" onclick="stoneChosen()" draggable="false" src="stone_block.png" alt="stone_block.png">
+        <img title="tnt" id="tnt" class="block" onclick="tntChosen()" draggable="false" src="tnt.png" alt="tnt.png">
+        <img title="Barrier" id="barrier" class="block" onclick="barrierChosen()" draggable="false" src="barrier.png" alt="barrier.png">
+        <img title="Oak Leaves" id="oak_leaves" class="block" onclick="oakLeavesChosen()" draggable="false" src="oak_leaves.png" alt="oak_leaves.png">
+        <img title="Dirt" id="dirt" class="block" onclick="dirtChosen()" draggable="false" src="dirt.png" alt="dirt.png">
+        <img title="Sandstone" id="sandstone" class="block" onclick="sandStoneChosen()" draggable="false" src="sandstone.png" alt="sandstone.png">
     </div>
     </section>
     

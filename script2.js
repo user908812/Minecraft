@@ -1,6 +1,3 @@
-let dateElement = document.querySelector('.date');
-let timeElement = document.querySelector('.time');
-
 function updateTime() {
     let currentTime = new Date();
     let hours = currentTime.getHours().toString().padStart(2, '0');
@@ -54,6 +51,11 @@ function renderLauncherOnSubmit(event) {
                 <li>New blocks</li>
                 <li>Fixed player positions</li>
                 <li>Removed air borders</li>
+                <li class="added">Fixed date and time</li>
+                <li class="added">F1 button</li>
+                <li class="added">Blocks in hotbar</li>
+                <li class="added">Remove placed blocks</li>
+                <li class="added">Removed copying on double click</li>
             </ul>
         </div>
     </div>
@@ -65,9 +67,11 @@ function renderLauncherOnSubmit(event) {
             <br>
             <label for="versions">Select a version: &nbsp;</label>
             <select style="cursor: pointer;" name="versions" id="versions">
-                <option value="0"></option>
-                <option value="1">v100.0.1</option>
-                <option value="2">v100.0.2 (beta)</option>
+                    <option value="0"></option>
+                    <optgroup label="versions">
+                    <option value="1">v100.0.1</option>
+                    <option value="2">v100.0.2 (beta)</option>
+                </optgroup>
             </select>
         </div>
         <div class="play-btn">
@@ -79,13 +83,16 @@ function renderLauncherOnSubmit(event) {
 
     launcherContainer.innerHTML = launcher;
     document.body.appendChild(launcherContainer);
+
+    timeElement = document.querySelector('.time');
+    dateElement = document.querySelector('.date');
+    updateTime();
+    updateDate();
+    setInterval(updateTime, 1000);
 }
+
 let form = document.querySelector('.login-form form');
 form.addEventListener('submit', renderLauncherOnSubmit);
-
-updateTime();
-updateDate();
-setInterval(updateTime, 1000);
 
 function launchMinecraft() {
     let mc_version = document.getElementById('versions').value;
@@ -93,7 +100,7 @@ function launchMinecraft() {
     if (mc_version == 0) {
         alert('You need to choose a version before you start playing!');
     } else if (mc_version == 1) {
-        window.open('minecraft.html', '_self');
+        window.open('minecraft.html', '_blank');
     } else if (mc_version == 2) {
         alert('Beta testing is ongoing! Choose a different version.');
     }

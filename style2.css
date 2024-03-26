@@ -1,5 +1,7 @@
 @import url('https://fonts.cdnfonts.com/css/minecraft-4');
 
+/* LOGIN */
+
 body {
     background: url('mc-background.png');
     background-attachment: fixed;
@@ -139,4 +141,8 @@ input {
     font-weight: bold;
     margin-left: 70px;
     text-decoration: underline;
+}
+.added {
+    color: #42e742;
+    list-style-image: url('plus.png');
 }

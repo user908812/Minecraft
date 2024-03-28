@@ -56,7 +56,20 @@ function renderLauncherOnSubmit(event) {
                 <li class="added">Blocks in hotbar</li>
                 <li class="added">Remove placed blocks</li>
                 <li class="added">Removed copying on double click</li>
+                <li class="important">v100.0.2 IS OUT!</li>
             </ul>
+        </div>
+        <div class="keybinds"> 
+        <h2>Keybinds: </h2>
+        <ul>
+        <li>w / d / → <span class="key-info">(Move right)</span></li>
+        <li>a / s / ← <span class="key-info">(Move left)</span></li>
+        <li>SPACE / ↑ <span class="key-info">(Jump)</span></li>
+        <li>ctrl + walk <span class="key-info">(sprint)</span></li>
+        <li>/ <span class="key-info">(Normal position)</span></li>
+        <li>ESC <span class="key-info">(menu)</span></li>
+        <button class="more-key-binds" onclick="showMoreKeybinds()">More</button>
+        </ul>
         </div>
     </div>
     <div class="middle">
@@ -100,8 +113,11 @@ function launchMinecraft() {
     if (mc_version == 0) {
         alert('You need to choose a version before you start playing!');
     } else if (mc_version == 1) {
-        window.open('minecraft.html', '_blank');
+        window.open('minecraft1.html', '_blank');
     } else if (mc_version == 2) {
-        alert('Beta testing is ongoing! Choose a different version.');
+        window.open('minecraft2.html', '_blank');
     }
+}
+function showMoreKeybinds() {
+    alert('F11 (Fullscreen) \nF4 (Open chat) \nF2 (Send chat message) \nF3 (Inventory) \nF1 (No hotbar) \nRMB / LMB (Place / Destroy block)');
 }

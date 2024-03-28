@@ -77,7 +77,7 @@ input {
 .left-bar {
     width: 200px;
     height: 720px;
-    background-color: #282b30;
+    background-color: #1e2124;
 }
 .accout-display {
     border: 2px inset;
@@ -137,6 +137,9 @@ input {
     margin-top: -20px;
     font-size: 18px;
 }
+.news {
+    border: 1px outset;
+}
 .news-title {
     font-weight: bold;
     margin-left: 70px;
@@ -145,4 +148,26 @@ input {
 .added {
     color: #42e742;
     list-style-image: url('plus.png');
+}
+.important {
+    color: #ff0000;
+    list-style-type: square;
+    font-size: 20px;
+}
+.key-info {
+    color: #b1b1b1;
+}
+.more-key-binds {
+    margin-top: 15px;
+    margin-left: -15px;
+    padding: 8px 60px;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    background-color: #282b30;
+    transition: all 0.9s 0.3s;
+}
+.more-key-binds:hover {
+    color: #282b30;
+    background-color: #fff;
 }

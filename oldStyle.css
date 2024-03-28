@@ -18,8 +18,8 @@ body {
     top: -50px;
     left: -1000px;
     border: 1px solid #000;
-    width: 350px;
-    height: 300px;
+    width: 300px;
+    height: 200px;
     background-color: grey;
 }
 .top-elements {
@@ -81,7 +81,8 @@ body {
     width: 180px;
     height: 180px;
     position: relative;
-    top: -680px;
+    /* top: -500px; */
+    top: -450px;
     left: 1500px;
     
     animation: creeperAnimation;
@@ -208,63 +209,8 @@ body {
 #stone_block32:hover,
 #stone_block33:hover,
 #stone_block34:hover,
-#stone_block35:hover,
-#stone_block36:hover,
-#stone_block37:hover,
-#stone_block38:hover,
-#stone_block39:hover,
-#stone_block40:hover,
-#stone_block41:hover,
-#stone_block42:hover,
-#stone_block43:hover,
-#stone_block44:hover,
-#stone_block45:hover,
-#stone_block46:hover,
-#stone_block47:hover,
-#stone_block48:hover,
-#stone_block49:hover,
-#stone_block50:hover,
-#stone_block51:hover,
-#stone_block52:hover,
-#stone_block53:hover,
-#stone_block54:hover,
-#stone_block55:hover,
-#stone_block56:hover,
-#stone_block57:hover,
-#stone_block58:hover,
-#stone_block59:hover,
-#stone_block60:hover,
-#stone_block61:hover,
-#stone_block62:hover,
-#stone_block63:hover,
-#stone_block64:hover,
-#stone_block65:hover,
-#stone_block66:hover,
-
-#stone_block67:hover,
-#stone_block68:hover,
-#stone_block69:hover,
-#stone_block70:hover,
-#stone_block71:hover,
-#stone_block72:hover,
-#stone_block73:hover,
-#stone_block74:hover,
-#stone_block75:hover,
-#stone_block76:hover,
-#stone_block77:hover,
-#stone_block78:hover,
-#stone_block79:hover,
-#stone_block80:hover,
-#stone_block81:hover,
-#stone_block82:hover,
-#stone_block83:hover,
-#stone_block84:hover,
-#stone_block85:hover,
-#stone_block86:hover,
-#stone_block87:hover,
-#stone_block88:hover {
+#stone_block35:hover  {
     border: 1px solid #000;
-    opacity: 0.6;
 }
 .grass-container {
     display: grid;
@@ -288,21 +234,11 @@ body {
     grid-template-columns: repeat(22, 80px);
     margin-top: -6px;
 }
-.stone-container2 {
+/* .stone-container2 {
     display: grid;
-    grid-template-columns: repeat(22, 80px);
-    margin-top: -6px;
-}
-.stone-container3 {
-    display: grid;
-    grid-template-columns: repeat(22, 80px);
-    margin-top: -6px;
-}
-.stone-container4 {
-    display: grid;
-    grid-template-columns: repeat(22, 80px);
-    margin-top: -6px;
-}
+    grid-template-columns: repeat(35, 80px);
+    margin-top: -12px;
+} */
 .stone_block {
     width: 80px;
     height: 80px;
@@ -434,21 +370,4 @@ body {
     top: -400px;
     right: 1750px;
     font-size: 22px;
-}
-#steveSkin, #skin1Skin, #alexSkin {
-    width: 50px;
-    height: 100px;
-    border: 1px solid #000;
-    background-color: moccasin;
-    cursor: pointer;
-}
-label {
-    color: #222020;
-}
-.skinsGUI {
-    display: grid;
-    grid-template-columns: repeat(3, 122px);
-}
-.chooseSkin {
-    margin-top: 15px;
 }

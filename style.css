@@ -452,3 +452,13 @@ label {
 .chooseSkin {
     margin-top: 15px;
 }
+#obsidianB {
+    left: 132px;
+}
+#hotbarObsidian {
+    z-index: 1;
+    position: relative;
+    top: -170px;
+    left: 960px;
+    color: #fff;
+}

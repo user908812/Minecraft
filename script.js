@@ -1980,7 +1980,9 @@ if (running) {
     </div>
     `;
 
-    function createRandomRow(row1, row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12, row13, row14, row15, row16, row17, row18, row19, row20, row21, row22) {
+    function createRandomRow(row1, row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12, row13, row14, row15, row16, row17, row18, row19, row20) {
+        isInNether = false;
+        stoneBreaking.play();
         row2 = `
         <div class="stone-container4">
             <div id="diamond_o" onclick="removeDiamondOre1()"><img onclick="numberOfDiamonds()" id="diamond1" draggable="false" class="stone_block" src="diamond_ore.png" alt="diamond_ore.png"></div>
@@ -2118,18 +2120,70 @@ if (running) {
         row10 = stoneBlocks;
         row11 = stoneBlocks;
         row12 = stoneBlocks;
-        row13 = stoneBlocks;
         row14 = stoneBlocks;
+
+        row13 = `
+        <div class="stone-container4">
+            <div id="stone_block67" onclick="createRandomRow()"><img id="s67" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block68" onclick="createRandomRow()"><img id="s68" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block69" onclick="createRandomRow()"><img id="s69" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block70" onclick="createRandomRow()"><img id="s70" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block71" onclick="createRandomRow()"><img id="s71" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block72" onclick="createRandomRow()"><img id="s72" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="obsidian1" onclick="createRandomRow()"><img onclick="numberOfObsidians()" id="obs1" draggable="false" class="stone_block" src="obsidian.png" alt="obsidian.png"></div>
+            <div id="stone_block73" onclick="createRandomRow()"><img id="s73" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block74" onclick="createRandomRow()"><img id="s74" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block75" onclick="createRandomRow()"><img id="s75" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block76" onclick="createRandomRow()"><img id="s76" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block77" onclick="createRandomRow()"><img id="s77" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block78" onclick="createRandomRow()"><img id="s78" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block79" onclick="createRandomRow()"><img id="s79" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block80" onclick="createRandomRow()"><img id="s80" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block82" onclick="createRandomRow()"><img id="s82" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block83" onclick="createRandomRow()"><img id="s83" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block84" onclick="createRandomRow()"><img id="s84" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block85" onclick="createRandomRow()"><img id="s85" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block87" onclick="createRandomRow()"><img id="s87" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block88" onclick="createRandomRow()"><img id="s88" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+        </div>
+        `;
+
         row15 = stoneBlocks;
         row16 = stoneBlocks;
         row17 = stoneBlocks;
         row18 = stoneBlocks;
-        row19 = stoneBlocks;
-        row20 = stoneBlocks;
-        row21 = stoneBlocks;
-        row22 = stoneBlocks;
 
-        let rows = [row1, row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12, row13, row14, row15, row16, row17, row18, row19, row20, row21, row22];
+        row19 = `
+        <div class="stone-container4">
+            <div id="stone_block67" onclick="createRandomRow()"><img id="s67" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block68" onclick="createRandomRow()"><img id="s68" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block69" onclick="createRandomRow()"><img id="s69" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block70" onclick="createRandomRow()"><img id="s70" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block71" onclick="createRandomRow()"><img id="s71" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block72" onclick="createRandomRow()"><img id="s72" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block73" onclick="createRandomRow()"><img id="s73" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block74" onclick="createRandomRow()"><img id="s74" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block75" onclick="createRandomRow()"><img id="s75" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block76" onclick="createRandomRow()"><img id="s76" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block77" onclick="createRandomRow()"><img id="s77" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block78" onclick="createRandomRow()"><img id="s78" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block79" onclick="createRandomRow()"><img id="s79" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block80" onclick="createRandomRow()"><img id="s80" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="obsidian1" onclick="createRandomRow()"><img onclick="numberOfObsidians()" id="obs1" draggable="false" class="stone_block" src="obsidian.png" alt="obsidian.png"></div>
+            <div id="stone_block82" onclick="createRandomRow()"><img id="s82" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block83" onclick="createRandomRow()"><img id="s83" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block84" onclick="createRandomRow()"><img id="s84" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block85" onclick="createRandomRow()"><img id="s85" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block87" onclick="createRandomRow()"><img id="s87" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block88" onclick="createRandomRow()"><img id="s88" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+        </div>
+        `;
+
+        row20 = stoneBlocks;
+
+        let rows = [row1, row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12, row13, row14, row15, row16, row17, row18, row19, row20];
         let rand = Math.floor(Math.random() * rows.length);
         let randomRow = rows[rand];
 
@@ -2142,27 +2196,248 @@ if (running) {
     let numofEmeralds = 0;
     let numOfCoal = 0;
     let numOfIron = 0;
+    let numOfObsidians = 0;
 
     function numberOfDiamonds() {
         numOfDiamonds++;
-        warn(`Gratulacje! zdobyles diamenta! Masz teraz ${numOfDiamonds} diamentow!`);
+        warn(`Congratulations! you have ${numOfDiamonds} diamonds!`);
     }
     function numberOfGold() {
         numOfGold++;
-        warn(`Gratulacje! zdobyles zloto! Masz teraz ${numOfGold} zlota!`);
+        warn(`Congratulations! you have ${numOfGold} gold!`);
     }
     function numberOfEmeralds() {
         numofEmeralds++;
-        warn(`Gratulacje! zdobyles emeralda! Masz teraz ${numofEmeralds} emeraldow!`);
+        warn(`Congratulations! you have ${numofEmeralds} emeralds!`);
     }
     function numberOfCoal() {
         numOfCoal++;
-        warn(`Gratulacje! zdobyles wegiel! Masz teraz ${numOfCoal} wegla!`);
+        warn(`Congratulations! you have ${numOfCoal} coals!`);
     }
     function numberOfIron() {
         numOfIron++;
-        warn(`Gratulacje! zdobyles zelazo! Masz teraz ${numOfIron} zelaza!`);
+        warn(`Congratulations! you have ${numOfIron} irons!`);
     }
+    let hotbarObsidian = document.getElementById('hotbarObsidian');
+
+    let isInNether = false;
+
+    function checkPortalCollision() {
+    let playerRect = player.getBoundingClientRect();
+    let portalRect = portalPosition.getBoundingClientRect();
+
+    if (
+        playerRect.top < portalRect.bottom &&
+        playerRect.bottom > portalRect.top &&
+        playerRect.left < portalRect.right &&
+        playerRect.right > portalRect.left
+    ) {
+
+        isInNether = true;
+
+        mc.style.background = "url('nether_sky.png')";
+        mc.style.backgroundAttachment = "fixed";
+        mc.style.backgroundRepeat = "no-repeat";
+
+        creeper.hidden = true;
+        player.style.top = '260px';
+
+            g1.src = 'netherrack.png';
+            g2.src = 'netherrack.png';
+            g3.src = 'netherrack.png';
+            g4.src = 'netherrack.png';
+            g5.src = 'netherrack.png';
+            g6.src = 'netherrack.png';
+            g7.src = 'netherrack.png';
+            g8.src = 'netherrack.png';
+            g9.src = 'netherrack.png';
+            g10.src = 'netherrack.png';
+            g11.src = 'netherrack.png';
+            g12.src = 'netherrack.png';
+            g13.src = 'netherrack.png';
+            g14.src = 'netherrack.png';
+            g15.src = 'netherrack.png';
+            g16.src = 'netherrack.png';
+            g17.src = 'netherrack.png';
+            g18.src = 'netherrack.png';
+            g19.src = 'netherrack.png';
+            g20.src = 'netherrack.png';
+            g21.src = 'netherrack.png';
+            g22.src = 'netherrack.png';
+
+            d1.src = 'netherrack.png';
+            d2.src = 'netherrack.png';
+            d3.src = 'netherrack.png';
+            d4.src = 'netherrack.png';
+            d5.src = 'netherrack.png';
+            d6.src = 'netherrack.png';
+            d7.src = 'netherrack.png';
+            d8.src = 'netherrack.png';
+            d9.src = 'netherrack.png';
+            d10.src = 'netherrack.png';
+            d11.src = 'netherrack.png';
+            d12.src = 'netherrack.png';
+            d13.src = 'netherrack.png';
+            d14.src = 'netherrack.png';
+            d15.src = 'netherrack.png';
+            d16.src = 'netherrack.png';
+            d17.src = 'netherrack.png';
+            d18.src = 'netherrack.png';
+            d19.src = 'netherrack.png';
+            d20.src = 'netherrack.png';
+            d21.src = 'netherrack.png';
+            d22.src = 'netherrack.png';
+
+            s1.src = 'netherrack.png';
+            s2.src = 'netherrack.png';
+            s3.src = 'netherrack.png';
+            s4.src = 'netherrack.png';
+            s5.src = 'netherrack.png';
+            s6.src = 'netherrack.png';
+            s7.src = 'netherrack.png';
+            s8.src = 'netherrack.png';
+            s9.src = 'netherrack.png';
+            s10.src = 'netherrack.png';
+            s11.src = 'netherrack.png';
+            s12.src = 'netherrack.png';
+            s13.src = 'netherrack.png';
+            s14.src = 'netherrack.png';
+            s15.src = 'netherrack.png';
+            s16.src = 'netherrack.png';
+            s17.src = 'netherrack.png';
+            s18.src = 'netherrack.png';
+            s19.src = 'netherrack.png';
+            s20.src = 'netherrack.png';
+            s21.src = 'netherrack.png';
+            s22.src = 'netherrack.png';
+            s23.src = 'netherrack.png';
+            s24.src = 'netherrack.png';
+            s25.src = 'netherrack.png';
+            s26.src = 'netherrack.png';
+            s27.src = 'netherrack.png';
+            s28.src = 'netherrack.png';
+            s29.src = 'netherrack.png';
+            s30.src = 'netherrack.png';
+            s31.src = 'netherrack.png';
+            s32.src = 'netherrack.png';
+            s33.src = 'netherrack.png';
+            s34.src = 'netherrack.png';
+            s35.src = 'netherrack.png';
+            s36.src = 'netherrack.png';
+            s37.src = 'netherrack.png';
+            s38.src = 'netherrack.png';
+            s39.src = 'netherrack.png';
+            s40.src = 'netherrack.png';
+            s41.src = 'netherrack.png';
+            s42.src = 'netherrack.png';
+            s43.src = 'netherrack.png';
+            s44.src = 'netherrack.png';
+            s45.src = 'netherrack.png';
+            s46.src = 'netherrack.png';
+            s47.src = 'netherrack.png';
+            s48.src = 'netherrack.png';
+            s49.src = 'netherrack.png';
+            s50.src = 'netherrack.png';
+            s51.src = 'netherrack.png';
+            s52.src = 'netherrack.png';
+            s53.src = 'netherrack.png';
+            s54.src = 'netherrack.png';
+            s55.src = 'netherrack.png';
+            s56.src = 'netherrack.png';
+            s57.src = 'netherrack.png';
+            s58.src = 'netherrack.png';
+            s59.src = 'netherrack.png';
+            s60.src = 'netherrack.png';
+            s61.src = 'netherrack.png';
+            s62.src = 'netherrack.png';
+            s63.src = 'netherrack.png';
+            s64.src = 'netherrack.png';
+            s65.src = 'netherrack.png';
+            s66.src = 'netherrack.png';
+            s67.src = 'netherrack.png';
+            s68.src = 'netherrack.png';
+            s69.src = 'netherrack.png';
+            s70.src = 'netherrack.png';
+            s71.src = 'netherrack.png';
+            s72.src = 'netherrack.png';
+            s73.src = 'netherrack.png';
+            s74.src = 'netherrack.png';
+            s75.src = 'netherrack.png';
+            s76.src = 'netherrack.png';
+            s77.src = 'netherrack.png';
+            s78.src = 'netherrack.png';
+            s79.src = 'netherrack.png';
+            s80.src = 'netherrack.png';
+            s81.src = 'netherrack.png';
+            s82.src = 'netherrack.png';
+            s83.src = 'netherrack.png';
+            s84.src = 'netherrack.png';
+            s85.src = 'netherrack.png';
+            s86.src = 'netherrack.png';
+            s87.src = 'netherrack.png';
+            s88.src = 'netherrack.png';
+        }
+    }
+    if (isInNether) {
+        let netherrackBs = `
+            <div class="stone-container4">
+                <div id="netherrack67" onclick="netherrackBlocks()"><img id="s67" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack68" onclick="netherrackBlocks()"><img id="s68" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack69" onclick="netherrackBlocks()"><img id="s69" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack70" onclick="netherrackBlocks()"><img id="s70" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack71" onclick="netherrackBlocks()"><img id="s71" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack72" onclick="netherrackBlocks()"><img id="s72" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack73" onclick="netherrackBlocks()"><img id="s73" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack74" onclick="netherrackBlocks()"><img id="s74" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack75" onclick="netherrackBlocks()"><img id="s75" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack76" onclick="netherrackBlocks()"><img id="s76" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack77" onclick="netherrackBlocks()"><img id="s77" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack78" onclick="netherrackBlocks()"><img id="s78" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack79" onclick="netherrackBlocks()"><img id="s79" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack80" onclick="netherrackBlocks()"><img id="s80" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack81" onclick="netherrackBlocks()"><img id="s81" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack82" onclick="netherrackBlocks()"><img id="s82" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack83" onclick="netherrackBlocks()"><img id="s83" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack84" onclick="netherrackBlocks()"><img id="s84" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack85" onclick="netherrackBlocks()"><img id="s85" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack86" onclick="netherrackBlocks()"><img id="s86" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack87" onclick="netherrackBlocks()"><img id="s87" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+                <div id="netherrack88" onclick="netherrackBlocks()"><img id="s88" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
+            </div>
+            `;
+        stoneContainer4.innerHTML = netherrackBs;
+    }
+
+function numberOfObsidians() {
+    numOfObsidians++;
+    hotbarObsidian.textContent = Number(numOfObsidians);
+
+    if (numOfObsidians == 10) {
+        let createPortal = prompt('Congratulations! You have 10 obsidians. Do you want to make a nether portal? (yes/no): ');
+        do {
+            createPortal = prompt('Congratulations! You have 10 obsidians. Do you want to make a nether portal? (yes/no): ');
+        } while (createPortal != 'yes' && createPortal != 'no');
+
+        if (createPortal == 'yes') {
+            let portalBlockPositions = 
+                    [d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22,
+                    s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22,
+                    s23, s24, s25, s26, s27, s28, s29, s30, s31, s32, s33, s34, s35, s36, s37, s38, s39, s40, s41, s42,
+                    s43, s44];
+            let randomPortalPosition = Math.floor(Math.random() * portalBlockPositions.length);
+            portalPosition = portalBlockPositions[randomPortalPosition];
+
+            portalPosition.src = 'portal.png';
+
+            setInterval(checkPortalCollision, 100);
+            numOfObsidians = 0;
+            hotbarObsidian.textContent = numOfObsidians;
+        } else if (createPortal == 'no') {
+
+        }
+    }
+}
+numberOfObsidians();
 
     function removeDiamondOre1() {
         let diamond_o = document.getElementById('diamond_o');
@@ -2279,7 +2554,7 @@ if (running) {
     let gameStart = prompt('Do you want to start new game? (y/n): ');
 
     if (gameStart == 'y') {
-        running = true;
+        alert('Error! Try to refresh the page.');
     } else if (gameStart == 'n') {
         window.close();
     } else {

@@ -452,6 +452,9 @@ label {
 .chooseSkin {
     margin-top: 15px;
 }
+.chooseSkin h2 {
+    margin-bottom: 10px;
+}
 #obsidianB {
     left: 132px;
 }

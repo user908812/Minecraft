@@ -1,0 +1,184 @@
+@import url('https://fonts.cdnfonts.com/css/minecraft-4');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('background.png');
+    background-attachment: fixed;
+}
+.gui {
+    z-index: 1;
+    position: relative;
+    top: -50px;
+    left: -1000px;
+    border: 1px solid #000;
+    width: 300px;
+    height: 200px;
+    background-color: grey;
+}
+.top-elements {
+    display: grid;
+    grid-template-columns: repeat(2, 100px);
+}
+.close {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    border-radius: 12px;
+    background-color: red;
+    font-weight: bold;
+    border: none;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+.graphic {
+    margin-left: -20px;
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 60px);
+    gap: 10px;
+}
+.graphic button {
+    cursor: pointer;
+}
+.graphic-title {
+    margin-top: 12px;
+}
+.graphicBtn {
+    padding: 4px 8px;
+}
+#minecraft {
+    margin-top: 50px;
+    border: 1px solid #000;
+    background: url('sky.png');
+}
+.clouds {
+    z-index: 1;
+    color: #fff;
+    font-family: 'Minecraft', sans-serif;
+    font-size: 60px;
+    text-shadow: 1px 1px 1px #000;
+    margin-left: 1300px;
+}
+.player {
+    z-index: 1;
+    width: 200px;
+    height: 200px;
+    position: relative;
+    top: 315px;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+.blocks {
+    margin-top: 248px;
+}
+.grass-container {
+    display: grid;
+    grid-template-columns: repeat(11, 149px);
+}
+#grass_block1,
+#grass_block2,
+#grass_block3,
+#grass_block4,
+#grass_block5,
+#grass_block6,
+#grass_block7,
+#grass_block8,
+#grass_block9,
+#grass_block10,
+#grass_block11,
+#dirt1,
+#dirt2,
+#dirt3,
+#dirt4,
+#dirt5,
+#dirt6,
+#dirt7,
+#dirt8,
+#dirt9,
+#dirt10,
+#dirt11,
+#stone_block1,
+#stone_block2,
+#stone_block3,
+#stone_block4,
+#stone_block5,
+#stone_block6,
+#stone_block7,
+#stone_block8,
+#stone_block9,
+#stone_block10,
+#stone_block11  {
+    border: 1px solid #000;
+}
+.grass_block {
+    width: 150px;
+    height: 150px;
+}
+.dirt-container {
+    display: grid;
+    grid-template-columns: repeat(11, 149px);
+    margin-top: -5px;
+}
+.dirt {
+    width: 150px;
+    height: 150px;
+}
+.stone-container {
+    display: grid;
+    grid-template-columns: repeat(11, 149px);
+    margin-top: -5px;
+}
+.stone_block {
+    width: 150px;
+    height: 150px;
+}
+#hotbar {
+    z-index: 1;
+    position: relative;
+    top: -150px;
+    left: 500px;
+    width: 500px;
+    height: 50px;
+}
+#oak_plank {
+    cursor: pointer;
+    position: relative;
+    top: -157px;
+    left: 10px;
+    width: 35px;
+    height: 35px;
+    z-index: 1;
+}
+#cobblestone {
+    cursor: pointer;
+    position: relative;
+    top: -157px;
+    left: 27px;
+    width: 35px;
+    height: 35px;
+    z-index: 1;
+}
+@keyframes playerJump {
+    from { transform: translateY(0);}
+    to { transform: translateY(-160px);}
+}
+.jump {
+    animation: playerJump;
+    animation-duration: 0.5s;
+    animation-delay: 0ms;
+    animation-iteration-count: infinite;
+}
+#clickedPlace {
+    display: none;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+}

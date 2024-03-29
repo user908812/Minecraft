@@ -79,11 +79,14 @@ function renderLauncherOnSubmit(event) {
             <h1 class="play-now">PLAY NOW!</h1>
             <br>
             <label for="versions">Select a version: &nbsp;</label>
-            <select style="cursor: pointer;" name="versions" id="versions">
-                    <option value="0"></option>
-                    <optgroup label="versions">
-                    <option value="1">v100.0.1</option>
-                    <option value="2">v100.0.2 (beta)</option>
+            <select style="cursor: pointer;" name="versions" id="version-select">
+                    <option style="cursor: pointer;" value="0"></option>
+                    <optgroup label="old">
+                    <option value="1">v99.9.3 (alpha)</option>
+                    </optgroup>
+                    <optgroup label="new">
+                    <option value="2">v100.0.1</option>
+                    <option value="3">v100.0.2 (beta)</option>
                 </optgroup>
             </select>
         </div>
@@ -108,16 +111,28 @@ let form = document.querySelector('.login-form form');
 form.addEventListener('submit', renderLauncherOnSubmit);
 
 function launchMinecraft() {
-    let mc_version = document.getElementById('versions').value;
+    let mc_version = document.getElementById('version-select').value;
 
     if (mc_version == 0) {
-        alert('You need to choose a version before you start playing!');
+        alert('You need to select a version before you start playing!');
     } else if (mc_version == 1) {
-        window.open('minecraft1.html', '_blank');
+        window.open('minecraft0.html', '_blank');
     } else if (mc_version == 2) {
+        window.open('minecraft1.html', '_blank');
+    } else if (mc_version == 3) {
         window.open('minecraft2.html', '_blank');
     }
 }
 function showMoreKeybinds() {
-    alert('F11 (Fullscreen) \nF4 (Open chat) \nF2 (Send chat message) \nF3 (Inventory) \nF1 (No hotbar) \nRMB / LMB (Place / Destroy block)');
+    alert(`    F11 (Fullscreen)\n
+    F4 (Open chat)\n
+    F2 (Send chat message)\n
+    F3 (Inventory)\n
+    F1 (No hotbar)\n
+    RMB / LMB (Place / Destroy block)\n
+    ----Chat Commands:----\n
+    .math (calculator)\n
+    .musicoff (turns off music)\n
+    .r <yourText> (red message)\n
+    .i <yourText> (italic font)`);
 }

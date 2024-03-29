@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="author" content="Aleksander Orzech">
+    <meta name="description" content="Minecraft zrobiony przeze mnie w jezyku html, css oraz javacript">
+    <meta name="keywords" content="minecraft, game, html, css, javascript, 2024">
+
+    <title>Minecraft | Alpha v99.9.3</title>
+
+    <link rel="icon" href="grass_block.png">
+    <link rel="stylesheet" href="style0.css">
+
+</head>
+<body>
+    <section id="minecraft">
+        <h1 class="clouds">By Orzech</h1>
+        <div id="player"><img draggable="false" class="player" src="old_steve_standing.png" alt="old_steve_standing.png"></div>
+
+        <div id="clickedPlace"></div>
+
+    <div class="blocks">
+        <div class="grass-container">
+            <div id="grass_block1"><img id="g1" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block2"><img id="g2" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block3"><img id="g3" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block4"><img id="g4" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block5"><img id="g5" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block6"><img id="g6" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block7"><img id="g7" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block8"><img id="g8" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block9"><img id="g9" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block10"><img id="g10" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block11"><img id="g11" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
+        </div>
+
+        <div class="dirt-container">
+            <div id="dirt1"><img id="d1" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
+            <div id="dirt2"><img id="d2" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
+            <div id="dirt3"><img id="d3" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
+            <div id="dirt4"><img id="d4" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
+            <div id="dirt5"><img id="d5" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
+            <div id="dirt6"><img id="d6" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
+            <div id="dirt7"><img id="d7" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
+            <div id="dirt8"><img id="d8" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
+            <div id="dirt9"><img id="d9" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
+            <div id="dirt10"><img id="d10" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
+            <div id="dirt11"><img id="d11" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
+        </div>
+
+        <div class="stone-container">
+            <div id="stone_block1"><img id="s1" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block2"><img id="s2" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block3"><img id="s3" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block4"><img id="s4" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block5"><img id="s5" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block6"><img id="s6" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block7"><img id="s7" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block8"><img id="s8" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block9"><img id="s9" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block10"><img id="s10" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block11"><img id="s11" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+        </div>
+    </div>
+    <div class="hotbar-container">
+        <img id="hotbar" draggable="false" src="hotbar.png" alt="hotbar.png">
+        <img id="oak_plank" onclick="buildWithOakPlanks()" draggable="false" src="oak_plank.png" alt="oak_plank.png">
+        <img id="cobblestone" onclick="buildWithCobbleStone()" draggable="false" src="cobblestone.png" alt="cobblestone.png">
+    </div>
+    </section>
+    <script src="script0.js"></script>
+</body>
+</html>

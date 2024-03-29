@@ -1,10 +1,19 @@
+let isGuiOpen = false;
+let isInNether = false;
+let isInOverworld = true;
+let chat = null;
+let isInventoryOpen;
+let playerCrouching = false;
+let walking = false;
+let ctrlPressed = false;
+
+let mc = document.getElementById('minecraft');
+let warn = console.warn.bind(document);
+let music = document.getElementById('music');
+
 let running = true;
 
 if (running) {
-    let mc = document.getElementById('minecraft');
-    let warn = console.warn.bind(document);
-
-    let music = document.getElementById('music');
 
     document.addEventListener('DOMContentLoaded', function() {
         music.play();
@@ -14,7 +23,6 @@ if (running) {
     mc.style.height = '908px';
 
     let GuiInGameMenu = document.createElement('div');
-    let isGuiOpen;
 
     document.body.addEventListener('keydown', (e) => {
 
@@ -29,7 +37,7 @@ if (running) {
                 <h1>Settings</h1>
 
                 <label for="music">Music:</label>
-                <input type="range" name="music" id="music" min="0" max="100" value="35">
+                <input type="range" name="music" id="vol" min="0" max="100" value="35">
 
                 <label class="graphic-title" for="graphic">Graphic:</label>
 
@@ -62,6 +70,7 @@ if (running) {
             document.body.append(GuiInGameMenu);
         }
     });
+
     function closeGUI() {
         isGuiOpen = false;
         GuiInGameMenu.hidden = true;
@@ -206,10 +215,148 @@ if (running) {
     let s88 = document.getElementById('s88');
     // ----------------------------------------------- \\
 
+    function normalNetherrack() {
+        g1.setAttribute('src', 'netherrack.png');
+        g2.setAttribute('src', 'netherrack.png');
+        g3.setAttribute('src', 'netherrack.png');
+        g4.setAttribute('src', 'netherrack.png');
+        g5.setAttribute('src', 'netherrack.png');
+        g6.setAttribute('src', 'netherrack.png');
+        g7.setAttribute('src', 'netherrack.png');
+        g8.setAttribute('src', 'netherrack.png');
+        g9.setAttribute('src', 'netherrack.png');
+        g10.setAttribute('src', 'netherrack.png');
+        g11.setAttribute('src', 'netherrack.png');
+        g12.setAttribute('src', 'netherrack.png');
+        g13.setAttribute('src', 'netherrack.png');
+        g14.setAttribute('src', 'netherrack.png');
+        g15.setAttribute('src', 'netherrack.png');
+        g16.setAttribute('src', 'netherrack.png');
+        g17.setAttribute('src', 'netherrack.png');
+        g18.setAttribute('src', 'netherrack.png');
+        g19.setAttribute('src', 'netherrack.png');
+        g20.setAttribute('src', 'netherrack.png');
+        g21.setAttribute('src', 'netherrack.png');
+        g22.setAttribute('src', 'netherrack.png');
+        d1.setAttribute('src', 'netherrack.png');
+        d2.setAttribute('src', 'netherrack.png');
+        d3.setAttribute('src', 'netherrack.png');
+        d4.setAttribute('src', 'netherrack.png');
+        d5.setAttribute('src', 'netherrack.png');
+        d6.setAttribute('src', 'netherrack.png');
+        d7.setAttribute('src', 'netherrack.png');
+        d8.setAttribute('src', 'netherrack.png');
+        d9.setAttribute('src', 'netherrack.png');
+        d10.setAttribute('src', 'netherrack.png');
+        d11.setAttribute('src', 'netherrack.png');
+        d12.setAttribute('src', 'netherrack.png');
+        d13.setAttribute('src', 'netherrack.png');
+        d14.setAttribute('src', 'netherrack.png');
+        d15.setAttribute('src', 'netherrack.png');
+        d16.setAttribute('src', 'netherrack.png');
+        d17.setAttribute('src', 'netherrack.png');
+        d18.setAttribute('src', 'netherrack.png');
+        d19.setAttribute('src', 'netherrack.png');
+        d20.setAttribute('src', 'netherrack.png');
+        d21.setAttribute('src', 'netherrack.png');
+        d22.setAttribute('src', 'netherrack.png');
+        s1.setAttribute('src', 'netherrack.png');
+        s2.setAttribute('src', 'netherrack.png');
+        s3.setAttribute('src', 'netherrack.png');
+        s4.setAttribute('src', 'netherrack.png');
+        s5.setAttribute('src', 'netherrack.png');
+        s6.setAttribute('src', 'netherrack.png');
+        s7.setAttribute('src', 'netherrack.png');
+        s8.setAttribute('src', 'netherrack.png');
+        s9.setAttribute('src', 'netherrack.png');
+        s10.setAttribute('src', 'netherrack.png');
+        s11.setAttribute('src', 'netherrack.png');
+        s12.setAttribute('src', 'netherrack.png');
+        s13.setAttribute('src', 'netherrack.png');
+        s14.setAttribute('src', 'netherrack.png');
+        s15.setAttribute('src', 'netherrack.png');
+        s16.setAttribute('src', 'netherrack.png');
+        s17.setAttribute('src', 'netherrack.png');
+        s18.setAttribute('src', 'netherrack.png');
+        s19.setAttribute('src', 'netherrack.png');
+        s20.setAttribute('src', 'netherrack.png');
+        s21.setAttribute('src', 'netherrack.png');
+        s22.setAttribute('src', 'netherrack.png');
+        s23.setAttribute('src', 'netherrack.png');
+        s24.setAttribute('src', 'netherrack.png');
+        s25.setAttribute('src', 'netherrack.png');
+        s26.setAttribute('src', 'netherrack.png');
+        s27.setAttribute('src', 'netherrack.png');
+        s28.setAttribute('src', 'netherrack.png');
+        s29.setAttribute('src', 'netherrack.png');
+        s30.setAttribute('src', 'netherrack.png');
+        s31.setAttribute('src', 'netherrack.png');
+        s32.setAttribute('src', 'netherrack.png');
+        s33.setAttribute('src', 'netherrack.png');
+        s34.setAttribute('src', 'netherrack.png');
+        s35.setAttribute('src', 'netherrack.png');
+        s36.setAttribute('src', 'netherrack.png');
+        s37.setAttribute('src', 'netherrack.png');
+        s38.setAttribute('src', 'netherrack.png');
+        s39.setAttribute('src', 'netherrack.png');
+        s40.setAttribute('src', 'netherrack.png');
+        s41.setAttribute('src', 'netherrack.png');
+        s42.setAttribute('src', 'netherrack.png');
+        s43.setAttribute('src', 'netherrack.png');
+        s44.setAttribute('src', 'netherrack.png');
+        s45.setAttribute('src', 'netherrack.png');
+        s46.setAttribute('src', 'netherrack.png');
+        s47.setAttribute('src', 'netherrack.png');
+        s48.setAttribute('src', 'netherrack.png');
+        s49.setAttribute('src', 'netherrack.png');
+        s50.setAttribute('src', 'netherrack.png');
+        s51.setAttribute('src', 'netherrack.png');
+        s52.setAttribute('src', 'netherrack.png');
+        s53.setAttribute('src', 'netherrack.png');
+        s54.setAttribute('src', 'netherrack.png');
+        s55.setAttribute('src', 'netherrack.png');
+        s56.setAttribute('src', 'netherrack.png');
+        s57.setAttribute('src', 'netherrack.png');
+        s58.setAttribute('src', 'netherrack.png');
+        s59.setAttribute('src', 'netherrack.png');
+        s60.setAttribute('src', 'netherrack.png');
+        s61.setAttribute('src', 'netherrack.png');
+        s62.setAttribute('src', 'netherrack.png');
+        s63.setAttribute('src', 'netherrack.png');
+        s64.setAttribute('src', 'netherrack.png');
+        s65.setAttribute('src', 'netherrack.png');
+        s66.setAttribute('src', 'netherrack.png');
+        s67.setAttribute('src', 'netherrack.png');
+        s68.setAttribute('src', 'netherrack.png');
+        s69.setAttribute('src', 'netherrack.png');
+        s70.setAttribute('src', 'netherrack.png');
+        s71.setAttribute('src', 'netherrack.png');
+        s72.setAttribute('src', 'netherrack.png');
+        s73.setAttribute('src', 'netherrack.png');
+        s74.setAttribute('src', 'netherrack.png');
+        s75.setAttribute('src', 'netherrack.png');
+        s76.setAttribute('src', 'netherrack.png');
+        s77.setAttribute('src', 'netherrack.png');
+        s78.setAttribute('src', 'netherrack.png');
+        s79.setAttribute('src', 'netherrack.png');
+        s80.setAttribute('src', 'netherrack.png');
+        s81.setAttribute('src', 'netherrack.png');
+        s82.setAttribute('src', 'netherrack.png');
+        s83.setAttribute('src', 'netherrack.png');
+        s84.setAttribute('src', 'netherrack.png');
+        s85.setAttribute('src', 'netherrack.png');
+        s86.setAttribute('src', 'netherrack.png');
+        s87.setAttribute('src', 'netherrack.png');
+        s88.setAttribute('src', 'netherrack.png');
+    }
+
     function setLowGraphic() {
 
-        mc.style.background = 'skyblue';
-        creeper.src = 'low_creeper.png';
+        isInOverworld = true;
+
+        if (isInOverworld && !isInNether) {
+            mc.style.background = 'skyblue';
+            creeper.src = 'low_creeper.png';
 
         g1.setAttribute('src', 'low_grass_block.png');
         g2.setAttribute('src', 'low_grass_block.png');
@@ -257,99 +404,241 @@ if (running) {
         d21.setAttribute('src', 'low_dirt.png');
         d22.setAttribute('src', 'low_dirt.png');
 
-    s1.setAttribute('src', 'low_stone_block.png');
-    s2.setAttribute('src', 'low_stone_block.png');
-    s3.setAttribute('src', 'low_stone_block.png');
-    s4.setAttribute('src', 'low_stone_block.png');
-    s5.setAttribute('src', 'low_stone_block.png');
-    s6.setAttribute('src', 'low_stone_block.png');
-    s7.setAttribute('src', 'low_stone_block.png');
-    s8.setAttribute('src', 'low_stone_block.png');
-    s9.setAttribute('src', 'low_stone_block.png');
-    s10.setAttribute('src', 'low_stone_block.png');
-    s11.setAttribute('src', 'low_stone_block.png');
-    s12.setAttribute('src', 'low_stone_block.png');
-    s13.setAttribute('src', 'low_stone_block.png');
-    s14.setAttribute('src', 'low_stone_block.png');
-    s15.setAttribute('src', 'low_stone_block.png');
-    s16.setAttribute('src', 'low_stone_block.png');
-    s17.setAttribute('src', 'low_stone_block.png');
-    s18.setAttribute('src', 'low_stone_block.png');
-    s19.setAttribute('src', 'low_stone_block.png');
-    s20.setAttribute('src', 'low_stone_block.png');
-    s21.setAttribute('src', 'low_stone_block.png');
-    s22.setAttribute('src', 'low_stone_block.png');
-    s23.setAttribute('src', 'low_stone_block.png');
-    s24.setAttribute('src', 'low_stone_block.png');
-    s25.setAttribute('src', 'low_stone_block.png');
-    s26.setAttribute('src', 'low_stone_block.png');
-    s27.setAttribute('src', 'low_stone_block.png');
-    s28.setAttribute('src', 'low_stone_block.png');
-    s29.setAttribute('src', 'low_stone_block.png');
-    s30.setAttribute('src', 'low_stone_block.png');
-    s31.setAttribute('src', 'low_stone_block.png');
-    s32.setAttribute('src', 'low_stone_block.png');
-    s33.setAttribute('src', 'low_stone_block.png');
-    s34.setAttribute('src', 'low_stone_block.png');
-    s35.setAttribute('src', 'low_stone_block.png');
-    s36.setAttribute('src', 'low_stone_block.png');
-    s37.setAttribute('src', 'low_stone_block.png');
-    s38.setAttribute('src', 'low_stone_block.png');
-    s39.setAttribute('src', 'low_stone_block.png');
-    s40.setAttribute('src', 'low_stone_block.png');
-    s41.setAttribute('src', 'low_stone_block.png');
-    s42.setAttribute('src', 'low_stone_block.png');
-    s43.setAttribute('src', 'low_stone_block.png');
-    s44.setAttribute('src', 'low_stone_block.png');
-    s45.setAttribute('src', 'low_stone_block.png');
-    s46.setAttribute('src', 'low_stone_block.png');
-    s47.setAttribute('src', 'low_stone_block.png');
-    s48.setAttribute('src', 'low_stone_block.png');
-    s49.setAttribute('src', 'low_stone_block.png');
-    s50.setAttribute('src', 'low_stone_block.png');
-    s51.setAttribute('src', 'low_stone_block.png');
-    s52.setAttribute('src', 'low_stone_block.png');
-    s53.setAttribute('src', 'low_stone_block.png');
-    s54.setAttribute('src', 'low_stone_block.png');
-    s55.setAttribute('src', 'low_stone_block.png');
-    s56.setAttribute('src', 'low_stone_block.png');
-    s57.setAttribute('src', 'low_stone_block.png');
-    s58.setAttribute('src', 'low_stone_block.png');
-    s59.setAttribute('src', 'low_stone_block.png');
-    s60.setAttribute('src', 'low_stone_block.png');
-    s61.setAttribute('src', 'low_stone_block.png');
-    s62.setAttribute('src', 'low_stone_block.png');
-    s63.setAttribute('src', 'low_stone_block.png');
-    s64.setAttribute('src', 'low_stone_block.png');
-    s65.setAttribute('src', 'low_stone_block.png');
-    s66.setAttribute('src', 'low_stone_block.png');
-    s67.setAttribute('src', 'low_stone_block.png');
-    s68.setAttribute('src', 'low_stone_block.png');
-    s69.setAttribute('src', 'low_stone_block.png');
-    s70.setAttribute('src', 'low_stone_block.png');
-    s71.setAttribute('src', 'low_stone_block.png');
-    s72.setAttribute('src', 'low_stone_block.png');
-    s73.setAttribute('src', 'low_stone_block.png');
-    s74.setAttribute('src', 'low_stone_block.png');
-    s75.setAttribute('src', 'low_stone_block.png');
-    s76.setAttribute('src', 'low_stone_block.png');
-    s77.setAttribute('src', 'low_stone_block.png');
-    s78.setAttribute('src', 'low_stone_block.png');
-    s79.setAttribute('src', 'low_stone_block.png');
-    s80.setAttribute('src', 'low_stone_block.png');
-    s81.setAttribute('src', 'low_stone_block.png');
-    s82.setAttribute('src', 'low_stone_block.png');
-    s83.setAttribute('src', 'low_stone_block.png');
-    s84.setAttribute('src', 'low_stone_block.png');
-    s85.setAttribute('src', 'low_stone_block.png');
-    s86.setAttribute('src', 'low_stone_block.png');
-    s87.setAttribute('src', 'low_stone_block.png');
-    s88.setAttribute('src', 'low_stone_block.png');
+        s1.setAttribute('src', 'low_stone_block.png');
+        s2.setAttribute('src', 'low_stone_block.png');
+        s3.setAttribute('src', 'low_stone_block.png');
+        s4.setAttribute('src', 'low_stone_block.png');
+        s5.setAttribute('src', 'low_stone_block.png');
+        s6.setAttribute('src', 'low_stone_block.png');
+        s7.setAttribute('src', 'low_stone_block.png');
+        s8.setAttribute('src', 'low_stone_block.png');
+        s9.setAttribute('src', 'low_stone_block.png');
+        s10.setAttribute('src', 'low_stone_block.png');
+        s11.setAttribute('src', 'low_stone_block.png');
+        s12.setAttribute('src', 'low_stone_block.png');
+        s13.setAttribute('src', 'low_stone_block.png');
+        s14.setAttribute('src', 'low_stone_block.png');
+        s15.setAttribute('src', 'low_stone_block.png');
+        s16.setAttribute('src', 'low_stone_block.png');
+        s17.setAttribute('src', 'low_stone_block.png');
+        s18.setAttribute('src', 'low_stone_block.png');
+        s19.setAttribute('src', 'low_stone_block.png');
+        s20.setAttribute('src', 'low_stone_block.png');
+        s21.setAttribute('src', 'low_stone_block.png');
+        s22.setAttribute('src', 'low_stone_block.png');
+        s23.setAttribute('src', 'low_stone_block.png');
+        s24.setAttribute('src', 'low_stone_block.png');
+        s25.setAttribute('src', 'low_stone_block.png');
+        s26.setAttribute('src', 'low_stone_block.png');
+        s27.setAttribute('src', 'low_stone_block.png');
+        s28.setAttribute('src', 'low_stone_block.png');
+        s29.setAttribute('src', 'low_stone_block.png');
+        s30.setAttribute('src', 'low_stone_block.png');
+        s31.setAttribute('src', 'low_stone_block.png');
+        s32.setAttribute('src', 'low_stone_block.png');
+        s33.setAttribute('src', 'low_stone_block.png');
+        s34.setAttribute('src', 'low_stone_block.png');
+        s35.setAttribute('src', 'low_stone_block.png');
+        s36.setAttribute('src', 'low_stone_block.png');
+        s37.setAttribute('src', 'low_stone_block.png');
+        s38.setAttribute('src', 'low_stone_block.png');
+        s39.setAttribute('src', 'low_stone_block.png');
+        s40.setAttribute('src', 'low_stone_block.png');
+        s41.setAttribute('src', 'low_stone_block.png');
+        s42.setAttribute('src', 'low_stone_block.png');
+        s43.setAttribute('src', 'low_stone_block.png');
+        s44.setAttribute('src', 'low_stone_block.png');
+        s45.setAttribute('src', 'low_stone_block.png');
+        s46.setAttribute('src', 'low_stone_block.png');
+        s47.setAttribute('src', 'low_stone_block.png');
+        s48.setAttribute('src', 'low_stone_block.png');
+        s49.setAttribute('src', 'low_stone_block.png');
+        s50.setAttribute('src', 'low_stone_block.png');
+        s51.setAttribute('src', 'low_stone_block.png');
+        s52.setAttribute('src', 'low_stone_block.png');
+        s53.setAttribute('src', 'low_stone_block.png');
+        s54.setAttribute('src', 'low_stone_block.png');
+        s55.setAttribute('src', 'low_stone_block.png');
+        s56.setAttribute('src', 'low_stone_block.png');
+        s57.setAttribute('src', 'low_stone_block.png');
+        s58.setAttribute('src', 'low_stone_block.png');
+        s59.setAttribute('src', 'low_stone_block.png');
+        s60.setAttribute('src', 'low_stone_block.png');
+        s61.setAttribute('src', 'low_stone_block.png');
+        s62.setAttribute('src', 'low_stone_block.png');
+        s63.setAttribute('src', 'low_stone_block.png');
+        s64.setAttribute('src', 'low_stone_block.png');
+        s65.setAttribute('src', 'low_stone_block.png');
+        s66.setAttribute('src', 'low_stone_block.png');
+        s67.setAttribute('src', 'low_stone_block.png');
+        s68.setAttribute('src', 'low_stone_block.png');
+        s69.setAttribute('src', 'low_stone_block.png');
+        s70.setAttribute('src', 'low_stone_block.png');
+        s71.setAttribute('src', 'low_stone_block.png');
+        s72.setAttribute('src', 'low_stone_block.png');
+        s73.setAttribute('src', 'low_stone_block.png');
+        s74.setAttribute('src', 'low_stone_block.png');
+        s75.setAttribute('src', 'low_stone_block.png');
+        s76.setAttribute('src', 'low_stone_block.png');
+        s77.setAttribute('src', 'low_stone_block.png');
+        s78.setAttribute('src', 'low_stone_block.png');
+        s79.setAttribute('src', 'low_stone_block.png');
+        s80.setAttribute('src', 'low_stone_block.png');
+        s81.setAttribute('src', 'low_stone_block.png');
+        s82.setAttribute('src', 'low_stone_block.png');
+        s83.setAttribute('src', 'low_stone_block.png');
+        s84.setAttribute('src', 'low_stone_block.png');
+        s85.setAttribute('src', 'low_stone_block.png');
+        s86.setAttribute('src', 'low_stone_block.png');
+        s87.setAttribute('src', 'low_stone_block.png');
+        s88.setAttribute('src', 'low_stone_block.png');
+    } else if (isInNether || !isInOverworld) {
+
+        mc.style.background = "url('low_nether_sky.png')";
+
+        g1.setAttribute('src', 'low_netherrack.png');
+        g2.setAttribute('src', 'low_netherrack.png');
+        g3.setAttribute('src', 'low_netherrack.png');
+        g4.setAttribute('src', 'low_netherrack.png');
+        g5.setAttribute('src', 'low_netherrack.png');
+        g6.setAttribute('src', 'low_netherrack.png');
+        g7.setAttribute('src', 'low_netherrack.png');
+        g8.setAttribute('src', 'low_netherrack.png');
+        g9.setAttribute('src', 'low_netherrack.png');
+        g10.setAttribute('src', 'low_netherrack.png');
+        g11.setAttribute('src', 'low_netherrack.png');
+        g12.setAttribute('src', 'low_netherrack.png');
+        g13.setAttribute('src', 'low_netherrack.png');
+        g14.setAttribute('src', 'low_netherrack.png');
+        g15.setAttribute('src', 'low_netherrack.png');
+        g16.setAttribute('src', 'low_netherrack.png');
+        g17.setAttribute('src', 'low_netherrack.png');
+        g18.setAttribute('src', 'low_netherrack.png');
+        g19.setAttribute('src', 'low_netherrack.png');
+        g20.setAttribute('src', 'low_netherrack.png');
+        g21.setAttribute('src', 'low_netherrack.png');
+        g22.setAttribute('src', 'low_netherrack.png');
+
+        d1.setAttribute('src', 'low_netherrack.png');
+        d2.setAttribute('src', 'low_netherrack.png');
+        d3.setAttribute('src', 'low_netherrack.png');
+        d4.setAttribute('src', 'low_netherrack.png');
+        d5.setAttribute('src', 'low_netherrack.png');
+        d6.setAttribute('src', 'low_netherrack.png');
+        d7.setAttribute('src', 'low_netherrack.png');
+        d8.setAttribute('src', 'low_netherrack.png');
+        d9.setAttribute('src', 'low_netherrack.png');
+        d10.setAttribute('src', 'low_netherrack.png');
+        d11.setAttribute('src', 'low_netherrack.png');
+        d12.setAttribute('src', 'low_netherrack.png');
+        d13.setAttribute('src', 'low_netherrack.png');
+        d14.setAttribute('src', 'low_netherrack.png');
+        d15.setAttribute('src', 'low_netherrack.png');
+        d16.setAttribute('src', 'low_netherrack.png');
+        d17.setAttribute('src', 'low_netherrack.png');
+        d18.setAttribute('src', 'low_netherrack.png');
+        d19.setAttribute('src', 'low_netherrack.png');
+        d20.setAttribute('src', 'low_netherrack.png');
+        d21.setAttribute('src', 'low_netherrack.png');
+        d22.setAttribute('src', 'low_netherrack.png');
+
+        s1.setAttribute('src', 'low_netherrack.png');
+        s2.setAttribute('src', 'low_netherrack.png');
+        s3.setAttribute('src', 'low_netherrack.png');
+        s4.setAttribute('src', 'low_netherrack.png');
+        s5.setAttribute('src', 'low_netherrack.png');
+        s6.setAttribute('src', 'low_netherrack.png');
+        s7.setAttribute('src', 'low_netherrack.png');
+        s8.setAttribute('src', 'low_netherrack.png');
+        s9.setAttribute('src', 'low_netherrack.png');
+        s10.setAttribute('src', 'low_netherrack.png');
+        s11.setAttribute('src', 'low_netherrack.png');
+        s12.setAttribute('src', 'low_netherrack.png');
+        s13.setAttribute('src', 'low_netherrack.png');
+        s14.setAttribute('src', 'low_netherrack.png');
+        s15.setAttribute('src', 'low_netherrack.png');
+        s16.setAttribute('src', 'low_netherrack.png');
+        s17.setAttribute('src', 'low_netherrack.png');
+        s18.setAttribute('src', 'low_netherrack.png');
+        s19.setAttribute('src', 'low_netherrack.png');
+        s20.setAttribute('src', 'low_netherrack.png');
+        s21.setAttribute('src', 'low_netherrack.png');
+        s22.setAttribute('src', 'low_netherrack.png');
+        s23.setAttribute('src', 'low_netherrack.png');
+        s24.setAttribute('src', 'low_netherrack.png');
+        s25.setAttribute('src', 'low_netherrack.png');
+        s26.setAttribute('src', 'low_netherrack.png');
+        s27.setAttribute('src', 'low_netherrack.png');
+        s28.setAttribute('src', 'low_netherrack.png');
+        s29.setAttribute('src', 'low_netherrack.png');
+        s30.setAttribute('src', 'low_netherrack.png');
+        s31.setAttribute('src', 'low_netherrack.png');
+        s32.setAttribute('src', 'low_netherrack.png');
+        s33.setAttribute('src', 'low_netherrack.png');
+        s34.setAttribute('src', 'low_netherrack.png');
+        s35.setAttribute('src', 'low_netherrack.png');
+        s36.setAttribute('src', 'low_netherrack.png');
+        s37.setAttribute('src', 'low_netherrack.png');
+        s38.setAttribute('src', 'low_netherrack.png');
+        s39.setAttribute('src', 'low_netherrack.png');
+        s40.setAttribute('src', 'low_netherrack.png');
+        s41.setAttribute('src', 'low_netherrack.png');
+        s42.setAttribute('src', 'low_netherrack.png');
+        s43.setAttribute('src', 'low_netherrack.png');
+        s44.setAttribute('src', 'low_netherrack.png');
+        s45.setAttribute('src', 'low_netherrack.png');
+        s46.setAttribute('src', 'low_netherrack.png');
+        s47.setAttribute('src', 'low_netherrack.png');
+        s48.setAttribute('src', 'low_netherrack.png');
+        s49.setAttribute('src', 'low_netherrack.png');
+        s50.setAttribute('src', 'low_netherrack.png');
+        s51.setAttribute('src', 'low_netherrack.png');
+        s52.setAttribute('src', 'low_netherrack.png');
+        s53.setAttribute('src', 'low_netherrack.png');
+        s54.setAttribute('src', 'low_netherrack.png');
+        s55.setAttribute('src', 'low_netherrack.png');
+        s56.setAttribute('src', 'low_netherrack.png');
+        s57.setAttribute('src', 'low_netherrack.png');
+        s58.setAttribute('src', 'low_netherrack.png');
+        s59.setAttribute('src', 'low_netherrack.png');
+        s60.setAttribute('src', 'low_netherrack.png');
+        s61.setAttribute('src', 'low_netherrack.png');
+        s62.setAttribute('src', 'low_netherrack.png');
+        s63.setAttribute('src', 'low_netherrack.png');
+        s64.setAttribute('src', 'low_netherrack.png');
+        s65.setAttribute('src', 'low_netherrack.png');
+        s66.setAttribute('src', 'low_netherrack.png');
+        s67.setAttribute('src', 'low_netherrack.png');
+        s68.setAttribute('src', 'low_netherrack.png');
+        s69.setAttribute('src', 'low_netherrack.png');
+        s70.setAttribute('src', 'low_netherrack.png');
+        s71.setAttribute('src', 'low_netherrack.png');
+        s72.setAttribute('src', 'low_netherrack.png');
+        s73.setAttribute('src', 'low_netherrack.png');
+        s74.setAttribute('src', 'low_netherrack.png');
+        s75.setAttribute('src', 'low_netherrack.png');
+        s76.setAttribute('src', 'low_netherrack.png');
+        s77.setAttribute('src', 'low_netherrack.png');
+        s78.setAttribute('src', 'low_netherrack.png');
+        s79.setAttribute('src', 'low_netherrack.png');
+        s80.setAttribute('src', 'low_netherrack.png');
+        s81.setAttribute('src', 'low_netherrack.png');
+        s82.setAttribute('src', 'low_netherrack.png');
+        s83.setAttribute('src', 'low_netherrack.png');
+        s84.setAttribute('src', 'low_netherrack.png');
+        s85.setAttribute('src', 'low_netherrack.png');
+        s86.setAttribute('src', 'low_netherrack.png');
+        s87.setAttribute('src', 'low_netherrack.png');
+        s88.setAttribute('src', 'low_netherrack.png');
     }
+}
 
     function setNormalGraphic() {
 
-        mc.style.background = 'url(\'sky.png\')';
+        isInOverworld = true;
+
+        if (isInOverworld && !isInNether) {
+            mc.style.background = 'url(\'sky.png\')';
         creeper.src = 'creeper.png';
 
         g1.setAttribute('src', 'grass_block.png');
@@ -486,12 +775,152 @@ if (running) {
         s86.setAttribute('src', 'stone_block.png');
         s87.setAttribute('src', 'stone_block.png');
         s88.setAttribute('src', 'stone_block.png');
+        } else if (isInNether || !isInOverworld) {
+
+        mc.style.background = "url('nether_sky.png')";
+        g1.setAttribute('src', 'netherrack.png');
+
+        g2.setAttribute('src', 'netherrack.png');
+        g3.setAttribute('src', 'netherrack.png');
+        g4.setAttribute('src', 'netherrack.png');
+        g5.setAttribute('src', 'netherrack.png');
+        g6.setAttribute('src', 'netherrack.png');
+        g7.setAttribute('src', 'netherrack.png');
+        g8.setAttribute('src', 'netherrack.png');
+        g9.setAttribute('src', 'netherrack.png');
+        g10.setAttribute('src', 'netherrack.png');
+        g11.setAttribute('src', 'netherrack.png');
+        g12.setAttribute('src', 'netherrack.png');
+        g13.setAttribute('src', 'netherrack.png');
+        g14.setAttribute('src', 'netherrack.png');
+        g15.setAttribute('src', 'netherrack.png');
+        g16.setAttribute('src', 'netherrack.png');
+        g17.setAttribute('src', 'netherrack.png');
+        g18.setAttribute('src', 'netherrack.png');
+        g19.setAttribute('src', 'netherrack.png');
+        g20.setAttribute('src', 'netherrack.png');
+        g21.setAttribute('src', 'netherrack.png');
+        g22.setAttribute('src', 'netherrack.png');
+        d1.setAttribute('src', 'netherrack.png');
+        d2.setAttribute('src', 'netherrack.png');
+        d3.setAttribute('src', 'netherrack.png');
+        d4.setAttribute('src', 'netherrack.png');
+        d5.setAttribute('src', 'netherrack.png');
+        d6.setAttribute('src', 'netherrack.png');
+        d7.setAttribute('src', 'netherrack.png');
+        d8.setAttribute('src', 'netherrack.png');
+        d9.setAttribute('src', 'netherrack.png');
+        d10.setAttribute('src', 'netherrack.png');
+        d11.setAttribute('src', 'netherrack.png');
+        d12.setAttribute('src', 'netherrack.png');
+        d13.setAttribute('src', 'netherrack.png');
+        d14.setAttribute('src', 'netherrack.png');
+        d15.setAttribute('src', 'netherrack.png');
+        d16.setAttribute('src', 'netherrack.png');
+        d17.setAttribute('src', 'netherrack.png');
+        d18.setAttribute('src', 'netherrack.png');
+        d19.setAttribute('src', 'netherrack.png');
+        d20.setAttribute('src', 'netherrack.png');
+        d21.setAttribute('src', 'netherrack.png');
+        d22.setAttribute('src', 'netherrack.png');
+        s1.setAttribute('src', 'netherrack.png');
+        s2.setAttribute('src', 'netherrack.png');
+        s3.setAttribute('src', 'netherrack.png');
+        s4.setAttribute('src', 'netherrack.png');
+        s5.setAttribute('src', 'netherrack.png');
+        s6.setAttribute('src', 'netherrack.png');
+        s7.setAttribute('src', 'netherrack.png');
+        s8.setAttribute('src', 'netherrack.png');
+        s9.setAttribute('src', 'netherrack.png');
+        s10.setAttribute('src', 'netherrack.png');
+        s11.setAttribute('src', 'netherrack.png');
+        s12.setAttribute('src', 'netherrack.png');
+        s13.setAttribute('src', 'netherrack.png');
+        s14.setAttribute('src', 'netherrack.png');
+        s15.setAttribute('src', 'netherrack.png');
+        s16.setAttribute('src', 'netherrack.png');
+        s17.setAttribute('src', 'netherrack.png');
+        s18.setAttribute('src', 'netherrack.png');
+        s19.setAttribute('src', 'netherrack.png');
+        s20.setAttribute('src', 'netherrack.png');
+        s21.setAttribute('src', 'netherrack.png');
+        s22.setAttribute('src', 'netherrack.png');
+        s23.setAttribute('src', 'netherrack.png');
+        s24.setAttribute('src', 'netherrack.png');
+        s25.setAttribute('src', 'netherrack.png');
+        s26.setAttribute('src', 'netherrack.png');
+        s27.setAttribute('src', 'netherrack.png');
+        s28.setAttribute('src', 'netherrack.png');
+        s29.setAttribute('src', 'netherrack.png');
+        s30.setAttribute('src', 'netherrack.png');
+        s31.setAttribute('src', 'netherrack.png');
+        s32.setAttribute('src', 'netherrack.png');
+        s33.setAttribute('src', 'netherrack.png');
+        s34.setAttribute('src', 'netherrack.png');
+        s35.setAttribute('src', 'netherrack.png');
+        s36.setAttribute('src', 'netherrack.png');
+        s37.setAttribute('src', 'netherrack.png');
+        s38.setAttribute('src', 'netherrack.png');
+        s39.setAttribute('src', 'netherrack.png');
+        s40.setAttribute('src', 'netherrack.png');
+        s41.setAttribute('src', 'netherrack.png');
+        s42.setAttribute('src', 'netherrack.png');
+        s43.setAttribute('src', 'netherrack.png');
+        s44.setAttribute('src', 'netherrack.png');
+        s45.setAttribute('src', 'netherrack.png');
+        s46.setAttribute('src', 'netherrack.png');
+        s47.setAttribute('src', 'netherrack.png');
+        s48.setAttribute('src', 'netherrack.png');
+        s49.setAttribute('src', 'netherrack.png');
+        s50.setAttribute('src', 'netherrack.png');
+        s51.setAttribute('src', 'netherrack.png');
+        s52.setAttribute('src', 'netherrack.png');
+        s53.setAttribute('src', 'netherrack.png');
+        s54.setAttribute('src', 'netherrack.png');
+        s55.setAttribute('src', 'netherrack.png');
+        s56.setAttribute('src', 'netherrack.png');
+        s57.setAttribute('src', 'netherrack.png');
+        s58.setAttribute('src', 'netherrack.png');
+        s59.setAttribute('src', 'netherrack.png');
+        s60.setAttribute('src', 'netherrack.png');
+        s61.setAttribute('src', 'netherrack.png');
+        s62.setAttribute('src', 'netherrack.png');
+        s63.setAttribute('src', 'netherrack.png');
+        s64.setAttribute('src', 'netherrack.png');
+        s65.setAttribute('src', 'netherrack.png');
+        s66.setAttribute('src', 'netherrack.png');
+        s67.setAttribute('src', 'netherrack.png');
+        s68.setAttribute('src', 'netherrack.png');
+        s69.setAttribute('src', 'netherrack.png');
+        s70.setAttribute('src', 'netherrack.png');
+        s71.setAttribute('src', 'netherrack.png');
+        s72.setAttribute('src', 'netherrack.png');
+        s73.setAttribute('src', 'netherrack.png');
+        s74.setAttribute('src', 'netherrack.png');
+        s75.setAttribute('src', 'netherrack.png');
+        s76.setAttribute('src', 'netherrack.png');
+        s77.setAttribute('src', 'netherrack.png');
+        s78.setAttribute('src', 'netherrack.png');
+        s79.setAttribute('src', 'netherrack.png');
+        s80.setAttribute('src', 'netherrack.png');
+        s81.setAttribute('src', 'netherrack.png');
+        s82.setAttribute('src', 'netherrack.png');
+        s83.setAttribute('src', 'netherrack.png');
+        s84.setAttribute('src', 'netherrack.png');
+        s85.setAttribute('src', 'netherrack.png');
+        s86.setAttribute('src', 'netherrack.png');
+        s87.setAttribute('src', 'netherrack.png');
+        s88.setAttribute('src', 'netherrack.png');
+        }
     }
 
     function setHighGraphic() {
 
-        mc.style.background = 'url(\'high_sky.png\')';
-        creeper.src = 'high_creeper.png';
+        isInOverworld = true;
+
+        if (isInOverworld && !isInNether) {
+            mc.style.background = 'url(\'high_sky.png\')';
+            creeper.src = 'high_creeper.png';
 
         g1.setAttribute('src', 'high_grass_block.png');
         g2.setAttribute('src', 'high_grass_block.png');
@@ -627,17 +1056,150 @@ if (running) {
         s86.setAttribute('src', 'high_stone_block.png');
         s87.setAttribute('src', 'high_stone_block.png');
         s88.setAttribute('src', 'high_stone_block.png');
+        } else if (isInNether || !isInOverworld) {
+
+            mc.style.background = "url('high_nether_sky.png')";
+            mc.style.backgroundPosition = 'center';
+
+            g1.setAttribute('src', 'high_netherrack.png');
+            g2.setAttribute('src', 'high_netherrack.png');
+            g3.setAttribute('src', 'high_netherrack.png');
+            g4.setAttribute('src', 'high_netherrack.png');
+            g5.setAttribute('src', 'high_netherrack.png');
+            g6.setAttribute('src', 'high_netherrack.png');
+            g7.setAttribute('src', 'high_netherrack.png');
+            g8.setAttribute('src', 'high_netherrack.png');
+            g9.setAttribute('src', 'high_netherrack.png');
+            g10.setAttribute('src', 'high_netherrack.png');
+            g11.setAttribute('src', 'high_netherrack.png');
+            g12.setAttribute('src', 'high_netherrack.png');
+            g13.setAttribute('src', 'high_netherrack.png');
+            g14.setAttribute('src', 'high_netherrack.png');
+            g15.setAttribute('src', 'high_netherrack.png');
+            g16.setAttribute('src', 'high_netherrack.png');
+            g17.setAttribute('src', 'high_netherrack.png');
+            g18.setAttribute('src', 'high_netherrack.png');
+            g19.setAttribute('src', 'high_netherrack.png');
+            g20.setAttribute('src', 'high_netherrack.png');
+            g21.setAttribute('src', 'high_netherrack.png');
+            g22.setAttribute('src', 'high_netherrack.png');
+    
+            d1.setAttribute('src', 'high_netherrack.png');
+            d2.setAttribute('src', 'high_netherrack.png');
+            d3.setAttribute('src', 'high_netherrack.png');
+            d4.setAttribute('src', 'high_netherrack.png');
+            d5.setAttribute('src', 'high_netherrack.png');
+            d6.setAttribute('src', 'high_netherrack.png');
+            d7.setAttribute('src', 'high_netherrack.png');
+            d8.setAttribute('src', 'high_netherrack.png');
+            d9.setAttribute('src', 'high_netherrack.png');
+            d10.setAttribute('src', 'high_netherrack.png');
+            d11.setAttribute('src', 'high_netherrack.png');
+            d12.setAttribute('src', 'high_netherrack.png');
+            d13.setAttribute('src', 'high_netherrack.png');
+            d14.setAttribute('src', 'high_netherrack.png');
+            d15.setAttribute('src', 'high_netherrack.png');
+            d16.setAttribute('src', 'high_netherrack.png');
+            d17.setAttribute('src', 'high_netherrack.png');
+            d18.setAttribute('src', 'high_netherrack.png');
+            d19.setAttribute('src', 'high_netherrack.png');
+            d20.setAttribute('src', 'high_netherrack.png');
+            d21.setAttribute('src', 'high_netherrack.png');
+            d22.setAttribute('src', 'high_netherrack.png');
+    
+            s1.setAttribute('src', 'high_netherrack.png');
+            s2.setAttribute('src', 'high_netherrack.png');
+            s3.setAttribute('src', 'high_netherrack.png');
+            s4.setAttribute('src', 'high_netherrack.png');
+            s5.setAttribute('src', 'high_netherrack.png');
+            s6.setAttribute('src', 'high_netherrack.png');
+            s7.setAttribute('src', 'high_netherrack.png');
+            s8.setAttribute('src', 'high_netherrack.png');
+            s9.setAttribute('src', 'high_netherrack.png');
+            s10.setAttribute('src', 'high_netherrack.png');
+            s11.setAttribute('src', 'high_netherrack.png');
+            s12.setAttribute('src', 'high_netherrack.png');
+            s13.setAttribute('src', 'high_netherrack.png');
+            s14.setAttribute('src', 'high_netherrack.png');
+            s15.setAttribute('src', 'high_netherrack.png');
+            s16.setAttribute('src', 'high_netherrack.png');
+            s17.setAttribute('src', 'high_netherrack.png');
+            s18.setAttribute('src', 'high_netherrack.png');
+            s19.setAttribute('src', 'high_netherrack.png');
+            s20.setAttribute('src', 'high_netherrack.png');
+            s21.setAttribute('src', 'high_netherrack.png');
+            s22.setAttribute('src', 'high_netherrack.png');
+            s23.setAttribute('src', 'high_netherrack.png');
+            s24.setAttribute('src', 'high_netherrack.png');
+            s25.setAttribute('src', 'high_netherrack.png');
+            s26.setAttribute('src', 'high_netherrack.png');
+            s27.setAttribute('src', 'high_netherrack.png');
+            s28.setAttribute('src', 'high_netherrack.png');
+            s29.setAttribute('src', 'high_netherrack.png');
+            s30.setAttribute('src', 'high_netherrack.png');
+            s31.setAttribute('src', 'high_netherrack.png');
+            s32.setAttribute('src', 'high_netherrack.png');
+            s33.setAttribute('src', 'high_netherrack.png');
+            s34.setAttribute('src', 'high_netherrack.png');
+            s35.setAttribute('src', 'high_netherrack.png');
+            s36.setAttribute('src', 'high_netherrack.png');
+            s37.setAttribute('src', 'high_netherrack.png');
+            s38.setAttribute('src', 'high_netherrack.png');
+            s39.setAttribute('src', 'high_netherrack.png');
+            s40.setAttribute('src', 'high_netherrack.png');
+            s41.setAttribute('src', 'high_netherrack.png');
+            s42.setAttribute('src', 'high_netherrack.png');
+            s43.setAttribute('src', 'high_netherrack.png');
+            s44.setAttribute('src', 'high_netherrack.png');
+            s45.setAttribute('src', 'high_netherrack.png');
+            s46.setAttribute('src', 'high_netherrack.png');
+            s47.setAttribute('src', 'high_netherrack.png');
+            s48.setAttribute('src', 'high_netherrack.png');
+            s49.setAttribute('src', 'high_netherrack.png');
+            s50.setAttribute('src', 'high_netherrack.png');
+            s51.setAttribute('src', 'high_netherrack.png');
+            s52.setAttribute('src', 'high_netherrack.png');
+            s53.setAttribute('src', 'high_netherrack.png');
+            s54.setAttribute('src', 'high_netherrack.png');
+            s55.setAttribute('src', 'high_netherrack.png');
+            s56.setAttribute('src', 'high_netherrack.png');
+            s57.setAttribute('src', 'high_netherrack.png');
+            s58.setAttribute('src', 'high_netherrack.png');
+            s59.setAttribute('src', 'high_netherrack.png');
+            s60.setAttribute('src', 'high_netherrack.png');
+            s61.setAttribute('src', 'high_netherrack.png');
+            s62.setAttribute('src', 'high_netherrack.png');
+            s63.setAttribute('src', 'high_netherrack.png');
+            s64.setAttribute('src', 'high_netherrack.png');
+            s65.setAttribute('src', 'high_netherrack.png');
+            s66.setAttribute('src', 'high_netherrack.png');
+            s67.setAttribute('src', 'high_netherrack.png');
+            s68.setAttribute('src', 'high_netherrack.png');
+            s69.setAttribute('src', 'high_netherrack.png');
+            s70.setAttribute('src', 'high_netherrack.png');
+            s71.setAttribute('src', 'high_netherrack.png');
+            s72.setAttribute('src', 'high_netherrack.png');
+            s73.setAttribute('src', 'high_netherrack.png');
+            s74.setAttribute('src', 'high_netherrack.png');
+            s75.setAttribute('src', 'high_netherrack.png');
+            s76.setAttribute('src', 'high_netherrack.png');
+            s77.setAttribute('src', 'high_netherrack.png');
+            s78.setAttribute('src', 'high_netherrack.png');
+            s79.setAttribute('src', 'high_netherrack.png');
+            s80.setAttribute('src', 'high_netherrack.png');
+            s81.setAttribute('src', 'high_netherrack.png');
+            s82.setAttribute('src', 'high_netherrack.png');
+            s83.setAttribute('src', 'high_netherrack.png');
+            s84.setAttribute('src', 'high_netherrack.png');
+            s85.setAttribute('src', 'high_netherrack.png');
+            s86.setAttribute('src', 'high_netherrack.png');
+            s87.setAttribute('src', 'high_netherrack.png');
+            s88.setAttribute('src', 'high_netherrack.png');
+        }
     }
 
     let playerPosition = 0;
     let player = document.querySelector('.player');
-
-    let chat = null;
-    let isInventoryOpen;
-
-    let playerCrouching = false;
-    let walking = false;
-    let ctrlPressed = false;
 
     document.body.addEventListener('keydown', (e) => { 
     if (e.key === 'Control') {
@@ -674,7 +1236,6 @@ if (running) {
             player.style.left = playerPosition + 'px';
         }
     } else if (e.key == 'ArrowUp' || e.key == ' ') {
-        e.preventDefault();
         walking = false;
         player.classList.add('jump');
 
@@ -1981,7 +2542,6 @@ if (running) {
     `;
 
     function createRandomRow(row1, row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12, row13, row14, row15, row16, row17, row18, row19, row20) {
-        isInNether = false;
         stoneBreaking.play();
         row2 = `
         <div class="stone-container4">
@@ -2220,7 +2780,7 @@ if (running) {
     }
     let hotbarObsidian = document.getElementById('hotbarObsidian');
 
-    let isInNether = false;
+    let enteringNetherSound = document.getElementById('enteringNetherSound');
 
     function checkPortalCollision() {
     let playerRect = player.getBoundingClientRect();
@@ -2233,6 +2793,9 @@ if (running) {
         playerRect.right > portalRect.left
     ) {
 
+        enteringNetherSound.play();
+
+        isInOverworld = false;
         isInNether = true;
 
         mc.style.background = "url('nether_sky.png')";
@@ -2242,170 +2805,8 @@ if (running) {
         creeper.hidden = true;
         player.style.top = '260px';
 
-            g1.src = 'netherrack.png';
-            g2.src = 'netherrack.png';
-            g3.src = 'netherrack.png';
-            g4.src = 'netherrack.png';
-            g5.src = 'netherrack.png';
-            g6.src = 'netherrack.png';
-            g7.src = 'netherrack.png';
-            g8.src = 'netherrack.png';
-            g9.src = 'netherrack.png';
-            g10.src = 'netherrack.png';
-            g11.src = 'netherrack.png';
-            g12.src = 'netherrack.png';
-            g13.src = 'netherrack.png';
-            g14.src = 'netherrack.png';
-            g15.src = 'netherrack.png';
-            g16.src = 'netherrack.png';
-            g17.src = 'netherrack.png';
-            g18.src = 'netherrack.png';
-            g19.src = 'netherrack.png';
-            g20.src = 'netherrack.png';
-            g21.src = 'netherrack.png';
-            g22.src = 'netherrack.png';
-
-            d1.src = 'netherrack.png';
-            d2.src = 'netherrack.png';
-            d3.src = 'netherrack.png';
-            d4.src = 'netherrack.png';
-            d5.src = 'netherrack.png';
-            d6.src = 'netherrack.png';
-            d7.src = 'netherrack.png';
-            d8.src = 'netherrack.png';
-            d9.src = 'netherrack.png';
-            d10.src = 'netherrack.png';
-            d11.src = 'netherrack.png';
-            d12.src = 'netherrack.png';
-            d13.src = 'netherrack.png';
-            d14.src = 'netherrack.png';
-            d15.src = 'netherrack.png';
-            d16.src = 'netherrack.png';
-            d17.src = 'netherrack.png';
-            d18.src = 'netherrack.png';
-            d19.src = 'netherrack.png';
-            d20.src = 'netherrack.png';
-            d21.src = 'netherrack.png';
-            d22.src = 'netherrack.png';
-
-            s1.src = 'netherrack.png';
-            s2.src = 'netherrack.png';
-            s3.src = 'netherrack.png';
-            s4.src = 'netherrack.png';
-            s5.src = 'netherrack.png';
-            s6.src = 'netherrack.png';
-            s7.src = 'netherrack.png';
-            s8.src = 'netherrack.png';
-            s9.src = 'netherrack.png';
-            s10.src = 'netherrack.png';
-            s11.src = 'netherrack.png';
-            s12.src = 'netherrack.png';
-            s13.src = 'netherrack.png';
-            s14.src = 'netherrack.png';
-            s15.src = 'netherrack.png';
-            s16.src = 'netherrack.png';
-            s17.src = 'netherrack.png';
-            s18.src = 'netherrack.png';
-            s19.src = 'netherrack.png';
-            s20.src = 'netherrack.png';
-            s21.src = 'netherrack.png';
-            s22.src = 'netherrack.png';
-            s23.src = 'netherrack.png';
-            s24.src = 'netherrack.png';
-            s25.src = 'netherrack.png';
-            s26.src = 'netherrack.png';
-            s27.src = 'netherrack.png';
-            s28.src = 'netherrack.png';
-            s29.src = 'netherrack.png';
-            s30.src = 'netherrack.png';
-            s31.src = 'netherrack.png';
-            s32.src = 'netherrack.png';
-            s33.src = 'netherrack.png';
-            s34.src = 'netherrack.png';
-            s35.src = 'netherrack.png';
-            s36.src = 'netherrack.png';
-            s37.src = 'netherrack.png';
-            s38.src = 'netherrack.png';
-            s39.src = 'netherrack.png';
-            s40.src = 'netherrack.png';
-            s41.src = 'netherrack.png';
-            s42.src = 'netherrack.png';
-            s43.src = 'netherrack.png';
-            s44.src = 'netherrack.png';
-            s45.src = 'netherrack.png';
-            s46.src = 'netherrack.png';
-            s47.src = 'netherrack.png';
-            s48.src = 'netherrack.png';
-            s49.src = 'netherrack.png';
-            s50.src = 'netherrack.png';
-            s51.src = 'netherrack.png';
-            s52.src = 'netherrack.png';
-            s53.src = 'netherrack.png';
-            s54.src = 'netherrack.png';
-            s55.src = 'netherrack.png';
-            s56.src = 'netherrack.png';
-            s57.src = 'netherrack.png';
-            s58.src = 'netherrack.png';
-            s59.src = 'netherrack.png';
-            s60.src = 'netherrack.png';
-            s61.src = 'netherrack.png';
-            s62.src = 'netherrack.png';
-            s63.src = 'netherrack.png';
-            s64.src = 'netherrack.png';
-            s65.src = 'netherrack.png';
-            s66.src = 'netherrack.png';
-            s67.src = 'netherrack.png';
-            s68.src = 'netherrack.png';
-            s69.src = 'netherrack.png';
-            s70.src = 'netherrack.png';
-            s71.src = 'netherrack.png';
-            s72.src = 'netherrack.png';
-            s73.src = 'netherrack.png';
-            s74.src = 'netherrack.png';
-            s75.src = 'netherrack.png';
-            s76.src = 'netherrack.png';
-            s77.src = 'netherrack.png';
-            s78.src = 'netherrack.png';
-            s79.src = 'netherrack.png';
-            s80.src = 'netherrack.png';
-            s81.src = 'netherrack.png';
-            s82.src = 'netherrack.png';
-            s83.src = 'netherrack.png';
-            s84.src = 'netherrack.png';
-            s85.src = 'netherrack.png';
-            s86.src = 'netherrack.png';
-            s87.src = 'netherrack.png';
-            s88.src = 'netherrack.png';
+            normalNetherrack();
         }
-    }
-    if (isInNether) {
-        let netherrackBs = `
-            <div class="stone-container4">
-                <div id="netherrack67" onclick="netherrackBlocks()"><img id="s67" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack68" onclick="netherrackBlocks()"><img id="s68" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack69" onclick="netherrackBlocks()"><img id="s69" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack70" onclick="netherrackBlocks()"><img id="s70" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack71" onclick="netherrackBlocks()"><img id="s71" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack72" onclick="netherrackBlocks()"><img id="s72" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack73" onclick="netherrackBlocks()"><img id="s73" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack74" onclick="netherrackBlocks()"><img id="s74" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack75" onclick="netherrackBlocks()"><img id="s75" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack76" onclick="netherrackBlocks()"><img id="s76" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack77" onclick="netherrackBlocks()"><img id="s77" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack78" onclick="netherrackBlocks()"><img id="s78" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack79" onclick="netherrackBlocks()"><img id="s79" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack80" onclick="netherrackBlocks()"><img id="s80" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack81" onclick="netherrackBlocks()"><img id="s81" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack82" onclick="netherrackBlocks()"><img id="s82" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack83" onclick="netherrackBlocks()"><img id="s83" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack84" onclick="netherrackBlocks()"><img id="s84" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack85" onclick="netherrackBlocks()"><img id="s85" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack86" onclick="netherrackBlocks()"><img id="s86" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack87" onclick="netherrackBlocks()"><img id="s87" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-                <div id="netherrack88" onclick="netherrackBlocks()"><img id="s88" draggable="false" class="stone_block" src="netherrack.png" alt="netherrack.png"></div>
-            </div>
-            `;
-        stoneContainer4.innerHTML = netherrackBs;
     }
 
 function numberOfObsidians() {
@@ -2413,12 +2814,12 @@ function numberOfObsidians() {
     hotbarObsidian.textContent = Number(numOfObsidians);
 
     if (numOfObsidians == 10) {
-        let createPortal = prompt('Congratulations! You have 10 obsidians. Do you want to make a nether portal? (yes/no): ');
+        let createPortal = prompt('Congratulations! You have 10 obsidians. Do you want to make a nether portal? (y/n): ');
         do {
-            createPortal = prompt('Congratulations! You have 10 obsidians. Do you want to make a nether portal? (yes/no): ');
-        } while (createPortal != 'yes' && createPortal != 'no');
+            createPortal = prompt('Congratulations! You have 10 obsidians. Do you want to make a nether portal? (y/n): ');
+        } while (createPortal != 'y' && createPortal != 'n');
 
-        if (createPortal == 'yes') {
+        if (createPortal == 'y') {
             let portalBlockPositions = 
                     [d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22,
                     s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22,
@@ -2432,7 +2833,7 @@ function numberOfObsidians() {
             setInterval(checkPortalCollision, 100);
             numOfObsidians = 0;
             hotbarObsidian.textContent = numOfObsidians;
-        } else if (createPortal == 'no') {
+        } else if (createPortal == 'n') {
 
         }
     }
@@ -2520,7 +2921,7 @@ numberOfObsidians();
     }
     function checkCollisionsPeriodically() {
         if (checkCollision(player, creeper)) {
-            const explosionSound = document.getElementById('explosionSound');
+            let explosionSound = document.getElementById('explosionSound');
             explosionSound.play();
             setTimeout(() => {
                 g19.style.display = 'none';

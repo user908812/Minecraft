@@ -71,8 +71,10 @@ input {
 .launcher {
     width: 1280px;
     height: 720px;
+    margin-top: 20px;
     background-color: #36393e;
     color: #fff;
+    box-shadow: 5px 5px 5px #000;
 }
 .left-bar {
     width: 200px;
@@ -119,12 +121,18 @@ input {
     top: -710px;
     left: 610px;
 }
+#version-select {
+    width: 150px;
+    height: 30px;
+    background-color: #1e2124;
+    color: #ddd9d9;
+}
 .play-btn {
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
-    top: -660px;
+    top: -670px;
     left: 80px;
 }
 .play {

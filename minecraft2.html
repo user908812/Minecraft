@@ -15,12 +15,13 @@
 </head>
 <body>
     <section id="minecraft">
+        <h3 id="fps-counter">FPS: <span id="fps-value">0</span></h3>
         <h1 class="clouds">By Orzech</h1>
         <div id="player"><img draggable="false" class="player" src="steve_standing.png" alt="steve.png"></div>
 
         <div id="clickedPlace"></div>
 
-    <div class="blocks">
+    <div class="blocks" ondrag="event.preventDefault();">
         <div class="grass-container">
             <div id="grass_block1"><img id="g1" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
             <div id="grass_block2"><img id="g2" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
@@ -217,22 +218,6 @@
       <audio id="tntExplosion" src="tnt_explosion.mp4"></audio>
       <audio id="enteringNetherSound" src="entering_nether_sound.mp4"></audio>
       <audio id="music" src="music.mp4" loop></audio>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     <script src="script.js"></script>
 </body>

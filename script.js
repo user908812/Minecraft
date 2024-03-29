@@ -7,6 +7,8 @@ let playerCrouching = false;
 let walking = false;
 let ctrlPressed = false;
 
+let FPS = 60;
+
 let mc = document.getElementById('minecraft');
 let warn = console.warn.bind(document);
 let music = document.getElementById('music');
@@ -75,6 +77,28 @@ if (running) {
         isGuiOpen = false;
         GuiInGameMenu.hidden = true;
     }
+    let frameCount = 0;
+    let lastTime = performance.now();
+    let lastSecond = lastTime;
+    
+    function updateFPS() {
+        const currentTime = performance.now();
+        const elapsedTime = currentTime - lastTime;
+        lastTime = currentTime;
+        frameCount++;
+    
+        if (currentTime - lastSecond >= 1000) {
+            FPS = Math.round((frameCount * 1000) / (currentTime - lastSecond));
+            document.getElementById('fps-value').innerText = FPS;
+    
+            frameCount = 0;
+            lastSecond = currentTime;
+        }
+    
+        requestAnimationFrame(updateFPS);
+    }
+    
+    requestAnimationFrame(updateFPS);
 
     // -------------------- GRASS -------------------- \\
     let g1 = document.getElementById('g1');
@@ -2814,7 +2838,7 @@ function numberOfObsidians() {
     hotbarObsidian.textContent = Number(numOfObsidians);
 
     if (numOfObsidians == 10) {
-        let createPortal = prompt('Congratulations! You have 10 obsidians. Do you want to make a nether portal? (y/n): ');
+        let createPortal;
         do {
             createPortal = prompt('Congratulations! You have 10 obsidians. Do you want to make a nether portal? (y/n): ');
         } while (createPortal != 'y' && createPortal != 'n');
@@ -2929,12 +2953,12 @@ numberOfObsidians();
                 g21.style.display = 'none';
                 g22.style.display = 'none';
 
-                g19.style.border = 'none';
-                g20.style.border = 'none';
-                g21.style.border = 'none';
-                g22.style.border = 'none';
-
                 creeper.style.display = 'none';
+
+                player.src = 'damaged_steve.png';
+                setTimeout(() => {
+                    player.src = 'steve_standing.png';
+                }, 350);
 
             }, 100);
         }

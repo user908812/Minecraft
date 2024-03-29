@@ -11,6 +11,13 @@ body {
     justify-content: center;
     background: url('background.png');
     background-attachment: fixed;
+    height: 920px;
+
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* MS Edge */
+    user-select: none;
+
 }
 .gui {
     z-index: 1;
@@ -81,7 +88,7 @@ body {
     width: 180px;
     height: 180px;
     position: relative;
-    top: -680px;
+    top: -700px;
     left: 1500px;
     
     animation: creeperAnimation;
@@ -464,4 +471,18 @@ label {
     top: -170px;
     left: 960px;
     color: #fff;
+}
+#fps-counter {
+    position: fixed;
+    top: 40px;
+    left: 80px;
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    padding: 5px 10px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+}
+::selection {
+    background-color: transparent;
+    color: inherit;
 }

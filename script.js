@@ -1,19 +1,22 @@
-let isGuiOpen = false;
-let isInNether = false;
-let isInOverworld = true;
-let chat = null;
-let isInventoryOpen;
-let playerCrouching = false;
-let walking = false;
-let ctrlPressed = false;
+var isGuiOpen = false;
+var isInNether = false;
+var isInOverworld = true;
+var chat = null;
+var isInventoryOpen;
+var playerCrouching = false;
+var walking = false;
+var ctrlPressed = false;
+var isSteveChosen = false;
+var isAlexChosen = false;
+var isSkin1Chosen = false;
 
-let FPS = 60;
+var FPS = 60;
 
-let mc = document.getElementById('minecraft');
-let warn = console.warn.bind(document);
-let music = document.getElementById('music');
+var mc = document.getElementById('minecraft');
+var warn = console.warn.bind(document);
+var music = document.getElementById('music');
 
-let running = true;
+var running = true;
 
 if (running) {
 
@@ -21,6 +24,7 @@ if (running) {
         music.play();
     });
 
+    //Resolution
     mc.style.width = '1762px';
     mc.style.height = '908px';
 
@@ -656,14 +660,13 @@ if (running) {
         s88.setAttribute('src', 'low_netherrack.png');
     }
 }
-
     function setNormalGraphic() {
 
         isInOverworld = true;
 
         if (isInOverworld && !isInNether) {
             mc.style.background = 'url(\'sky.png\')';
-        creeper.src = 'creeper.png';
+            creeper.src = 'creeper.png';
 
         g1.setAttribute('src', 'grass_block.png');
         g2.setAttribute('src', 'grass_block.png');
@@ -1278,9 +1281,12 @@ if (running) {
             player.style.left = playerPosition + 'px';
         }
     }
-    });
-
+});
     function steveChosen() {
+        isSteveChosen = true;
+        isAlexChosen = false;
+        isSkin1Chosen = false;
+
         player.src = 'steve_standing.png';
         document.body.addEventListener('keydown', (e) => { 
             if (e.key === 'Control') {
@@ -1314,6 +1320,10 @@ if (running) {
         });
     }
     function alexChosen() {
+        isSteveChosen = false;
+        isAlexChosen = true;
+        isSkin1Chosen = false;
+
         player.src = 'alex_standing.png';
         document.body.addEventListener('keydown', (e) => {     
             if (e.key == 'Shift') {
@@ -1344,6 +1354,10 @@ if (running) {
         });
     }
     function skin1Chosen() {
+        isSteveChosen = false;
+        isAlexChosen = false;
+        isSkin1Chosen = true;
+
         player.src = 'skin1_standing.png';
         document.body.addEventListener('keydown', (e) => {     
             if (e.key == 'Shift') {
@@ -2178,6 +2192,7 @@ if (running) {
     let diamondBlock = false;
     let barrierBlock = false;
     let tntBlock = false;
+    let obsidianBlock = false;
 
     function oakPlanksChosen() {
         oakPlanks = true;
@@ -2190,6 +2205,7 @@ if (running) {
         diamondBlock = false;
         barrierBlock = false;
         tntBlock = false;
+        obsidianBlock = false;
     }
     function cobbleStoneChosen() {
         cobbleStone = true;
@@ -2202,6 +2218,7 @@ if (running) {
         diamondBlock = false;
         barrierBlock = false;
         tntBlock = false;
+        obsidianBlock = false;
     }
     function sandStoneChosen() {
         sandStone = true;
@@ -2214,6 +2231,7 @@ if (running) {
         diamondBlock = false;
         barrierBlock = false;
         tntBlock = false;
+        obsidianBlock = false;
     }
     function oakLeavesChosen() {
         oakLeaves = true;
@@ -2226,6 +2244,7 @@ if (running) {
         diamondBlock = false;
         barrierBlock = false;
         tntBlock = false;
+        obsidianBlock = false;
     }
     function dirtChosen() {
         dirt = true;
@@ -2238,6 +2257,7 @@ if (running) {
         diamondBlock = false;
         barrierBlock = false;
         tntBlock = false;
+        obsidianBlock = false;
     }
     function stoneChosen() {
         stone = true;
@@ -2250,6 +2270,7 @@ if (running) {
         diamondBlock = false;
         barrierBlock = false;
         tntBlock = false;
+        obsidianBlock = false;
     }
     function whiteWoolChosen() {
         whiteWool = true;
@@ -2262,6 +2283,7 @@ if (running) {
         diamondBlock = false;
         barrierBlock = false;
         tntBlock = false;
+        obsidianBlock = false;
     }
     function diamondBlockChosen() {
         diamondBlock = true;
@@ -2274,6 +2296,7 @@ if (running) {
         oakPlanks = false;
         barrierBlock = false;
         tntBlock = false;
+        obsidianBlock = false;
     }
     function barrierChosen() {
         barrierBlock = true;
@@ -2286,9 +2309,24 @@ if (running) {
         cobbleStone = false;
         oakPlanks = false;
         tntBlock = false;
+        obsidianBlock = false;
     }
     function tntChosen() {
         tntBlock = true;
+        barrierBlock = false;
+        diamondBlock = false;
+        whiteWool = false;
+        stone = false;
+        dirt = false;
+        oakLeaves = false;
+        sandStone = false;
+        cobbleStone = false;
+        oakPlanks = false;
+        obsidianBlock = false;
+    }
+    function obsidianBlockChosen() {
+        obsidianBlock = true;
+        tntBlock = false;
         barrierBlock = false;
         diamondBlock = false;
         whiteWool = false;
@@ -2314,8 +2352,10 @@ if (running) {
 
             if (!hotbarHidden) {
                 creeper.style.top = '-680px';
+                blaze.style.top = '-750px';
             } else if (hotbarHidden) {
                 creeper.style.top = '-626px';
+                blaze.style.top = '-680px';
             }
         }
 
@@ -2343,6 +2383,9 @@ if (running) {
                 break;
             case '8':
                 sandStoneChosen();
+                break;
+            case '9':
+                obsidianBlockChosen();
                 break;
         }
     });
@@ -2463,6 +2506,8 @@ if (running) {
                 clickedPlace.style.background = "url('white_wool.png')";
             } else if (diamondBlock) {
                 clickedPlace.style.background = "url('diamond_block.png')";
+            } else if (obsidianBlock) {
+                clickedPlace.style.background = "url('obsidian.png')";
             } else if (barrierBlock) {
                 clickedPlace.style.background = "url('barrier.png')";
                 setTimeout(() => {
@@ -2470,6 +2515,7 @@ if (running) {
                 }, 2000);
             }  else if (tntBlock) {
                 clickedPlace.style.background = "url('tnt.png')";
+
                 let allBlocks = 
                 [g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22,
                 d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22,
@@ -2496,34 +2542,34 @@ if (running) {
 
                     switch (numberOfBlocks) {
                         case 1:
-                            randomBlock1.style.display = 'none';
                             tntExplosion.play();
+                            randomBlock1.style.display = 'none';
                             break;
                         case 2:
+                            tntExplosion.play();
                             randomBlock1.style.display = 'none';
                             randomBlock2.style.display = 'none';
-                            tntExplosion.play();
                             break;
                         case 3:
+                            tntExplosion.play();
                             randomBlock1.style.display = 'none';
                             randomBlock2.style.display = 'none';
                             randomBlock3.style.display = 'none';
-                            tntExplosion.play();
                             break;
                         case 4:
+                            tntExplosion.play();
                             randomBlock1.style.display = 'none';
                             randomBlock2.style.display = 'none';
                             randomBlock3.style.display = 'none';
                             randomBlock4.style.display = 'none';
-                            tntExplosion.play();
                             break;
                         case 5:
+                            tntExplosion.play();
                             randomBlock1.style.display = 'none';
                             randomBlock2.style.display = 'none';
                             randomBlock3.style.display = 'none';
                             randomBlock4.style.display = 'none';
                             randomBlock5.style.display = 'none';
-                            tntExplosion.play();
                     }
                 }, 1000);
 
@@ -2772,7 +2818,11 @@ if (running) {
         let randomRow = rows[rand];
 
         let stoneContainer4 = document.querySelector('.stone-container4');
-        stoneContainer4.innerHTML = randomRow;
+        if(isInOverworld || !isInNether) {
+            stoneContainer4.innerHTML = randomRow;
+        } else {
+            stoneContainer4.hidden = true;
+        }
     }
 
     let numOfDiamonds = 0;
@@ -2830,6 +2880,10 @@ if (running) {
         player.style.top = '260px';
 
             normalNetherrack();
+
+            let blaze = document.createElement('div');
+            blaze.innerHTML = `<img id="blaze" draggable="false" src="blaze.png" alt="blaze.png">`;
+            mc.appendChild(blaze);
         }
     }
 
@@ -2858,7 +2912,9 @@ function numberOfObsidians() {
             numOfObsidians = 0;
             hotbarObsidian.textContent = numOfObsidians;
         } else if (createPortal == 'n') {
-
+            
+        } else {
+            alert('Extremely rare error! Something went wrong.');
         }
     }
 }
@@ -2955,10 +3011,30 @@ numberOfObsidians();
 
                 creeper.style.display = 'none';
 
-                player.src = 'damaged_steve.png';
-                setTimeout(() => {
-                    player.src = 'steve_standing.png';
-                }, 350);
+                if (isSteveChosen) {
+                    player.src = 'damaged_steve.png';
+                    setTimeout(() => {
+                        player.src = 'steve_standing.png';
+                    }, 350);
+                }
+                else if (isAlexChosen) {
+                    player.src = 'damaged_alex.png';
+                    setTimeout(() => {
+                        player.src = 'alex_standing.png';
+                    }, 350);
+                }
+                else if (isSkin1Chosen) {
+                    player.src = 'damaged_skin1.png';
+                    setTimeout(() => {
+                        player.src = 'skin1_standing.png';
+                    }, 350);
+                } 
+                else {
+                    player.src = 'damaged_steve.png';
+                    setTimeout(() => {
+                        player.src = 'steve_standing.png';
+                    }, 350);
+                }
 
             }, 100);
         }
@@ -2983,7 +3059,7 @@ numberOfObsidians();
     } else if (gameStart == 'n') {
         window.close();
     } else {
-        alert('Unknown command. Try again!');
+        alert('Unknown command!');
         window.close();
     }
     document.body.display = 'none';

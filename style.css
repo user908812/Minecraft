@@ -96,6 +96,14 @@ body {
     animation-delay: 1s;
     animation-iteration-count: infinite;
 }
+#blaze {
+    z-index: 0;
+    width: 150px;
+    height: 250px;
+    position: relative;
+    top: -750px;
+    left: 1500px;
+}
 @keyframes creeperAnimation {
     0% {
         transform: translateX(0);

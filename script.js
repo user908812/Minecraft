@@ -1,7 +1,34 @@
+var log = console.log.bind(document);
+var warn = console.warn.bind(document);
+
+var mc = document.getElementById('minecraft');
+var music = document.getElementById('music');
+var playerHPDisplay = document.getElementById('hp');
+let hotbarObsidian = document.getElementById('hotbarObsidian');
+
+var player = document.querySelector('.player');
+var stoneContainer4 = document.querySelector('.stone-container4');
+var hotbarContainer = document.querySelector('.hotbar-container');
+let randomRowContainer = document.querySelector('.randomRowContainer');
+
+var grassBreaking = document.getElementById('grassBreaking');
+var dirtBreaking = document.getElementById('dirtBreaking');
+var stoneBreaking = document.getElementById('stoneBreaking');
+var tntExplosion = document.getElementById('tntExplosion');
+var explosionSound = document.getElementById('explosionSound');
+var enteringNetherSound = document.getElementById('enteringNetherSound');
+
+var playerTop = player.style.top = '260px';
+
+var frameCount = 0;
+var lastTime = performance.now();
+var lastSecond = lastTime;
+var playerPosition = 0;
 var isGuiOpen = false;
 var isInNether = false;
 var isInOverworld = true;
 var chat = null;
+var menu;
 var isInventoryOpen;
 var playerCrouching = false;
 var walking = false;
@@ -9,24 +36,170 @@ var ctrlPressed = false;
 var isSteveChosen = false;
 var isAlexChosen = false;
 var isSkin1Chosen = false;
+var playerHP = 10;
+var blazeHP = 15;
+var creeperHP = 8;
+
+var oakPlanks = false;
+var cobbleStone = false;
+var sandStone = false;
+var oakLeaves = false;
+var dirt = false;
+var stone = false;
+var whiteWool = false;
+var diamondBlock = false;
+var barrierBlock = false;
+var tntBlock = false;
+var obsidianBlock = false;
+var hotbarHidden = false;
+var miningWrongBlocksAlert;
+var wrongBlocks = 1;
+var wrongBlocksLimit = 4;
+
+var numOfDiamonds = 0;
+var numOfGold = 0;
+var numofEmeralds = 0;
+var numOfCoal = 0;
+var numOfIron = 0;
+var numOfObsidians = 0;
+
+var numOfBlazeRods = 0;
+
+var createPortal;
 
 var FPS = 60;
-
-var mc = document.getElementById('minecraft');
-var warn = console.warn.bind(document);
-var music = document.getElementById('music');
 
 var running = true;
 
 if (running) {
 
-    document.addEventListener('DOMContentLoaded', function() {
-        music.play();
-    });
-
-    //Resolution
     mc.style.width = '1762px';
     mc.style.height = '908px';
+
+    document.addEventListener('DOMContentLoaded', function() {
+        
+        music.play();
+
+        let creeper = document.createElement('div');
+        creeper.innerHTML = `<img id="creeper" draggable="false" src="creeper.png" alt="creeper.png">`;
+        mc.appendChild(creeper);
+
+        creeper.addEventListener('click', (e) => {
+            creeperHP--;
+
+            if (creeperHP == 0) {
+                creeper.querySelector('img').src = 'damaged_creeper.png';
+                setTimeout(() => {
+                    creeper.querySelector('img').ssrc = 'creeper.png';
+                    creeper.hidden = true;
+                }, 300);
+            }
+        });
+
+        document.addEventListener('contextmenu', function(event) {
+            event.preventDefault();
+            let clickedPlace = document.createElement('div');
+            clickedPlace.classList.add('clickedPlace');
+            clickedPlace.style.left = event.clientX + 'px';
+            clickedPlace.style.top = event.clientY + 'px';
+            clickedPlace.style.position = 'absolute';
+            clickedPlace.style.width = '50px';
+            clickedPlace.style.height = '50px';
+            if (oakPlanks) {
+                clickedPlace.style.background = "url('oak_plank.png')";
+            } else if (cobbleStone) {
+                clickedPlace.style.background = "url('cobblestone.png')";
+            } else if (sandStone) {
+                clickedPlace.style.background = "url('sandstone.png')";
+            } else if (oakLeaves) {
+                clickedPlace.style.background = "url('oak_leaves.png')";
+            } else if (dirt) {
+                clickedPlace.style.background = "url('dirt.png')";
+            } else if (stone) {
+                clickedPlace.style.background = "url('stone_block.png')";
+            } else if (whiteWool) {
+                clickedPlace.style.background = "url('white_wool.png')";
+            } else if (diamondBlock) {
+                clickedPlace.style.background = "url('diamond_block.png')";
+            } else if (obsidianBlock) {
+                clickedPlace.style.background = "url('obsidian.png')";
+            } else if (barrierBlock) {
+                clickedPlace.style.background = "url('barrier.png')";
+                setTimeout(() => {
+                    clickedPlace.style.display = 'none';
+                }, 2000);
+            }  else if (tntBlock) {
+                clickedPlace.style.background = "url('tnt.png')";
+
+                let allBlocks = 
+                [g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12,
+                g13, g14, g15, g16, g17, g18, g19, g20, g21, g22,
+                d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12,
+                d13, d14, d15, d16, d17, d18, d19, d20, d21, d22,
+                s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12,
+                s13, s14, s15, s16, s17, s18, s19, s20, s21, s22];
+
+                let numOfBlocks = [1, 2, 3, 4, 5];
+                let randomNumberOfBlocks = Math.floor(Math.random() * numOfBlocks.length);
+                let numberOfBlocks = numOfBlocks[randomNumberOfBlocks];
+
+                let rand1 = Math.floor(Math.random() * allBlocks.length);
+                let rand2 = Math.floor(Math.random() * allBlocks.length);
+                let rand3 = Math.floor(Math.random() * allBlocks.length);
+                let rand4 = Math.floor(Math.random() * allBlocks.length);
+                let rand5 = Math.floor(Math.random() * allBlocks.length);
+
+                let randomBlock1 = allBlocks[rand1];
+                let randomBlock2 = allBlocks[rand2];
+                let randomBlock3 = allBlocks[rand3];
+                let randomBlock4 = allBlocks[rand4];
+                let randomBlock5 = allBlocks[rand5];
+
+                setTimeout(() => {
+                    clickedPlace.style.display = 'none';
+
+                    switch (numberOfBlocks) {
+                        case 1:
+                            tntExplosion.play();
+                            randomBlock1.style.display = 'none';
+                            break;
+                        case 2:
+                            tntExplosion.play();
+                            randomBlock1.style.display = 'none';
+                            randomBlock2.style.display = 'none';
+                            break;
+                        case 3:
+                            tntExplosion.play();
+                            randomBlock1.style.display = 'none';
+                            randomBlock2.style.display = 'none';
+                            randomBlock3.style.display = 'none';
+                            break;
+                        case 4:
+                            tntExplosion.play();
+                            randomBlock1.style.display = 'none';
+                            randomBlock2.style.display = 'none';
+                            randomBlock3.style.display = 'none';
+                            randomBlock4.style.display = 'none';
+                            break;
+                        case 5:
+                            tntExplosion.play();
+                            randomBlock1.style.display = 'none';
+                            randomBlock2.style.display = 'none';
+                            randomBlock3.style.display = 'none';
+                            randomBlock4.style.display = 'none';
+                            randomBlock5.style.display = 'none';
+                    }
+                }, 1000);
+            }
+            document.body.appendChild(clickedPlace);
+
+            clickedPlace.addEventListener('click', () => {
+                if (!tntBlock) {
+                    clickedPlace.hidden = true;
+                }
+            });
+        });
+    });
 
     let GuiInGameMenu = document.createElement('div');
 
@@ -36,7 +209,7 @@ if (running) {
 
         if (e.key == 'Escape') {
             GuiInGameMenu.hidden = false;
-            let menu = `
+            menu = `
             <div class="gui">
             <div class="top-elements">
                 <button onclick="closeGUI()" class="close">X</button>
@@ -81,10 +254,6 @@ if (running) {
         isGuiOpen = false;
         GuiInGameMenu.hidden = true;
     }
-    let frameCount = 0;
-    let lastTime = performance.now();
-    let lastSecond = lastTime;
-    
     function updateFPS() {
         const currentTime = performance.now();
         const elapsedTime = currentTime - lastTime;
@@ -98,10 +267,8 @@ if (running) {
             frameCount = 0;
             lastSecond = currentTime;
         }
-    
         requestAnimationFrame(updateFPS);
     }
-    
     requestAnimationFrame(updateFPS);
 
     // -------------------- GRASS -------------------- \\
@@ -241,7 +408,6 @@ if (running) {
     let s86 = document.getElementById('s86');
     let s87 = document.getElementById('s87');
     let s88 = document.getElementById('s88');
-    // ----------------------------------------------- \\
 
     function normalNetherrack() {
         g1.setAttribute('src', 'netherrack.png');
@@ -805,8 +971,8 @@ if (running) {
         } else if (isInNether || !isInOverworld) {
 
         mc.style.background = "url('nether_sky.png')";
-        g1.setAttribute('src', 'netherrack.png');
 
+        g1.setAttribute('src', 'netherrack.png');
         g2.setAttribute('src', 'netherrack.png');
         g3.setAttribute('src', 'netherrack.png');
         g4.setAttribute('src', 'netherrack.png');
@@ -1225,9 +1391,6 @@ if (running) {
         }
     }
 
-    let playerPosition = 0;
-    let player = document.querySelector('.player');
-
     document.body.addEventListener('keydown', (e) => { 
     if (e.key === 'Control') {
         ctrlPressed = true;
@@ -1263,6 +1426,7 @@ if (running) {
             player.style.left = playerPosition + 'px';
         }
     } else if (e.key == 'ArrowUp' || e.key == ' ') {
+        e.preventDefault();
         walking = false;
         player.classList.add('jump');
 
@@ -1389,6 +1553,7 @@ if (running) {
     }
     document.body.addEventListener('keydown', (e) => {
         if (e.key == '/') {
+            e.preventDefault();
             player.style.top = '260px';
         }
     });
@@ -1413,7 +1578,6 @@ if (running) {
                 chat.value = '';
             }
         }
-        
         if (e.key === 'F2') {
             if (chat) {
                 let message = chat.value;
@@ -1561,37 +1725,36 @@ if (running) {
                 } else if (message.includes('.math')) {
                     chat.setAttribute('hidden', true);
                     try {
-                        let number1 = Number(prompt('Podaj pierwszą liczbę: '));
-                        let operation = prompt('Podaj znak (+ - / * ^): ');
-                        let number2 = Number(prompt('Podaj drugą liczbę: '));
+                        let number1 = Number(prompt('First number: '));
+                        let operation = prompt('Operator (+ - / * ^): ');
+                        let number2 = Number(prompt('Second number: '));
                     
                         if (isNaN(number1) || isNaN(number2)) {
-                            throw new Error('Nie podano prawidłowych liczb!');
+                            throw new Error('Invalid numbers!');
                         }
-                    
                         switch (operation) {
                             case '+':
                                 let addition = number1 + number2;
-                                alert(`Wynik to: ${addition}`);
+                                alert(`The score is: ${addition}`);
                                 break;
                             case '-':
                                 let subtraction = number1 - number2;
-                                alert(`Wynik to: ${subtraction}`);
+                                alert(`The score is: ${subtraction}`);
                                 break;
                             case '/':
                                 let division = number1 / number2;
-                                alert(`Wynik to: ${division}`);
+                                alert(`The score is: ${division}`);
                                 break;
                             case '*':
                                 let multiplication = number1 * number2;
-                                alert(`Wynik to: ${multiplication}`);
+                                alert(`The score is: ${multiplication}`);
                                 break;
                             case '^':
                                 let toPower = Math.pow(number1, number2);
-                                alert(`Wynik to: ${toPower}`);
+                                alert(`The score is: ${toPower}`);
                                 break;
                             default:
-                                alert('Błąd! Zły operator.');
+                                alert('Error! wrong operator.');
                         }
                     } catch (error) {
                         alert(error.message);
@@ -1613,586 +1776,897 @@ if (running) {
         }
     });
 
-    let grassBreaking = document.getElementById('grassBreaking');
-
     function grassBlockBreak() {
         g1.addEventListener('click', () => {
-            g1.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g1.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g2.addEventListener('click', () => {
-            g2.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g2.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g3.addEventListener('click', () => {
-            g3.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g3.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g4.addEventListener('click', () => {
-            g4.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g4.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g5.addEventListener('click', () => {
-            g5.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g5.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g6.addEventListener('click', () => {
-            g6.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g6.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g7.addEventListener('click', () => {
-            g7.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g7.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g8.addEventListener('click', () => {
-            g8.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g8.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g9.addEventListener('click', () => {
-            g9.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g9.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g10.addEventListener('click', () => {
-            g10.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g10.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g11.addEventListener('click', () => {
-            g11.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g11.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g12.addEventListener('click', () => {
-            g12.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g12.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g13.addEventListener('click', () => {
-            g13.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g13.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g14.addEventListener('click', () => {
-            g14.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g14.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g15.addEventListener('click', () => {
-            g15.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g15.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g16.addEventListener('click', () => {
-            g16.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g16.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g17.addEventListener('click', () => {
-            g17.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g17.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g18.addEventListener('click', () => {
-            g18.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g18.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g19.addEventListener('click', () => {
-            g19.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g19.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g20.addEventListener('click', () => {
-            g20.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g20.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g21.addEventListener('click', () => {
-            g21.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g21.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
         g22.addEventListener('click', () => {
-            g22.hidden = true;
-            player.style.top = '350px';
-            grassBreaking.play();
+            if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
+                g22.hidden = true;
+                player.style.top = '350px';
+                grassBreaking.play();
+            } else {
+            }
         });
     }
     grassBlockBreak();
 
-    let dirtBreaking = document.getElementById('dirtBreaking');
-
     function dirtBreak() {
         d1.addEventListener('click', () => {
-            d1.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d1.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d2.addEventListener('click', () => {
-            d2.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d2.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d3.addEventListener('click', () => {
-            d3.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d3.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d4.addEventListener('click', () => {
-            d4.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d4.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d5.addEventListener('click', () => {
-            d5.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d5.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d6.addEventListener('click', () => {
-            d6.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d6.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d7.addEventListener('click', () => {
-            d7.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d7.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d8.addEventListener('click', () => {
-            d8.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d8.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d9.addEventListener('click', () => {
-            d9.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d9.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d10.addEventListener('click', () => {
-            d10.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d10.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d11.addEventListener('click', () => {
-            d11.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d11.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d12.addEventListener('click', () => {
-            d12.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d12.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d13.addEventListener('click', () => {
-            d13.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d13.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d14.addEventListener('click', () => {
-            d14.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d14.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d15.addEventListener('click', () => {
-            d15.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d15.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d16.addEventListener('click', () => {
-            d16.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d16.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d17.addEventListener('click', () => {
-            d17.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d17.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d18.addEventListener('click', () => {
-            d18.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d18.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d19.addEventListener('click', () => {
-            d19.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d19.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d20.addEventListener('click', () => {
-            d20.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d20.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d21.addEventListener('click', () => {
-            d21.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d21.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
         d22.addEventListener('click', () => {
-            d22.hidden = true;
-            player.style.top = '420px';
-            dirtBreaking.play();
+            if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
+                d21.hidden = true;
+                player.style.top = '420px';
+                dirtBreaking.play();
+            } else {
+            }
         });
     }
     dirtBreak();
 
-    let stoneBreaking = document.getElementById('stoneBreaking');
-
     function stoneBlockBreak() {
         s1.addEventListener('click', () => {
-            s1.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s1.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s2.addEventListener('click', () => {
-            s2.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s2.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s3.addEventListener('click', () => {
-            s3.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s3.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s4.addEventListener('click', () => {
-            s4.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s4.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s5.addEventListener('click', () => {
-            s5.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s5.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s6.addEventListener('click', () => {
-            s6.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s6.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s7.addEventListener('click', () => {
-            s7.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s7.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s8.addEventListener('click', () => {
-            s8.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s8.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s9.addEventListener('click', () => {
-            s9.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s9.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s10.addEventListener('click', () => {
-            s10.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s10.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s11.addEventListener('click', () => {
-            s11.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s11.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s12.addEventListener('click', () => {
-            s12.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s12.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s13.addEventListener('click', () => {
-            s13.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s13.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s14.addEventListener('click', () => {
-            s14.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s14.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s15.addEventListener('click', () => {
-            s15.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s15.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s16.addEventListener('click', () => {
-            s16.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s16.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s17.addEventListener('click', () => {
-            s17.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s17.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s18.addEventListener('click', () => {
-            s18.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s18.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s19.addEventListener('click', () => {
-            s19.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s19.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s20.addEventListener('click', () => {
-            s20.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s20.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s21.addEventListener('click', () => {
-            s21.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s21.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s22.addEventListener('click', () => {
-            s22.hidden = true;
-            player.style.top = '490px';
-            stoneBreaking.play();
+            if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
+                s22.hidden = true;
+                player.style.top = '490px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s23.addEventListener('click', () => {
-            s23.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s23.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s24.addEventListener('click', () => {
-            s24.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s24.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s25.addEventListener('click', () => {
-            s25.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s25.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s26.addEventListener('click', () => {
-            s26.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s26.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s27.addEventListener('click', () => {
-            s27.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s27.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s28.addEventListener('click', () => {
-            s28.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s28.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s29.addEventListener('click', () => {
-            s29.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s29.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s30.addEventListener('click', () => {
-            s30.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s30.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s31.addEventListener('click', () => {
-            s31.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s31.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s32.addEventListener('click', () => {
-            s32.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s32.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s33.addEventListener('click', () => {
-            s33.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s33.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s34.addEventListener('click', () => {
-            s34.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s34.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s35.addEventListener('click', () => {
-            s35.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s35.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s36.addEventListener('click', () => {
-            s36.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s36.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s37.addEventListener('click', () => {
-            s37.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s37.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s38.addEventListener('click', () => {
-            s38.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s38.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s39.addEventListener('click', () => {
-            s39.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s39.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s40.addEventListener('click', () => {
-            s40.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s40.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s41.addEventListener('click', () => {
-            s41.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s41.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s42.addEventListener('click', () => {
-            s42.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s42.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s43.addEventListener('click', () => {
-            s43.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s43.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s44.addEventListener('click', () => {
-            s44.hidden = true;
-            player.style.top = '570px';
-            stoneBreaking.play();
+            if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
+                s44.hidden = true;
+                player.style.top = '570px';
+                stoneBreaking.play();
+            } else {
+            }
         });
-
         s45.addEventListener('click', () => {
-            s45.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s45.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s46.addEventListener('click', () => {
-            s46.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s46.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s47.addEventListener('click', () => {
-            s47.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s47.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s48.addEventListener('click', () => {
-            s48.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s48.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s49.addEventListener('click', () => {
-            s49.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s49.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s50.addEventListener('click', () => {
-            s50.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s50.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s51.addEventListener('click', () => {
-            s51.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s51.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s52.addEventListener('click', () => {
-            s52.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s52.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s53.addEventListener('click', () => {
-            s53.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s53.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s54.addEventListener('click', () => {
-            s54.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s54.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s55.addEventListener('click', () => {
-            s55.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s55.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s56.addEventListener('click', () => {
-            s56.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s56.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s57.addEventListener('click', () => {
-            s57.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s57.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s58.addEventListener('click', () => {
-            s58.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s58.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s59.addEventListener('click', () => {
-            s59.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s59.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s60.addEventListener('click', () => {
-            s60.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s60.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s61.addEventListener('click', () => {
-            s61.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s61.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s62.addEventListener('click', () => {
-            s62.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s62.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s63.addEventListener('click', () => {
-            s63.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s63.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s64.addEventListener('click', () => {
-            s64.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s64.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s65.addEventListener('click', () => {
-            s65.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s65.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
         s66.addEventListener('click', () => {
-            s66.hidden = true;
-            player.style.top = '650px';
-            stoneBreaking.play();
+            if (player.style.top == '570px' || player.style.top == '650px') {
+                s66.hidden = true;
+                player.style.top = '650px';
+                stoneBreaking.play();
+            } else {
+            }
         });
     }
     stoneBlockBreak();
-
-    let oakPlanks = false;
-    let cobbleStone = false;
-    let sandStone = false;
-    let oakLeaves = false;
-    let dirt = false;
-    let stone = false;
-    let whiteWool = false;
-    let diamondBlock = false;
-    let barrierBlock = false;
-    let tntBlock = false;
-    let obsidianBlock = false;
 
     function oakPlanksChosen() {
         oakPlanks = true;
@@ -2338,58 +2812,6 @@ if (running) {
         oakPlanks = false;
     }
 
-    let hotbarContainer = document.querySelector('.hotbar-container');
-    let hotbarHidden = false;
-
-    document.body.addEventListener('keydown', (e) => {
-
-        let keyPressed = e.key;
-
-        if (keyPressed == 'F1') {
-            e.preventDefault();
-            hotbarHidden = !hotbarHidden;
-            hotbarContainer.hidden = hotbarHidden;
-
-            if (!hotbarHidden) {
-                creeper.style.top = '-680px';
-                blaze.style.top = '-750px';
-            } else if (hotbarHidden) {
-                creeper.style.top = '-626px';
-                blaze.style.top = '-680px';
-            }
-        }
-
-        switch (keyPressed) {
-            case '1':
-                oakPlanksChosen();
-                break;
-            case '2':
-                cobbleStoneChosen();
-                break;
-            case '3':
-                stoneChosen();
-                break;
-            case '4':
-                tntChosen();
-                break;
-            case '5':
-                barrierChosen();
-                break;
-            case '6':
-                oakLeavesChosen();
-                break;
-            case '7':
-                dirtChosen();
-                break;
-            case '8':
-                sandStoneChosen();
-                break;
-            case '9':
-                obsidianBlockChosen();
-                break;
-        }
-    });
-
     let Inventory = document.createElement('div');
 
     document.body.addEventListener('keydown', (e) => {
@@ -2399,7 +2821,7 @@ if (running) {
         if (isInventoryOpen && e.key == 'F3') {
             e.preventDefault();
             Inventory.hidden = false;
-            let menu = `
+            menu = `
             <div class="inventory-container">
             <div class="gui-inventory">
                 <div class="top-elements">
@@ -2478,112 +2900,6 @@ if (running) {
         Inventory.hidden = true;
     }
 
-    let tntExplosion = document.getElementById('tntExplosion');
-
-    document.addEventListener('DOMContentLoaded', function() {
-        document.addEventListener('contextmenu', function(event) {
-            event.preventDefault();
-            let clickedPlace = document.createElement('div');
-            clickedPlace.classList.add('clickedPlace');
-            clickedPlace.style.left = event.clientX + 'px';
-            clickedPlace.style.top = event.clientY + 'px';
-            clickedPlace.style.position = 'absolute';
-            clickedPlace.style.width = '50px';
-            clickedPlace.style.height = '50px';
-            if (oakPlanks) {
-                clickedPlace.style.background = "url('oak_plank.png')";
-            } else if (cobbleStone) {
-                clickedPlace.style.background = "url('cobblestone.png')";
-            } else if (sandStone) {
-                clickedPlace.style.background = "url('sandstone.png')";
-            } else if (oakLeaves) {
-                clickedPlace.style.background = "url('oak_leaves.png')";
-            } else if (dirt) {
-                clickedPlace.style.background = "url('dirt.png')";
-            } else if (stone) {
-                clickedPlace.style.background = "url('stone_block.png')";
-            } else if (whiteWool) {
-                clickedPlace.style.background = "url('white_wool.png')";
-            } else if (diamondBlock) {
-                clickedPlace.style.background = "url('diamond_block.png')";
-            } else if (obsidianBlock) {
-                clickedPlace.style.background = "url('obsidian.png')";
-            } else if (barrierBlock) {
-                clickedPlace.style.background = "url('barrier.png')";
-                setTimeout(() => {
-                    clickedPlace.style.display = 'none';
-                }, 2000);
-            }  else if (tntBlock) {
-                clickedPlace.style.background = "url('tnt.png')";
-
-                let allBlocks = 
-                [g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22,
-                d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22,
-                s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22];
-
-                let numOfBlocks = [1, 2, 3, 4, 5];
-                let randomNumberOfBlocks = Math.floor(Math.random() * numOfBlocks.length);
-                let numberOfBlocks = numOfBlocks[randomNumberOfBlocks];
-
-                let rand1 = Math.floor(Math.random() * allBlocks.length);
-                let rand2 = Math.floor(Math.random() * allBlocks.length);
-                let rand3 = Math.floor(Math.random() * allBlocks.length);
-                let rand4 = Math.floor(Math.random() * allBlocks.length);
-                let rand5 = Math.floor(Math.random() * allBlocks.length);
-
-                let randomBlock1 = allBlocks[rand1];
-                let randomBlock2 = allBlocks[rand2];
-                let randomBlock3 = allBlocks[rand3];
-                let randomBlock4 = allBlocks[rand4];
-                let randomBlock5 = allBlocks[rand5];
-
-                setTimeout(() => {
-                    clickedPlace.style.display = 'none';
-
-                    switch (numberOfBlocks) {
-                        case 1:
-                            tntExplosion.play();
-                            randomBlock1.style.display = 'none';
-                            break;
-                        case 2:
-                            tntExplosion.play();
-                            randomBlock1.style.display = 'none';
-                            randomBlock2.style.display = 'none';
-                            break;
-                        case 3:
-                            tntExplosion.play();
-                            randomBlock1.style.display = 'none';
-                            randomBlock2.style.display = 'none';
-                            randomBlock3.style.display = 'none';
-                            break;
-                        case 4:
-                            tntExplosion.play();
-                            randomBlock1.style.display = 'none';
-                            randomBlock2.style.display = 'none';
-                            randomBlock3.style.display = 'none';
-                            randomBlock4.style.display = 'none';
-                            break;
-                        case 5:
-                            tntExplosion.play();
-                            randomBlock1.style.display = 'none';
-                            randomBlock2.style.display = 'none';
-                            randomBlock3.style.display = 'none';
-                            randomBlock4.style.display = 'none';
-                            randomBlock5.style.display = 'none';
-                    }
-                }, 1000);
-
-            }
-            document.body.appendChild(clickedPlace);
-
-            clickedPlace.addEventListener('click', () => {
-                if (!tntBlock) {
-                    clickedPlace.hidden = true;
-                }
-            });
-        });
-    });
-
     let stoneBlocks = `
     <div class="stone-container4">
         <div id="stone_block67" onclick="createRandomRow()"><img id="s67" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
@@ -2613,6 +2929,7 @@ if (running) {
 
     function createRandomRow(row1, row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12, row13, row14, row15, row16, row17, row18, row19, row20) {
         stoneBreaking.play();
+        row1 = stoneBlocks;
         row2 = `
         <div class="stone-container4">
             <div id="diamond_o" onclick="removeDiamondOre1()"><img onclick="numberOfDiamonds()" id="diamond1" draggable="false" class="stone_block" src="diamond_ore.png" alt="diamond_ore.png"></div>
@@ -2743,15 +3060,12 @@ if (running) {
             <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
         </div>
         `;
-        row1 = stoneBlocks;
         row7 = stoneBlocks;
         row8 = stoneBlocks;
         row9 = stoneBlocks;
         row10 = stoneBlocks;
         row11 = stoneBlocks;
         row12 = stoneBlocks;
-        row14 = stoneBlocks;
-
         row13 = `
         <div class="stone-container4">
             <div id="stone_block67" onclick="createRandomRow()"><img id="s67" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
@@ -2778,12 +3092,11 @@ if (running) {
             <div id="stone_block88" onclick="createRandomRow()"><img id="s88" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
         </div>
         `;
-
+        row14 = stoneBlocks;
         row15 = stoneBlocks;
         row16 = stoneBlocks;
         row17 = stoneBlocks;
         row18 = stoneBlocks;
-
         row19 = `
         <div class="stone-container4">
             <div id="stone_block67" onclick="createRandomRow()"><img id="s67" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
@@ -2810,28 +3123,27 @@ if (running) {
             <div id="stone_block88" onclick="createRandomRow()"><img id="s88" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
         </div>
         `;
-
         row20 = stoneBlocks;
 
         let rows = [row1, row2, row3, row4, row5, row6, row7, row8, row9, row10, row11, row12, row13, row14, row15, row16, row17, row18, row19, row20];
         let rand = Math.floor(Math.random() * rows.length);
         let randomRow = rows[rand];
 
-        let stoneContainer4 = document.querySelector('.stone-container4');
-        if(isInOverworld || !isInNether) {
+        if ((isInOverworld && !isInNether) && 
+            (player.style.top == '570px') ||
+            (player.style.top == '650px')) {
             stoneContainer4.innerHTML = randomRow;
+        } else if (isInNether || !isInOverworld) {
+            randomRowContainer.hidden = true;
         } else {
-            stoneContainer4.hidden = true;
+            miningWrongBlocksAlert = alert(`Stop cheating or you will be kicked! Warning ${wrongBlocks}/${wrongBlocksLimit - 1}`);
+            wrongBlocks++;
+            if (wrongBlocks == wrongBlocksLimit) {
+                alert('I warned you...');
+                window.close();
+            }
         }
     }
-
-    let numOfDiamonds = 0;
-    let numOfGold = 0;
-    let numofEmeralds = 0;
-    let numOfCoal = 0;
-    let numOfIron = 0;
-    let numOfObsidians = 0;
-
     function numberOfDiamonds() {
         numOfDiamonds++;
         warn(`Congratulations! you have ${numOfDiamonds} diamonds!`);
@@ -2852,49 +3164,99 @@ if (running) {
         numOfIron++;
         warn(`Congratulations! you have ${numOfIron} irons!`);
     }
-    let hotbarObsidian = document.getElementById('hotbarObsidian');
-
-    let enteringNetherSound = document.getElementById('enteringNetherSound');
-
     function checkPortalCollision() {
-    let playerRect = player.getBoundingClientRect();
-    let portalRect = portalPosition.getBoundingClientRect();
-
-    if (
-        playerRect.top < portalRect.bottom &&
-        playerRect.bottom > portalRect.top &&
-        playerRect.left < portalRect.right &&
-        playerRect.right > portalRect.left
-    ) {
-
-        enteringNetherSound.play();
-
-        isInOverworld = false;
-        isInNether = true;
-
-        mc.style.background = "url('nether_sky.png')";
-        mc.style.backgroundAttachment = "fixed";
-        mc.style.backgroundRepeat = "no-repeat";
-
-        creeper.hidden = true;
-        player.style.top = '260px';
-
+        let playerRect = player.getBoundingClientRect();
+        let portalRect = portalPosition.getBoundingClientRect();
+        
+        if (
+            playerRect.top < portalRect.bottom &&
+            playerRect.bottom > portalRect.top &&
+            playerRect.left < portalRect.right &&
+            playerRect.right > portalRect.left
+        ) {
+            enteringNetherSound.play();
+            isInOverworld = false;
+            isInNether = true;
+        
+            mc.style.background = "url('nether_sky.png')";
+            mc.style.backgroundAttachment = "fixed";
+            mc.style.backgroundRepeat = "no-repeat";
+        
+            creeper.hidden = true;
+            player.style.top = '260px';
+        
             normalNetherrack();
-
-            let blaze = document.createElement('div');
-            blaze.innerHTML = `<img id="blaze" draggable="false" src="blaze.png" alt="blaze.png">`;
-            mc.appendChild(blaze);
+        
+            document.addEventListener('keydown', (e) => {
+                if (e.key == 'b') {
+                    let blaze = document.createElement('div');
+                    blaze.innerHTML = `<img id="blazeElement" draggable="false" src="blaze.png" alt="blaze.png">`;
+                    blaze.classList.add('blazeAnimation');
+        
+                    blaze.addEventListener('click', () => {
+                        blazeHP--;
+                        if (blazeHP <= 0) {
+                            blaze.querySelector('img').src = 'damaged_blaze.png';
+                            setTimeout(() => {
+                                blaze.parentNode.removeChild(blaze);
+                                numOfBlazeRods++;
+                                log(`Liczba blaze rod'ów: ${numOfBlazeRods}`);
+                            }, 3000);
+                        }
+                    });
+                    mc.appendChild(blaze);
+                }
+            });
         }
     }
+    
+    function checkBlazeCollision(element1, element2) {
+        let rect1 = element1.getBoundingClientRect();
+        let rect2 = element2.getBoundingClientRect();
+        return !(rect1.right < rect2.left ||
+            rect1.left > rect2.right ||
+            rect1.bottom < rect2.top ||
+            rect1.top > rect2.bottom);
+    }
+    
+    function checkBlazeCollisionsPeriodically() {
+        let blaze = document.getElementById('blazeElement');
+        if (blaze && checkBlazeCollision(player, blaze)) {
+            playerHP--;
+    
+            if (playerHP <= 0) {
+                player.hidden = true;
+                let actionAfterDeath = prompt('YOU DIED!\n\nWhat you want to do?\nRespawn (r)\nSpectate (s)').toLowerCase();
+    
+                if (actionAfterDeath == 'r') {
+                    window.location.reload();
+                } else if (actionAfterDeath == 's') {
+                    let toggleHPDisplay = document.getElementById('toggleHPDisplay');
+                    toggleHPDisplay.hidden = true;
+                } else {
+                    alert('Invalid action! Error code: 400.');
+                    window.close();
+                }
+            }
+            let playerImg = isSteveChosen ? 'steve_standing.png' :
+                            isAlexChosen ? 'alex_standing.png' :
+                            isSkin1Chosen ? 'skin1_standing.png' : 'steve_standing.png';
+    
+            player.src = `damaged_${playerImg}`;
+            setTimeout(() => {
+                player.src = playerImg;
+            }, 350);
+        }
+    }
+    setInterval(checkBlazeCollisionsPeriodically, 200);
 
 function numberOfObsidians() {
     numOfObsidians++;
     hotbarObsidian.textContent = Number(numOfObsidians);
 
     if (numOfObsidians == 10) {
-        let createPortal;
         do {
-            createPortal = prompt('Congratulations! You have 10 obsidians. Do you want to make a nether portal? (y/n): ');
+            createPortal = prompt('Congratulations! You have 10 obsidians. Do you want to make a nether portal? (y/n):').toLowerCase();
         } while (createPortal != 'y' && createPortal != 'n');
 
         if (createPortal == 'y') {
@@ -2985,12 +3347,6 @@ numberOfObsidians();
         coal_ore9.hidden = true;
     }
 
-    document.addEventListener('DOMContentLoaded', function() {
-        let creeper = document.createElement('div');
-        creeper.innerHTML = `<img id="creeper" draggable="false" src="creeper.png" alt="creeper.png">`;
-        mc.appendChild(creeper);
-    });
-
     function checkCollision(element1, element2) {
         let rect1 = element1.getBoundingClientRect();
         let rect2 = element2.getBoundingClientRect();
@@ -3001,9 +3357,11 @@ numberOfObsidians();
     }
     function checkCollisionsPeriodically() {
         if (checkCollision(player, creeper)) {
-            let explosionSound = document.getElementById('explosionSound');
             explosionSound.play();
             setTimeout(() => {
+
+                playerHP -= 5;
+
                 g19.style.display = 'none';
                 g20.style.display = 'none';
                 g21.style.display = 'none';
@@ -3048,11 +3406,66 @@ numberOfObsidians();
             ) {
             e.preventDefault();
         }
-    });   
+        if (e.key == 'F1') {
+            e.preventDefault();
+            hotbarHidden = !hotbarHidden;
+            hotbarContainer.hidden = hotbarHidden;
+
+            if (!hotbarHidden) {
+                creeper.style.top = '-680px';
+                blaze.style.top = '-750px';
+            } else if (hotbarHidden) {
+                creeper.style.top = '-626px';
+                blaze.style.top = '-680px';
+            }
+        }
+        switch (e.key) {
+            case '1':
+                oakPlanksChosen();
+                break;
+            case '2':
+                cobbleStoneChosen();
+                break;
+            case '3':
+                stoneChosen();
+                break;
+            case '4':
+                tntChosen();
+                break;
+            case '5':
+                barrierChosen();
+                break;
+            case '6':
+                oakLeavesChosen();
+                break;
+            case '7':
+                dirtChosen();
+                break;
+            case '8':
+                sandStoneChosen();
+                break;
+            case '9':
+                obsidianBlockChosen();
+                break;
+        }
+    });
+    
+    setInterval(() => {
+        playerHPDisplay.innerHTML = playerHP;
+    }, 10);
+
+    setInterval(() => {
+        if (playerHP < 10) {
+            playerHP++;
+        }
+        if (playerHP == 10) {
+            playerHP = 10;
+        }
+    }, 10000);
 
 } else {
     alert('Error! Game is not running.');
-    let gameStart = prompt('Do you want to start new game? (y/n): ');
+    let gameStart = prompt('Do you want to start new game? (y/n):').toLowerCase();
 
     if (gameStart == 'y') {
         alert('Error! Try to refresh the page.');

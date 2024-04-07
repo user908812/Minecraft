@@ -78,7 +78,6 @@ body {
     width: 80px;
     height: 130px;
     position: relative;
-    top: 260px;
     right: 0;
     bottom: 0;
     left: 0;
@@ -96,7 +95,7 @@ body {
     animation-delay: 1s;
     animation-iteration-count: infinite;
 }
-#blaze {
+#blazeElement {
     z-index: 0;
     width: 150px;
     height: 250px;
@@ -380,7 +379,7 @@ body {
 }
 .message {
     position: relative;
-    top: -400px;
+    top: -375px;
     right: 1750px;
     font-size: 22px;
     color: #000;
@@ -483,7 +482,7 @@ label {
 #fps-counter {
     position: fixed;
     top: 40px;
-    left: 80px;
+    left: 90px;
     background-color: rgba(0, 0, 0, 0.2);
     color: white;
     padding: 5px 10px;
@@ -493,4 +492,26 @@ label {
 ::selection {
     background-color: transparent;
     color: inherit;
+}
+@keyframes blazeMoving {
+    50% {
+        transform: translateX(-1500px);
+    } 
+    100% {
+        transform: translateX(0);
+    }
+}
+.blazeAnimation {
+    animation: blazeMoving;
+    animation-duration: 3s;
+    animation-delay: 1s;
+    animation-iteration-count: infinite;
+}
+#hp-display {
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 2px 2px 2px #000;
+    position: relative;
+    left: 10px;
+    top: 850px;
 }

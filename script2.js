@@ -27,14 +27,22 @@ function renderLauncherOnSubmit(event) {
 
     let loginForm = document.querySelector('.login-form').style.display = 'none';
 
-    let username = document.getElementById('username').value.toLowerCase();
+    let normalUsername = document.getElementById('username').value;
+    let username = String(normalUsername.charAt(0).toUpperCase() + normalUsername.slice(1).toLowerCase());
 
-    if (username == 'pako' || username == 'kamil') {
+    if (username == 'Pako' || username == 'Kamil') {
         profilePicture = 'clown_pfp.png';
+    } else if (username == 'Orzech') {
+        profilePicture = 'orzech.png';
+    } else if (username == 'Daro' || username == 'Dariusz' || username == 'Darek' || username == 'Adrian' || username == 'Eminem' || username == 'Igor') {
+        profilePicture = 'gigachad.png';
     }
 
     let launcherContainer = document.createElement('div');
     let launcher = `
+<audio id="soundMP4" src="sound.mp4"></audio>
+<audio id="badSoundMP4" src="badSound.mp4"></audio>
+
 <div class="launcher">
     <div class="left-bar">
         <div class="accout-display">
@@ -44,30 +52,27 @@ function renderLauncherOnSubmit(event) {
         <div class="date"></div>
         <div class="time"></div>
         <div class="news">
-            <p class="news-title">News:</p>
+            <div id="newsDisplay"><span class="news-title">News</span> <span class="rainbowText">27/04/2024:</span></div>
             <ul>
                 <li>Fixed animations</li>
-                <li>Fixed blocks</li>
-                <li>New blocks</li>
+                <li>Fixed player dying</li>
                 <li>Fixed player positions</li>
-                <li>Removed air borders</li>
-                <li class="added">Fixed date and time</li>
-                <li class="added">F1 button</li>
-                <li class="added">Blocks in hotbar</li>
-                <li class="added">Remove placed blocks</li>
-                <li class="added">Removed copying on double click</li>
-                <li class="important">v100.0.2 IS OUT!</li>
+                <li class="added">New username icons!</li>
+                <li class="added">Fixed when player goes out of field</li>
+                <li class="added">Added F3 Menu (toggled)</li>
+                <li class="important">Added biomes</li>
             </ul>
         </div>
         <div class="keybinds"> 
-        <h2>Keybinds: </h2>
+        <h2 id="keybinds-title">Keybinds: </h2>
         <ul>
-        <li>w / d / → <span class="key-info">(Move right)</span></li>
-        <li>a / s / ← <span class="key-info">(Move left)</span></li>
+        <li>W / D / → <span class="key-info">(Move right)</span></li>
+        <li>A / S / ← <span class="key-info">(Move left)</span></li>
         <li>SPACE / ↑ <span class="key-info">(Jump)</span></li>
-        <li>ctrl + walk <span class="key-info">(sprint)</span></li>
+        <li>CTRL + walk <span class="key-info">(sprint)</span></li>
         <li>/ <span class="key-info">(Normal position)</span></li>
-        <li>ESC <span class="key-info">(menu)</span></li>
+        <li>ESC <span class="key-info">(Menu)</span></li>
+        <li>B <span class="key-info">(Spawn blaze)</span></li>
         <button class="more-key-binds" onclick="showMoreKeybinds()">More</button>
         </ul>
         </div>
@@ -80,7 +85,7 @@ function renderLauncherOnSubmit(event) {
             <br>
             <label for="versions">Select a version: &nbsp;</label>
             <select style="cursor: pointer;" name="versions" id="version-select">
-                    <option style="cursor: pointer;" value="0"></option>
+                    <option style="cursor: pointer;" value="0" selected></option>
                     <optgroup label="old">
                     <option value="1">v99.9.3 (alpha)</option>
                     </optgroup>
@@ -111,28 +116,46 @@ let form = document.querySelector('.login-form form');
 form.addEventListener('submit', renderLauncherOnSubmit);
 
 function launchMinecraft() {
+    let soundMP4 = document.getElementById('soundMP4');
+    let badSoundMP4 = document.getElementById('badSoundMP4');
     let mc_version = document.getElementById('version-select').value;
 
     if (mc_version == 0) {
-        alert('You need to select a version before you start playing!');
+        setTimeout(() => {
+            alert('You need to select a version before you start playing!');
+        }, 300);
+        badSoundMP4.play();
     } else if (mc_version == 1) {
-        window.open('minecraft0.html', '_blank');
+        setTimeout(() => {
+            window.open('minecraft0.html', '_blank');
+        }, 300);
+        soundMP4.play();
     } else if (mc_version == 2) {
-        window.open('minecraft1.html', '_blank');
+        setTimeout(() => {
+            window.open('minecraft1.html', '_blank');
+        }, 300);
+        soundMP4.play();
     } else if (mc_version == 3) {
-        window.open('minecraft2.html', '_blank');
+        setTimeout(() => {
+            window.open('minecraft2.html', '_blank');
+        }, 300);
+        soundMP4.play();
     }
 }
 function showMoreKeybinds() {
-    alert(`    F11 (Fullscreen)\n
-    F4 (Open chat)\n
-    F2 (Send chat message)\n
-    F3 (Inventory)\n
-    F1 (No hotbar)\n
-    RMB / LMB (Place / Destroy block)\n
-    ----Chat Commands:----\n
-    .math (calculator)\n
-    .musicoff (turns off music)\n
-    .r <yourText> (red message)\n
-    .i <yourText> (italic font)`);
+    let soundMP4 = document.getElementById('soundMP4');
+    soundMP4.play();
+    setTimeout(() => {
+        alert(`        F11 (Fullscreen)\n
+        F4 (Open chat)\n
+        F2 (Send chat message)\n
+        F3 (Inventory)\n
+        F1 (No hotbar)\n
+        RMB / LMB (Place / Destroy block)\n
+        ----Chat Commands:----\n
+        .math (calculator)\n
+        .musicoff (turns off music)\n
+        .r <yourText> (red message)\n
+        .i <yourText> (italic font)`);
+    }, 300);
 }

@@ -151,7 +151,6 @@ input {
 .news-title {
     font-weight: bold;
     margin-left: 70px;
-    text-decoration: underline;
 }
 .added {
     color: #42e742;
@@ -175,7 +174,36 @@ input {
     background-color: #282b30;
     transition: all 0.9s 0.3s;
 }
+#newsDisplay {
+    margin-top: 8px;
+    margin-left: -40px;
+    display: grid;
+    grid-template-columns: repeat(2, 115px);
+}
 .more-key-binds:hover {
     color: #282b30;
     background-color: #fff;
+}
+.rainbowText {
+    animation: rainbowTextAnimation 1.5s infinite;
+    text-shadow: 2px 2px 2px #000;
+}
+@keyframes rainbowTextAnimation {
+    0% { color: white; }
+    8% { color: violet; }
+    16% { color: indigo; }
+    24% { color: blue; }
+    32% { color: green; }
+    40% { color: yellow; }
+    48% { color: orange; }
+    56% { color: red; }
+    64% { color: darkred; }
+    72% { color: darkorange; }
+    80% { color: darkgoldenrod; }
+    88% { color: darkgreen; }
+    96% { color: darkblue; }
+    100% { color: black; }
+}
+#keybinds-title {
+    margin-left: 20px;
 }

@@ -1,15 +1,28 @@
-var log = console.log.bind(document);
-var warn = console.warn.bind(document);
+var log = console.log.bind(document), warn = console.warn.bind(document);
 
 var mc = document.getElementById('minecraft');
+
+mc.style.width = '1762px';
+mc.style.height = '908px';
+
+var FPS = 60;
+
+var allGrassBlocks = [g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22];
+var allDirtBlocks = [d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22];
+var allStoneBlocks = [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22, s23, s24, s25, s26, s27, s28, s29, s30, s31, s32, s33, s34, s35, s36, s37, s38, s39, s40, s41, s42, s43, s44, s45, s46, s47, s48, s49, s50, s51, s52, s53, s54, s55, s56, s57, s58, s59, s60, s61, s62, s63, s64, s65, s66, s67, s68, s69, s70, s71, s72, s73, s74, s75, s76, s77, s78, s79, s80, s81, s82, s83, s84, s85, s86, s87, s88];
+var allBlocks = [g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22, s23, s24, s25, s26, s27, s28, s29, s30, s31, s32, s33, s34, s35, s36, s37, s38, s39, s40, s41, s42, s43, s44, s45, s46, s47, s48, s49, s50, s51, s52, s53, s54, s55, s56, s57, s58, s59, s60, s61, s62, s63, s64, s65, s66, s67, s68, s69, s70, s71, s72, s73, s74, s75, s76, s77, s78, s79, s80, s81, s82, s83, s84, s85, s86, s87, s88];
+
+var speech = new SpeechSynthesisUtterance;
+
 var music = document.getElementById('music');
+
 var playerHPDisplay = document.getElementById('hp');
-let hotbarObsidian = document.getElementById('hotbarObsidian');
+var hotbarObsidian = document.getElementById('hotbarObsidian');
 
 var player = document.querySelector('.player');
 var stoneContainer4 = document.querySelector('.stone-container4');
 var hotbarContainer = document.querySelector('.hotbar-container');
-let randomRowContainer = document.querySelector('.randomRowContainer');
+var randomRowContainer = document.querySelector('.randomRowContainer');
 
 var grassBreaking = document.getElementById('grassBreaking');
 var dirtBreaking = document.getElementById('dirtBreaking');
@@ -17,6 +30,63 @@ var stoneBreaking = document.getElementById('stoneBreaking');
 var tntExplosion = document.getElementById('tntExplosion');
 var explosionSound = document.getElementById('explosionSound');
 var enteringNetherSound = document.getElementById('enteringNetherSound');
+var blazeSounds = document.getElementById('blazeSounds');
+
+/*  CONFIG  */
+
+var F3config = document.getElementById('config');
+
+var windowConfig = document.getElementById('windowConfig').innerHTML = `${mc.style.width.slice(0, 4)}x${mc.style.height.slice(0, 3)}`;
+var FPSDisplay = document.getElementById('FPS').innerHTML = FPS;
+
+setInterval(() => {
+    var playerLeftPos = parseInt(player.style.left);
+    var playerTopPos = parseInt(player.style.top);
+    var playerRightPos = playerLeftPos / playerTopPos + 10;
+    var XYZDisplay = document.getElementById('xyz').innerHTML = `${playerLeftPos.toFixed(1)} / ${playerTopPos.toFixed(1)} / ${playerRightPos.toFixed(1)}`;
+
+    if (playerLeftPos < -50 || playerLeftPos >= 1760) {
+        window.location.reload();
+    }
+}, 200);
+
+setInterval(() => {
+    allBlocks.forEach(function(blockElement) {
+        blockElement.addEventListener('mouseover', function() {
+            var BlockElementID = blockElement.id;
+            var blockHoverID = document.getElementById('blockHoverID').innerHTML = BlockElementID;
+        });
+    });
+}, 100);
+
+var IPDisplay = document.getElementById('ipNum').innerHTML = window.location.host;
+
+
+var seedNum = Math.floor(Math.random() * 100000);
+var Seed = document.getElementById('seed').innerHTML = seedNum;
+
+var biomeDisplay;
+
+var playerWorldLocation = document.getElementById('playerLocation');
+
+setInterval(() => {
+    if (isInOverworld && !isInNether) {
+        playerWorldLocation.innerHTML = 'overworld';
+        F3config.style.color = '#000';
+    } else if (isInNether && !isInOverworld) {
+        playerWorldLocation.innerHTML = 'the_nether';
+        F3config.style.color = '#fff';
+    }
+}, 200);
+
+if (window.performance && window.performance.memory) {
+    var memoryInfo = window.performance.memory;
+    var usedMemoryMB = (memoryInfo.usedJSHeapSize / (1024 * 1024));
+    var totalMemoryMB = (memoryInfo.totalJSHeapSize / (1024 * 1024));
+    var memoryPercentage = (usedMemoryMB / totalMemoryMB) * 100;
+  }
+  var currentMemory = document.getElementById('currentMemory').innerHTML = `${memoryPercentage.toFixed(0)}% ${usedMemoryMB.toFixed(0)}/${totalMemoryMB.toFixed(0)}MB`;
+/*   ------   */
 
 var playerTop = player.style.top = '260px';
 
@@ -67,17 +137,102 @@ var numOfBlazeRods = 0;
 
 var createPortal;
 
-var FPS = 60;
-
 var running = true;
 
 if (running) {
 
-    mc.style.width = '1762px';
-    mc.style.height = '908px';
-
     document.addEventListener('DOMContentLoaded', function() {
-        
+
+        log('Server: Succesfully loaded the world.')
+
+        var biomes = {
+            normal: {
+                ID: 1,
+                name: 'Normal'
+            },
+            desert: { 
+                ID: 2,
+                name: 'Desert'
+            },
+            icy: {
+                ID: 3,
+                name: 'Icy'
+            },
+            snowy: {
+                ID: 4,
+                name: 'Snowy'
+            }
+        }
+        var biomesArray = [biomes.normal.ID, biomes.desert.ID, biomes.normal.ID, biomes.icy.ID, biomes.snowy.ID];
+        var b = Math.floor(Math.random() * biomesArray.length);
+        var biome = biomesArray[b];
+
+        if (biome == 1) {
+            setInterval(() => {
+                if (isInOverworld && !isInNether) {
+                    biomeDisplay = document.getElementById('selectedBiome').innerHTML = biomes.normal.name;
+                } else if (isInNether && !isInOverworld) {
+                    biomeDisplay = document.getElementById('selectedBiome').innerHTML = 'Nether';
+                }
+            }, 200);
+        } else if (biome == 2) {
+            setInterval(() => {
+                if (isInOverworld && !isInNether) {
+                    biomeDisplay = document.getElementById('selectedBiome').innerHTML = biomes.desert.name;
+                } else if (isInNether && !isInOverworld) {
+                    biomeDisplay = document.getElementById('selectedBiome').innerHTML = 'Nether';
+                }
+            }, 200);
+
+            allGrassBlocks.forEach(grassBlockInGrassBlocks => {
+                grassBlockInGrassBlocks.src = 'sand_block.png';
+            });
+            allDirtBlocks.forEach(dirtBlockInDirtBlocks => {
+                dirtBlockInDirtBlocks.src = 'sandstone.png';
+            });
+            allStoneBlocks.forEach(stoneBlockInStoneBlocks => {
+                stoneBlockInStoneBlocks.src = 'sandstone.png';
+            });
+        } else if (biome == 3) {
+            setInterval(() => {
+                if (isInOverworld && !isInNether) {
+                    biomeDisplay = document.getElementById('selectedBiome').innerHTML = biomes.icy.name;
+                } else if (isInNether && !isInOverworld) {
+                    biomeDisplay = document.getElementById('selectedBiome').innerHTML = 'Nether';
+                }
+            }, 200);
+
+            player.style.zIndex = '0';
+
+            allGrassBlocks.forEach(grassBlockInGrassBlocks => {
+                grassBlockInGrassBlocks.src = 'ice_block.png';
+            });
+            allDirtBlocks.forEach(dirtBlockInDirtBlocks => {
+                dirtBlockInDirtBlocks.src = 'water.png';
+            });
+            allStoneBlocks.forEach(stoneBlockInStoneBlocks => {
+                stoneBlockInStoneBlocks.src = 'water.png';
+            });
+        } else if (biome == 4) {
+            setInterval(() => {
+                if (isInOverworld && !isInNether) {
+                    biomeDisplay = document.getElementById('selectedBiome').innerHTML = biomes.snowy.name;
+                } else if (isInNether && !isInOverworld) {
+                    biomeDisplay = document.getElementById('selectedBiome').innerHTML = 'Nether';
+                }
+            }, 200);
+
+            allGrassBlocks.forEach(grassBlockInGrassBlocks => {
+                grassBlockInGrassBlocks.src = 'snowy_grass.png';
+            });
+            allDirtBlocks.forEach(dirtBlockInDirtBlocks => {
+                dirtBlockInDirtBlocks.src = 'dirt.png';
+            });
+            allStoneBlocks.forEach(stoneBlockInStoneBlocks => {
+                stoneBlockInStoneBlocks.src = 'stone_block.png';
+            });
+        }
+
         music.play();
 
         let creeper = document.createElement('div');
@@ -92,6 +247,8 @@ if (running) {
                 setTimeout(() => {
                     creeper.querySelector('img').ssrc = 'creeper.png';
                     creeper.hidden = true;
+                    speech.text = 'OUCCHHHHHHHH!';
+                    window.speechSynthesis.speak(speech);
                 }, 300);
             }
         });
@@ -131,7 +288,7 @@ if (running) {
             }  else if (tntBlock) {
                 clickedPlace.style.background = "url('tnt.png')";
 
-                let allBlocks = 
+                let blocksToTNTDestroy = 
                 [g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12,
                 g13, g14, g15, g16, g17, g18, g19, g20, g21, g22,
                 d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12,
@@ -143,17 +300,17 @@ if (running) {
                 let randomNumberOfBlocks = Math.floor(Math.random() * numOfBlocks.length);
                 let numberOfBlocks = numOfBlocks[randomNumberOfBlocks];
 
-                let rand1 = Math.floor(Math.random() * allBlocks.length);
-                let rand2 = Math.floor(Math.random() * allBlocks.length);
-                let rand3 = Math.floor(Math.random() * allBlocks.length);
-                let rand4 = Math.floor(Math.random() * allBlocks.length);
-                let rand5 = Math.floor(Math.random() * allBlocks.length);
+                let rand1 = Math.floor(Math.random() * blocksToTNTDestroy.length);
+                let rand2 = Math.floor(Math.random() * blocksToTNTDestroy.length);
+                let rand3 = Math.floor(Math.random() * blocksToTNTDestroy.length);
+                let rand4 = Math.floor(Math.random() * blocksToTNTDestroy.length);
+                let rand5 = Math.floor(Math.random() * blocksToTNTDestroy.length);
 
-                let randomBlock1 = allBlocks[rand1];
-                let randomBlock2 = allBlocks[rand2];
-                let randomBlock3 = allBlocks[rand3];
-                let randomBlock4 = allBlocks[rand4];
-                let randomBlock5 = allBlocks[rand5];
+                let randomBlock1 = blocksToTNTDestroy[rand1];
+                let randomBlock2 = blocksToTNTDestroy[rand2];
+                let randomBlock3 = blocksToTNTDestroy[rand3];
+                let randomBlock4 = blocksToTNTDestroy[rand4];
+                let randomBlock5 = blocksToTNTDestroy[rand5];
 
                 setTimeout(() => {
                     clickedPlace.style.display = 'none';
@@ -200,59 +357,77 @@ if (running) {
             });
         });
     });
-
-    let GuiInGameMenu = document.createElement('div');
-
+    
     document.body.addEventListener('keydown', (e) => {
-
-        isGuiOpen = true;
-
         if (e.key == 'Escape') {
-            GuiInGameMenu.hidden = false;
-            menu = `
-            <div class="gui">
-            <div class="top-elements">
-                <button onclick="closeGUI()" class="close">X</button>
-                <h1>Settings</h1>
+            if (!isGuiOpen) {
+                isGuiOpen = true;
+                let GuiInGameMenu = document.createElement('div');
+                GuiInGameMenu.innerHTML = `
+                <div class="gui">
+                <div class="top-elements">
+                    <button onclick="closeGUI()" class="close">X</button>
+                    <h1>Settings</h1>
 
-                <label for="music">Music:</label>
-                <input type="range" name="music" id="vol" min="0" max="100" value="35">
+                    <label for="music">Music:</label>
+                    <input type="range" name="music" id="vol" min="0" max="1" step="0.1" value="0.2" onchange="changeVolume()">
 
-                <label class="graphic-title" for="graphic">Graphic:</label>
+                    <label class="graphic-title" for="graphic">Graphic: (broken)</label>
 
-                <div class="graphic">
-                    <button onclick="setLowGraphic()" class="graphicBtn">Low</button>
-                    <button onclick="setNormalGraphic()" class="graphicBtn">Normal</button>
-                    <button onclick="setHighGraphic()" class="graphicBtn">High</button>
-                </div>
-            </div>
-            <div class="chooseSkin">
-                <h2>Choose your skin:</h2>
-                <div class="skinsGUI">
-                    <div class="steve-div">
-                        <label id="steveLabel" for="steveSkin">Steve: </label>
-                        <img id="steveSkin" onclick="steveChosen()" src="steve_standing.png" alt="steve_standing.png">
-                    </div>
-                    <div class="alex-div">
-                        <label id="alexLabel" for="alexSkin">Alex: </label>
-                        <img id="alexSkin" onclick="alexChosen()" src="alex_standing.png" alt="alex_standing.png">
-                    </div>
-                    <div class="skin1-div">
-                        <label id="skin1Label" for="skin1Skin">Skin1: </label>
-                        <img id="skin1Skin" onclick="skin1Chosen()" src="skin1_standing.png" alt="skin1_standing.png">
+                    <div class="graphic">
+                        <button onclick="setLowGraphic()" class="graphicBtn">Low</button>
+                        <button onclick="setNormalGraphic()" class="graphicBtn">Normal</button>
+                        <button onclick="setHighGraphic()" class="graphicBtn">High</button>
                     </div>
                 </div>
+                <div class="chooseSkin">
+                    <h2>Choose your skin:</h2>
+                    <div class="skinsGUI">
+                        <div class="steve-div">
+                            <label id="steveLabel" for="steveSkin">Steve: </label>
+                            <img id="steveSkin" onclick="steveChosen()" src="steve_standing.png" alt="steve_standing.png" draggable="false">
+                        </div>
+                        <div class="alex-div">
+                            <label id="alexLabel" for="alexSkin">Alex: </label>
+                            <img id="alexSkin" onclick="alexChosen()" src="alex_standing.png" alt="alex_standing.png" draggable="false">
+                        </div>
+                        <div class="skin1-div">
+                            <label id="skin1Label" for="skin1Skin">Skin1: </label>
+                            <img id="skin1Skin" onclick="skin1Chosen()" src="skin1_standing.png" alt="skin1_standing.png" draggable="false">
+                        </div>
+                    </div>
+                </div>
+                <div id="serachForServersContainer">
+                    <input type="text" name="nick" id="nick" placeholder="Player nickname" minlength="4" maxlength="15" required autocomplete="nickname" autofocus>
+                    <button id="searchForServers" onclick="searchForServers()">Search for an Online Server</button>
+                </div>
             </div>
-            `;
-
-            GuiInGameMenu.innerHTML = menu;
-            document.body.append(GuiInGameMenu);
+                `;
+                GuiInGameMenu.classList.add('gui-container');
+                document.body.appendChild(GuiInGameMenu);
+            } else {
+                isGuiOpen = false;
+                let GuiInGameMenu = document.querySelector('.gui-container');
+                GuiInGameMenu.remove();
+            }
         }
     });
-
+    function searchForServers() {
+        let nickInput = document.getElementById('nick');
+        if (nickInput.value == '') {
+            window.alert('You need to type a nick!');
+        } else {
+            window.alert('We\'re working on this feature!');
+        }
+    }
+    function changeMusicVolume() {
+        var musicVolume = document.getElementById('vol').value;
+        music.volume = musicVolume;
+    }
     function closeGUI() {
         isGuiOpen = false;
-        GuiInGameMenu.hidden = true;
+        let GuiInGameMenu = document.querySelector('.gui-container');
+        GuiInGameMenu.remove();
     }
     function updateFPS() {
         const currentTime = performance.now();
@@ -262,7 +437,7 @@ if (running) {
     
         if (currentTime - lastSecond >= 1000) {
             FPS = Math.round((frameCount * 1000) / (currentTime - lastSecond));
-            document.getElementById('fps-value').innerText = FPS;
+            document.getElementById('FPS').innerText = FPS;
     
             frameCount = 0;
             lastSecond = currentTime;
@@ -1581,6 +1756,8 @@ if (running) {
         if (e.key === 'F2') {
             if (chat) {
                 let message = chat.value;
+                speech.text = chat.value;
+                window.speechSynthesis.speak(speech);
 
                 if (message == '/kill' || message == '/kill @s' || message == '/kill @p') {
                     player.style.display = 'none';
@@ -2830,28 +3007,28 @@ if (running) {
             </div>
             <div class="blocks-display">
                 <div class="blockDisplay">
-                    <div class="b"><img title="Oak Leaves" id="glass" onclick="oakLeavesChosen()" width="50" height="50" src="oak_leaves.png" alt="oak_leaves.png"></div>
+                    <div class="b"><img title="Oak Leaves" id="glass" draggable="false" onclick="oakLeavesChosen()" width="50" height="50" src="oak_leaves.png" alt="oak_leaves.png"></div>
                     <div class="block-info">
                         <div class="block-nm">Oak Leaves</div>
                         <div class="block-id">ID: 18</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="Sandstone" id="sandstone" onclick="sandStoneChosen()" width="50" height="50" src="sandstone.png" alt="sandstone.png"></div>
+                    <div class="b"><img title="Sandstone" id="sandstone" draggable="false" onclick="sandStoneChosen()" width="50" height="50" src="sandstone.png" alt="sandstone.png"></div>
                     <div class="block-info">
                         <div class="block-nm">Sandstone</div>
                         <div class="block-id">ID: 24</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="Dirt" id="dirt" onclick="dirtChosen()" width="50" height="50" src="dirt.png" alt="dirt.png"></div>
+                    <div class="b"><img title="Dirt" id="dirt" draggable="false" onclick="dirtChosen()" width="50" height="50" src="dirt.png" alt="dirt.png"></div>
                     <div class="block-info">
                         <div class="block-nm">Dirt</div>
                         <div class="block-id">ID: 3</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="Stone" id="stone_block" onclick="stoneChosen()" width="50" height="50" src="stone_block.png" alt="stone_block.png"></div>
+                    <div class="b"><img title="Stone" id="stone_block" draggable="false" onclick="stoneChosen()" width="50" height="50" src="stone_block.png" alt="stone_block.png"></div>
                     <div class="block-info">
                         <div class="block-nm">Stone</div>
                         <div class="block-id">ID: 1</div>
@@ -2860,28 +3037,28 @@ if (running) {
             </div>
             <div class="blocks-display2">
                 <div class="blockDisplay">
-                    <div class="b"><img title="White Wool" id="white_wool" onclick="whiteWoolChosen()" width="50" height="50" src="white_wool.png" alt="white_wool.png"></div>
+                    <div class="b"><img title="White Wool" id="white_wool" draggable="false" onclick="whiteWoolChosen()" width="50" height="50" src="white_wool.png" alt="white_wool.png"></div>
                     <div class="block-info">
                         <div class="block-nm">White Wool</div>
                         <div class="block-id">ID: 35</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="Diamond Block" id="diamond_block" onclick="diamondBlockChosen()" width="50" height="50" src="diamond_block.png" alt="diamond_block.png"></div>
+                    <div class="b"><img title="Diamond Block" id="diamond_block" draggable="false" onclick="diamondBlockChosen()" width="50" height="50" src="diamond_block.png" alt="diamond_block.png"></div>
                     <div class="block-info">
                         <div class="block-nm">Diamond Block</div>
                         <div class="block-id">ID: 57</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="Barrier" id="barrier" onclick="barrierChosen()" width="50" height="50" src="barrier.png" alt="barrier.png"></div>
+                    <div class="b"><img title="Barrier" id="barrier" draggable="false" onclick="barrierChosen()" width="50" height="50" src="barrier.png" alt="barrier.png"></div>
                     <div class="block-info">
                         <div class="block-nm">Barrier</div>
                         <div class="block-id">ID: 166</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="TNT" id="tnt" onclick="tntChosen()" width="50" height="50" src="tnt.png" alt="tnt.png"></div>
+                    <div class="b"><img title="TNT" id="tnt" draggable="false" onclick="tntChosen()" width="50" height="50" src="tnt.png" alt="tnt.png"></div>
                     <div class="block-info">
                         <div class="block-nm">TNT</div>
                         <div class="block-id">ID: 46</div>
@@ -3189,6 +3366,7 @@ if (running) {
         
             document.addEventListener('keydown', (e) => {
                 if (e.key == 'b') {
+                    blazeSounds.play();
                     let blaze = document.createElement('div');
                     blaze.innerHTML = `<img id="blazeElement" draggable="false" src="blaze.png" alt="blaze.png">`;
                     blaze.classList.add('blazeAnimation');
@@ -3355,6 +3533,7 @@ numberOfObsidians();
                 rect1.bottom < rect2.top ||
                 rect1.top > rect2.bottom);
     }
+    
     function checkCollisionsPeriodically() {
         if (checkCollision(player, creeper)) {
             explosionSound.play();
@@ -3370,25 +3549,25 @@ numberOfObsidians();
                 creeper.style.display = 'none';
 
                 if (isSteveChosen) {
-                    player.src = 'damaged_steve.png';
+                    player.src = 'damaged_steve_standing.png';
                     setTimeout(() => {
                         player.src = 'steve_standing.png';
                     }, 350);
                 }
                 else if (isAlexChosen) {
-                    player.src = 'damaged_alex.png';
+                    player.src = 'damaged_alex_standing.png';
                     setTimeout(() => {
                         player.src = 'alex_standing.png';
                     }, 350);
                 }
                 else if (isSkin1Chosen) {
-                    player.src = 'damaged_skin1.png';
+                    player.src = 'damaged_skin1_standing.png';
                     setTimeout(() => {
                         player.src = 'skin1_standing.png';
                     }, 350);
                 } 
                 else {
-                    player.src = 'damaged_steve.png';
+                    player.src = 'damaged_steve_standing.png';
                     setTimeout(() => {
                         player.src = 'steve_standing.png';
                     }, 350);
@@ -3406,6 +3585,7 @@ numberOfObsidians();
             ) {
             e.preventDefault();
         }
+
         if (e.key == 'F1') {
             e.preventDefault();
             hotbarHidden = !hotbarHidden;

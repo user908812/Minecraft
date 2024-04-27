@@ -15,7 +15,25 @@
 </head>
 <body>
     <section id="minecraft">
-        <h3 id="fps-counter">FPS: <span id="fps-value">0</span></h3>
+        <div id="config">
+            <span>Display: <span id="windowConfig"></span></span>
+            <br>
+            <span><b>FPS:</b> <span id="FPS"></span></span>
+            <br>
+            <span>Seed: <span id="seed"></span></span>
+            <br>
+            <span>XYZ: <span id="xyz"></span></span>
+            <br>
+            <span>Server IP: <span id="ipNum"></span></span>
+            <br>
+            <span>Block ID: <span id="blockHoverID">null</span></span>
+            <br>
+            <span>Mem: <span id="currentMemory"></span></span>
+            <br>
+            <span>Biome:<span id="selectedBiome"></span></span>
+            <br>
+            <span>minecraft:<span id="playerLocation"></span></span>
+        </div>
         <div id="toggleHPDisplay"><div id="hp-display">Health: <span id="hp"></span>❤️</div></div>
         <h1 class="clouds">By Orzech</h1>
         <div id="player"><img draggable="false" class="player" src="steve_standing.png" alt="steve.png"></div>
@@ -220,7 +238,8 @@
       <audio id="stoneBreaking" src="stone_breaking.mp4"></audio>
       <audio id="tntExplosion" src="tnt_explosion.mp4"></audio>
       <audio id="enteringNetherSound" src="entering_nether_sound.mp4"></audio>
-      <audio id="music" src="music.mp4" loop></audio>
+      <audio id="blazeSounds" src="blazeSounds.mp4"></audio>
+      <audio id="music" src="music.mp4" autoplay loop></audio>
 
     <script src="script.js"></script>
 </body>

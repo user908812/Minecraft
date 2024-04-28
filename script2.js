@@ -1,3 +1,20 @@
+document.addEventListener('DOMContentLoaded', function() {
+    var rememberMeCheckbox = document.getElementById('rememberMe');
+    var usernameInput = document.getElementById('username');
+    var storedUsername = localStorage.getItem('rememberedUsername');
+
+    if (storedUsername) {
+        rememberMeCheckbox.checked = true;
+        usernameInput.value = storedUsername;
+    }
+    rememberMeCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            localStorage.setItem('rememberedUsername', usernameInput.value);
+        } else {
+            localStorage.removeItem('rememberedUsername');
+        }
+    });
+});
 function updateTime() {
     let currentTime = new Date();
     let hours = currentTime.getHours().toString().padStart(2, '0');
@@ -36,7 +53,10 @@ function renderLauncherOnSubmit(event) {
         profilePicture = 'orzech.png';
     } else if (username == 'Daro' || username == 'Dariusz' || username == 'Darek' || username == 'Adrian' || username == 'Eminem' || username == 'Igor') {
         profilePicture = 'gigachad.png';
+    } else if (username == 'Null') {
+        profilePicture = 'null.png';
     }
+    localStorage.setItem('pfp', profilePicture);
 
     let launcherContainer = document.createElement('div');
     let launcher = `
@@ -52,11 +72,12 @@ function renderLauncherOnSubmit(event) {
         <div class="date"></div>
         <div class="time"></div>
         <div class="news">
-            <div id="newsDisplay"><span class="news-title">News</span> <span class="rainbowText">27/04/2024:</span></div>
+            <div id="newsDisplay"><span class="news-title">News</span> <span class="rainbowText">28/04/2024:</span></div>
             <ul>
                 <li>Fixed animations</li>
                 <li>Fixed player dying</li>
                 <li>Fixed player positions</li>
+                <li>New GUI in Game</li>
                 <li class="added">New username icons!</li>
                 <li class="added">Fixed when player goes out of field</li>
                 <li class="added">Added F3 Menu (toggled)</li>

@@ -18,17 +18,32 @@
                 <h1><img src="grass_block.png" draggable="false" alt="grass_block.png">By Orzech</h1>
                 <hr>
                 <h1>Sign in</h1>
-                <input type="text" name="username" id="username" placeholder="Enter username" minlength="4" maxlength="14" autofocus required autocomplete="username">
+                <input class="input" type="text" name="username" id="username" placeholder="Enter username" minlength="4" maxlength="14" autofocus required autocomplete="username">
                 <br><br>
-                <input type="email" name="email" id="email" placeholder="Email, phone or Skype" required autocomplete="email">
+                <input class="input" type="email" name="email" id="email" placeholder="Email, phone or Skype" required autocomplete="email">
                 <a class="forgot" href="https://youtu.be/dQw4w9WgXcQ?si=Tjyw2K6VBtNTJbgo">Forgot email?</a>
                 <br><br>
-                <input type="password" name="password" id="password" placeholder="Enter password" minlength="5" maxlength="20" required>
+                <input class="input" type="password" name="password" id="password" placeholder="Enter password" minlength="5" maxlength="20" required>
                 <a class="forgot" href="https://youtu.be/dQw4w9WgXcQ?si=Tjyw2K6VBtNTJbgo">Forgot password?</a>
+                <br><br>
+                <div id="remember-me">
+                    <input type="checkbox" id="rememberMe" name="rememberMe">
+                    <label for="rememberMe">Remember me</label>
+                </div>
                 <br><br>
                 <div class="button-container">
                     <button id="resetBtn" type="reset" class="btn">Reset</button>
                     <button id="nextBtn" type="submit" class="btn">Next</button>
+                </div>
+                <div id="skip-login-btn-container">
+                    <button id="skipLogin" 
+                    onclick=
+                    "
+                    localStorage.setItem('rememberedUsername', 'Null');
+                    localStorage.setItem('pfp', 'null.png');
+                    window.open('minecraft2.html', '_blank');
+                    "
+                    class="btn">Skip logging in</button>
                 </div>
             </div>
         </form>

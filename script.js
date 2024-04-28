@@ -7,9 +7,31 @@ mc.style.height = '908px';
 
 var FPS = 60;
 
+var storedUsername;
+var profilePicture;
+
+document.addEventListener('DOMContentLoaded', () => {
+    storedUsername = localStorage.getItem('rememberedUsername');
+    profilePicture = localStorage.getItem('pfp');
+
+    if (storedUsername && profilePicture) {
+        log(`Server: Downloaded from localStorage (username: ${storedUsername}, src: ${profilePicture}).`);
+    } else if (!storedUsername || !profilePicture ) {
+        log('Server: Error with downloading an account info!');
+        log('Server: The \'Remember me\' option may not have been checked.')
+        storedUsername = 'User';
+    }
+});
+
 var allGrassBlocks = [g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22];
 var allDirtBlocks = [d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22];
 var allStoneBlocks = [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22, s23, s24, s25, s26, s27, s28, s29, s30, s31, s32, s33, s34, s35, s36, s37, s38, s39, s40, s41, s42, s43, s44, s45, s46, s47, s48, s49, s50, s51, s52, s53, s54, s55, s56, s57, s58, s59, s60, s61, s62, s63, s64, s65, s66, s67, s68, s69, s70, s71, s72, s73, s74, s75, s76, s77, s78, s79, s80, s81, s82, s83, s84, s85, s86, s87, s88];
+
+var stoneBlocksInFirstLevel = [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22];
+var stoneBlocksInSecondLevel = [s23, s24, s25, s26, s27, s28, s29, s30, s31, s32, s33, s34, s35, s36, s37, s38, s39, s40, s41, s42, s43, s44];
+var stoneBlocksInThirdLevel = [s23, s46, s47, s48, s49, s50, s51, s52, s53, s54, s55, s56, s57, s58, s59, s60, s61, s62, s63, s64, s65, s66];
+var stoneBlocksInLastLevel = [s45, s46, s47, s48, s49, s50, s51, s52, s53, s54, s55, s56, s57, s58, s59, s60, s61, s62, s63, s64, s65, s66, s67, s68, s69, s70, s71, s72, s73, s74, s75, s76, s77, s78, s79, s80, s81, s82, s83, s84, s85, s86, s87, s88];
+
 var allBlocks = [g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22, d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22, s23, s24, s25, s26, s27, s28, s29, s30, s31, s32, s33, s34, s35, s36, s37, s38, s39, s40, s41, s42, s43, s44, s45, s46, s47, s48, s49, s50, s51, s52, s53, s54, s55, s56, s57, s58, s59, s60, s61, s62, s63, s64, s65, s66, s67, s68, s69, s70, s71, s72, s73, s74, s75, s76, s77, s78, s79, s80, s81, s82, s83, s84, s85, s86, s87, s88];
 
 var speech = new SpeechSynthesisUtterance;
@@ -25,6 +47,11 @@ var hotbarContainer = document.querySelector('.hotbar-container');
 var randomRowContainer = document.querySelector('.randomRowContainer');
 
 var grassBreaking = document.getElementById('grassBreaking');
+var sandBreaking = document.getElementById('sandBreaking');
+var sandstoneBreaking = document.getElementById('sandstoneBreaking');
+var waterSound = document.getElementById('waterSound');
+var iceBreaking = document.getElementById('iceBreaking');
+var netherrackBreaking = document.getElementById('netherrackBreaking');
 var dirtBreaking = document.getElementById('dirtBreaking');
 var stoneBreaking = document.getElementById('stoneBreaking');
 var tntExplosion = document.getElementById('tntExplosion');
@@ -143,44 +170,62 @@ if (running) {
 
     document.addEventListener('DOMContentLoaded', function() {
 
-        log('Server: Succesfully loaded the world.')
+        log('Server: Successfully loaded the world.');
+        music.play();
 
         var biomes = {
+
+            nether: {
+                ID: 0,
+                name: 'Nether',
+                isNetherBiome: false
+            },
             normal: {
                 ID: 1,
-                name: 'Normal'
+                name: 'Normal',
+                isNormalBiome: false
             },
             desert: { 
                 ID: 2,
-                name: 'Desert'
+                name: 'Desert',
+                isDesertBiome: false
             },
             icy: {
                 ID: 3,
-                name: 'Icy'
+                name: 'Icy',
+                isIcyBiome: false
             },
             snowy: {
                 ID: 4,
-                name: 'Snowy'
+                name: 'Snowy',
+                isSnowyBiome: false
+            },
+            mushroom: {
+                ID: 5,
+                name: 'Mushroom',
+                isMushroomBiome: false
             }
         }
-        var biomesArray = [biomes.normal.ID, biomes.desert.ID, biomes.normal.ID, biomes.icy.ID, biomes.snowy.ID];
+        var biomesArray = [biomes.normal.ID, biomes.desert.ID, biomes.normal.ID, biomes.icy.ID, biomes.snowy.ID, biomes.mushroom.ID];
         var b = Math.floor(Math.random() * biomesArray.length);
         var biome = biomesArray[b];
 
         if (biome == 1) {
+            biomes.normal.isNormalBiome = true;
             setInterval(() => {
                 if (isInOverworld && !isInNether) {
                     biomeDisplay = document.getElementById('selectedBiome').innerHTML = biomes.normal.name;
                 } else if (isInNether && !isInOverworld) {
-                    biomeDisplay = document.getElementById('selectedBiome').innerHTML = 'Nether';
+                    biomeDisplay = document.getElementById('selectedBiome').innerHTML = biomes.nether.name;
                 }
             }, 200);
         } else if (biome == 2) {
+            biomes.desert.isDesertBiome = true;
             setInterval(() => {
                 if (isInOverworld && !isInNether) {
                     biomeDisplay = document.getElementById('selectedBiome').innerHTML = biomes.desert.name;
                 } else if (isInNether && !isInOverworld) {
-                    biomeDisplay = document.getElementById('selectedBiome').innerHTML = 'Nether';
+                    biomeDisplay = document.getElementById('selectedBiome').innerHTML = biomes.nether.name;
                 }
             }, 200);
 
@@ -193,16 +238,18 @@ if (running) {
             allStoneBlocks.forEach(stoneBlockInStoneBlocks => {
                 stoneBlockInStoneBlocks.src = 'sandstone.png';
             });
+            stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => {
+                stoneBlockThirdLevel.src = 'stone_block.png';
+            });
         } else if (biome == 3) {
+            biomes.icy.isIcyBiome = true;
             setInterval(() => {
                 if (isInOverworld && !isInNether) {
                     biomeDisplay = document.getElementById('selectedBiome').innerHTML = biomes.icy.name;
                 } else if (isInNether && !isInOverworld) {
-                    biomeDisplay = document.getElementById('selectedBiome').innerHTML = 'Nether';
+                    biomeDisplay = document.getElementById('selectedBiome').innerHTML = biomes.nether.name;
                 }
             }, 200);
-
-            player.style.zIndex = '0';
 
             allGrassBlocks.forEach(grassBlockInGrassBlocks => {
                 grassBlockInGrassBlocks.src = 'ice_block.png';
@@ -213,12 +260,16 @@ if (running) {
             allStoneBlocks.forEach(stoneBlockInStoneBlocks => {
                 stoneBlockInStoneBlocks.src = 'water.png';
             });
+            stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => {
+                stoneBlockThirdLevel.src = 'stone_block.png';
+            });
         } else if (biome == 4) {
+            biomes.snowy.isSnowyBiome = true;
             setInterval(() => {
                 if (isInOverworld && !isInNether) {
                     biomeDisplay = document.getElementById('selectedBiome').innerHTML = biomes.snowy.name;
                 } else if (isInNether && !isInOverworld) {
-                    biomeDisplay = document.getElementById('selectedBiome').innerHTML = 'Nether';
+                    biomeDisplay = document.getElementById('selectedBiome').innerHTML = biomes.nether.name;
                 }
             }, 200);
 
@@ -231,9 +282,38 @@ if (running) {
             allStoneBlocks.forEach(stoneBlockInStoneBlocks => {
                 stoneBlockInStoneBlocks.src = 'stone_block.png';
             });
-        }
+            stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => {
+                stoneBlockThirdLevel.src = 'stone_block.png';
+            });
+        } else if (biome == 5) {
+            biomes.mushroom.isMushroomBiome = true;
+            setInterval(() => {
+                if (isInOverworld && !isInNether) {
+                    biomeDisplay = document.getElementById('selectedBiome').innerHTML = biomes.mushroom.name;
+                } else if (isInNether && !isInOverworld) {
+                    biomeDisplay = document.getElementById('selectedBiome').innerHTML = biomes.nether.name;
+                }
+            }, 200);
 
-        music.play();
+            allGrassBlocks.forEach(grassBlockInGrassBlocks => {
+                grassBlockInGrassBlocks.src = 'mycelium_block.png';
+            });
+            allDirtBlocks.forEach(dirtBlockInDirtBlocks => {
+                dirtBlockInDirtBlocks.src = 'dirt.png';
+            });
+            stoneBlocksInFirstLevel.forEach(stoneBlockInFirstLevel => {
+                stoneBlockInFirstLevel.src = 'dirt.png';
+            });
+            stoneBlocksInSecondLevel.forEach(stoneBlockInSecondLevel => {
+                stoneBlockInSecondLevel.src = 'stone_block.png';
+            });
+            stoneBlocksInThirdLevel.forEach(stoneBlockInThirdLevel => {
+                stoneBlockInThirdLevel.src = 'stone_block.png';
+            });
+            stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => {
+                stoneBlockThirdLevel.src = 'stone_block.png';
+            });
+        }
 
         let creeper = document.createElement('div');
         creeper.innerHTML = `<img id="creeper" draggable="false" src="creeper.png" alt="creeper.png">`;
@@ -252,7 +332,143 @@ if (running) {
                 }, 300);
             }
         });
+        
+        /* Warunek, gdy jest ustawiony dany biom */
+        setInterval(() => {
+            if (isInNether && !isInOverworld) {
 
+                allGrassBlocks.forEach(grassBlockInGrassBlocks => {
+                    grassBlockInGrassBlocks.addEventListener('click', () => {
+                        netherrackBreaking.play();
+                    });
+                });
+                allDirtBlocks.forEach(dirtBlockInDirtBlocks => {
+                    dirtBlockInDirtBlocks.addEventListener('click', () => {
+                        netherrackBreaking.play();
+                    });
+                });
+                allStoneBlocks.forEach(stoneBlockInStoneBlocks => {
+                    stoneBlockInStoneBlocks.addEventListener('click', () => {
+                        netherrackBreaking.play();
+                    });
+                });
+            } 
+        }, 500);
+        if (biomes.normal.isNormalBiome) {
+            allGrassBlocks.forEach(grassBlockInGrassBlocks => {
+                grassBlockInGrassBlocks.addEventListener('click', () => {
+                    grassBreaking.play();
+                });
+            });
+            allDirtBlocks.forEach(dirtBlockInDirtBlocks => {
+                dirtBlockInDirtBlocks.addEventListener('click', () => {
+                    dirtBreaking.play();
+                });
+            });
+            allStoneBlocks.forEach(stoneBlockInStoneBlocks => {
+                stoneBlockInStoneBlocks.addEventListener('click', () => {
+                    stoneBreaking.play();
+                });
+            });
+        } 
+        else if (biomes.desert.isDesertBiome) {
+            allGrassBlocks.forEach(grassBlockInGrassBlocks => {
+                grassBlockInGrassBlocks.addEventListener('click', () => {
+                    sandBreaking.play();
+                });
+            });
+            allDirtBlocks.forEach(dirtBlockInDirtBlocks => {
+                dirtBlockInDirtBlocks.addEventListener('click', () => {
+                    sandstoneBreaking.play();
+                });
+            });
+            stoneBlocksInFirstLevel.forEach(stoneBlockInFirstLevel => {
+                stoneBlockInFirstLevel.addEventListener('click', () => {
+                    sandstoneBreaking.play();
+                });
+            });
+            stoneBlocksInSecondLevel.forEach(stoneBlockInSecondLevel => {
+                stoneBlockInSecondLevel.addEventListener('click', () => {
+                    sandstoneBreaking.play();
+                });
+            });
+            stoneBlocksInThirdLevel.forEach(stoneBlockInThirdLevel => {
+                stoneBlockInThirdLevel.addEventListener('click', () => {
+                    stoneBreaking.play();
+                });
+            });
+        } 
+        else if (biomes.icy.isIcyBiome) {
+            allGrassBlocks.forEach(grassBlockInGrassBlocks => {
+                grassBlockInGrassBlocks.addEventListener('click', () => {
+                    iceBreaking.play();
+                });
+            });
+            allDirtBlocks.forEach(dirtBlockInDirtBlocks => {
+                dirtBlockInDirtBlocks.addEventListener('click', () => {
+                    waterSound.play();
+                });
+            });
+            stoneBlocksInFirstLevel.forEach(stoneBlockInFirstLevel => {
+                stoneBlockInFirstLevel.addEventListener('click', () => {
+                    waterSound.play();
+                });
+            });
+            stoneBlocksInSecondLevel.forEach(stoneBlockInSecondLevel => {
+                stoneBlockInSecondLevel.addEventListener('click', () => {
+                    waterSound.play();
+                });
+            });
+            stoneBlocksInThirdLevel.forEach(stoneBlockInThirdLevel => {
+                stoneBlockInThirdLevel.addEventListener('click', () => {
+                    stoneBreaking.play();
+                });
+            });
+        }
+        else if (biomes.snowy.isSnowyBiome) {
+            allGrassBlocks.forEach(grassBlockInGrassBlocks => {
+                grassBlockInGrassBlocks.addEventListener('click', () => {
+                    grassBreaking.play();
+                });
+            });
+            allDirtBlocks.forEach(dirtBlockInDirtBlocks => {
+                dirtBlockInDirtBlocks.addEventListener('click', () => {
+                    dirtBreaking.play();
+                });
+            });
+            allStoneBlocks.forEach(stoneBlockInStoneBlocks => {
+                stoneBlockInStoneBlocks.addEventListener('click', () => {
+                    stoneBreaking.play();
+                });
+            });
+        }
+        else if (biomes.mushroom.isMushroomBiome) {
+            allGrassBlocks.forEach(grassBlockInGrassBlocks => {
+                grassBlockInGrassBlocks.addEventListener('click', () => {
+                    grassBreaking.play();
+                });
+            });
+            allDirtBlocks.forEach(dirtBlockInDirtBlocks => {
+                dirtBlockInDirtBlocks.addEventListener('click', () => {
+                    dirtBreaking.play();
+                });
+            });
+            stoneBlocksInFirstLevel.forEach(stoneBlockInFirstLevel => {
+                stoneBlockInFirstLevel.addEventListener('click', () => {
+                    dirtBreaking.play();
+                });
+            });
+            stoneBlocksInSecondLevel.forEach(stoneBlockInSecondLevel => {
+                stoneBlockInSecondLevel.addEventListener('click', () => {
+                    stoneBreaking.play();
+                });
+            });
+            stoneBlocksInThirdLevel.forEach(stoneBlockInThirdLevel => {
+                stoneBlockInThirdLevel.addEventListener('click', () => {
+                    stoneBreaking.play();
+                });
+            });
+        }
         document.addEventListener('contextmenu', function(event) {
             event.preventDefault();
             let clickedPlace = document.createElement('div');
@@ -364,44 +580,44 @@ if (running) {
                 isGuiOpen = true;
                 let GuiInGameMenu = document.createElement('div');
                 GuiInGameMenu.innerHTML = `
-                <div class="gui">
-                <div class="top-elements">
-                    <button onclick="closeGUI()" class="close">X</button>
-                    <h1>Settings</h1>
+                <div id="menu">
+        <div id="account-info">
+            <div><img id="player-pfp" alt="player-pfp" src="${profilePicture}" draggable="false"></div>
+            <div><h1>Welcome </h1><span id="menuUsernameDisplay">${storedUsername}</span>!</div>
+        </div>
 
-                    <label for="music">Music:</label>
-                    <input type="range" name="music" id="vol" min="0" max="1" step="0.1" value="0.2" onchange="changeVolume()">
+    <div class="top-elements">
 
-                    <label class="graphic-title" for="graphic">Graphic: (broken)</label>
+        <div id="music-label">
+            <span>Music: </span>
+            <input type="range" name="music" id="vol" min="0" max="1" step="0.1" value="0.2" onchange="changeVolume()">
+        </div>
 
-                    <div class="graphic">
-                        <button onclick="setLowGraphic()" class="graphicBtn">Low</button>
-                        <button onclick="setNormalGraphic()" class="graphicBtn">Normal</button>
-                        <button onclick="setHighGraphic()" class="graphicBtn">High</button>
-                    </div>
-                </div>
-                <div class="chooseSkin">
-                    <h2>Choose your skin:</h2>
-                    <div class="skinsGUI">
-                        <div class="steve-div">
-                            <label id="steveLabel" for="steveSkin">Steve: </label>
-                            <img id="steveSkin" onclick="steveChosen()" src="steve_standing.png" alt="steve_standing.png" draggable="false">
-                        </div>
-                        <div class="alex-div">
-                            <label id="alexLabel" for="alexSkin">Alex: </label>
-                            <img id="alexSkin" onclick="alexChosen()" src="alex_standing.png" alt="alex_standing.png" draggable="false">
-                        </div>
-                        <div class="skin1-div">
-                            <label id="skin1Label" for="skin1Skin">Skin1: </label>
-                            <img id="skin1Skin" onclick="skin1Chosen()" src="skin1_standing.png" alt="skin1_standing.png" draggable="false">
-                        </div>
-                    </div>
-                </div>
-                <div id="serachForServersContainer">
-                    <input type="text" name="nick" id="nick" placeholder="Player nickname" minlength="4" maxlength="15" required autocomplete="nickname" autofocus>
-                    <button id="searchForServers" onclick="searchForServers()">Search for an Online Server</button>
-                </div>
+        <div class="graphic">
+            <label class="graphic-title" for="graphic">Graphic: <span style="color: red;">(broken)</span></label>
+            <button onclick="setLowGraphic()" class="graphicBtn">Low</button>
+            <button onclick="setNormalGraphic()" class="graphicBtn">Normal</button>
+            <button onclick="setHighGraphic()" class="graphicBtn">High</button>
+        </div>
+    </div>
+
+    <div class="chooseSkin">
+        <div class="skinsGUI">
+            <div class="steve-div">
+                <label id="steveLabel" for="steveSkin">Steve: </label>
+                <img id="steveSkin" onclick="steveChosen()" src="steve_standing.png" alt="steve_standing.png" draggable="false">
             </div>
+            <div class="alex-div">
+                <label id="alexLabel" for="alexSkin">Alex: </label>
+                <img id="alexSkin" onclick="alexChosen()" src="alex_standing.png" alt="alex_standing.png" draggable="false">
+            </div>
+            <div class="skin1-div">
+                <label id="skin1Label" for="skin1Skin">Skin1: </label>
+                <img id="skin1Skin" onclick="skin1Chosen()" src="skin1_standing.png" alt="skin1_standing.png" draggable="false">
+            </div>
+        </div>
+    </div>
+    </div>
                 `;
                 GuiInGameMenu.classList.add('gui-container');
                 document.body.appendChild(GuiInGameMenu);
@@ -412,14 +628,6 @@ if (running) {
             }
         }
     });
-    function searchForServers() {
-        let nickInput = document.getElementById('nick');
-        if (nickInput.value == '') {
-            window.alert('You need to type a nick!');
-        } else {
-            window.alert('We\'re working on this feature!');
-        }
-    }
     function changeMusicVolume() {
         var musicVolume = document.getElementById('vol').value;
         music.volume = musicVolume;
@@ -1958,178 +2166,112 @@ if (running) {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g1.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g2.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g2.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g3.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g3.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g4.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g4.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g5.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g5.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g6.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g6.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g7.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g7.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g8.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g8.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g9.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g9.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g10.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g10.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g11.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g11.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g12.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g12.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g13.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g13.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g14.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g14.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g15.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g15.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g16.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g16.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g17.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g17.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g18.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g18.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g19.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g19.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g20.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g20.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g21.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g21.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
         g22.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g22.hidden = true;
                 player.style.top = '350px';
-                grassBreaking.play();
-            } else {
-            }
-        });
+        }});
     }
     grassBlockBreak();
 
@@ -2138,178 +2280,112 @@ if (running) {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d1.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d2.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d2.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d3.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d3.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d4.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d4.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d5.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d5.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d6.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d6.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d7.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d7.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d8.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d8.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d9.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d9.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d10.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d10.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d11.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d11.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d12.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d12.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d13.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d13.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d14.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d14.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d15.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d15.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d16.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d16.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d17.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d17.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d18.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d18.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d19.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d19.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d20.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d20.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d21.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d21.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
         d22.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
-                d21.hidden = true;
+                d22.hidden = true;
                 player.style.top = '420px';
-                dirtBreaking.play();
-            } else {
-            }
-        });
+        }});
     }
     dirtBreak();
 
@@ -2318,530 +2394,332 @@ if (running) {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s1.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s2.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s2.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s3.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s3.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s4.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s4.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s5.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s5.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s6.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s6.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s7.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s7.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s8.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s8.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s9.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s9.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s10.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s10.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s11.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s11.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s12.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s12.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s13.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s13.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s14.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s14.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s15.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s15.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s16.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s16.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s17.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s17.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s18.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s18.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s19.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s19.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s20.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s20.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s21.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s21.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s22.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s22.hidden = true;
                 player.style.top = '490px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s23.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s23.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s24.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s24.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s25.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s25.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s26.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s26.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s27.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s27.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s28.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s28.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s29.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s29.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s30.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s30.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s31.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s31.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s32.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s32.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s33.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s33.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s34.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s34.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s35.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s35.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s36.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s36.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s37.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s37.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s38.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s38.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s39.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s39.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s40.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s40.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s41.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s41.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s42.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s42.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s43.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s43.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s44.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s44.hidden = true;
                 player.style.top = '570px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s45.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s45.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s46.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s46.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s47.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s47.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s48.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s48.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s49.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s49.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s50.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s50.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s51.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s51.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s52.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s52.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s53.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s53.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s54.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s54.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s55.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s55.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s56.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s56.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s57.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s57.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s58.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s58.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s59.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s59.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s60.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s60.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s61.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s61.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s62.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s62.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s63.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s63.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s64.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s64.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s65.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s65.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
         s66.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s66.hidden = true;
                 player.style.top = '650px';
-                stoneBreaking.play();
-            } else {
-            }
-        });
+        }});
     }
     stoneBlockBreak();
 

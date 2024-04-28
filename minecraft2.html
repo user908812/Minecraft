@@ -30,7 +30,7 @@
             <br>
             <span>Mem: <span id="currentMemory"></span></span>
             <br>
-            <span>Biome:<span id="selectedBiome"></span></span>
+            <span>Biome: <span id="selectedBiome"></span></span>
             <br>
             <span>minecraft:<span id="playerLocation"></span></span>
         </div>
@@ -222,7 +222,7 @@
         <img title="Oak Planks" id="oak_plank" class="block" onclick="oakPlanksChosen()" draggable="false" src="oak_plank.png" alt="oak_plank.png">
         <img title="Cobblestone" id="cobblestone" class="block" onclick="cobbleStoneChosen()" draggable="false" src="cobblestone.png" alt="cobblestone.png">
         <img title="Stone" id="stone" class="block" onclick="stoneChosen()" draggable="false" src="stone_block.png" alt="stone_block.png">
-        <img title="tnt" id="tnt" class="block" onclick="tntChosen()" draggable="false" src="tnt.png" alt="tnt.png">
+        <img title="TNT" id="tnt" class="block" onclick="tntChosen()" draggable="false" src="tnt.png" alt="tnt.png">
         <img title="Barrier" id="barrier" class="block" onclick="barrierChosen()" draggable="false" src="barrier.png" alt="barrier.png">
         <img title="Oak Leaves" id="oak_leaves" class="block" onclick="oakLeavesChosen()" draggable="false" src="oak_leaves.png" alt="oak_leaves.png">
         <img title="Dirt" id="dirt" class="block" onclick="dirtChosen()" draggable="false" src="dirt.png" alt="dirt.png">
@@ -233,14 +233,62 @@
     </section>
     
       <audio id="explosionSound" src="creeper_sound.mp4"></audio>
+      <audio id="waterSound" src="water_sound.mp4"></audio>
       <audio id="grassBreaking" src="grass_breaking.mp4"></audio>
+      <audio id="sandBreaking" src="sand_breaking.mp4"></audio>
+      <audio id="sandstoneBreaking" src="sandstone_breaking.mp4"></audio>
+      <audio id="netherrackBreaking" src="netherrack_breaking.mp4"></audio>
+      <audio id="iceBreaking" src="ice_breaking.mp4"></audio>
       <audio id="dirtBreaking" src="dirt_breaking.mp4"></audio>
       <audio id="stoneBreaking" src="stone_breaking.mp4"></audio>
       <audio id="tntExplosion" src="tnt_explosion.mp4"></audio>
       <audio id="enteringNetherSound" src="entering_nether_sound.mp4"></audio>
       <audio id="blazeSounds" src="blazeSounds.mp4"></audio>
-      <audio id="music" src="music.mp4" autoplay loop></audio>
+      <audio id="music" src="music.mp4" loop></audio>
 
     <script src="script.js"></script>
 </body>
 </html>
+
+<!-- 
+    
+    TODO: REMOVE OLD GUI 
+    
+    <div class="gui">
+    <div class="top-elements">
+        <button onclick="closeGUI()" class="close">X</button>
+        <h1>Settings</h1>
+
+        <label for="music">Music:</label>
+        <input type="range" name="music" id="vol" min="0" max="1" step="0.1" value="0.2" onchange="changeVolume()">
+
+        <label class="graphic-title" for="graphic">Graphic: <span style="color: red;">(broken)</span></label>
+
+        <div class="graphic">
+            <button onclick="setLowGraphic()" class="graphicBtn">Low</button>
+            <button onclick="setNormalGraphic()" class="graphicBtn">Normal</button>
+            <button onclick="setHighGraphic()" class="graphicBtn">High</button>
+        </div>
+    </div>
+    <div class="chooseSkin">
+        <h2>Choose your skin:</h2>
+        <div class="skinsGUI">
+            <div class="steve-div">
+                <label id="steveLabel" for="steveSkin">Steve: </label>
+                <img id="steveSkin" onclick="steveChosen()" src="steve_standing.png" alt="steve_standing.png" draggable="false">
+            </div>
+            <div class="alex-div">
+                <label id="alexLabel" for="alexSkin">Alex: </label>
+                <img id="alexSkin" onclick="alexChosen()" src="alex_standing.png" alt="alex_standing.png" draggable="false">
+            </div>
+            <div class="skin1-div">
+                <label id="skin1Label" for="skin1Skin">Skin1: </label>
+                <img id="skin1Skin" onclick="skin1Chosen()" src="skin1_standing.png" alt="skin1_standing.png" draggable="false">
+            </div>
+        </div>
+    </div>
+    <div id="serachForServersContainer">
+        <input type="text" name="nick" id="nick" placeholder="Player nickname" minlength="4" maxlength="15" required autocomplete="nickname" autofocus>
+        <button id="searchForServers" onclick="searchForServers()">Search for an Online Server</button>
+    </div>
+</div> -->

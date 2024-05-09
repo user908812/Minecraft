@@ -11,13 +11,11 @@ body {
     justify-content: center;
     background: url('background.png');
     background-attachment: fixed;
-    height: 920px;
 
     -webkit-user-select: none; /* Safari */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* MS Edge */
     user-select: none;
-
 }
 .gui {
     z-index: 1;
@@ -35,15 +33,16 @@ body {
     grid-template-columns: repeat(2, 100px);
 }
 .close {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 25px;
     height: 25px;
     cursor: pointer;
     border-radius: 12px;
-    background-color: red;
+    background-color: #808080;
     font-weight: bold;
     border: none;
-    margin-top: 5px;
-    margin-left: 65px;
 }
 .graphic {
     margin-left: -120px;
@@ -74,7 +73,9 @@ body {
     background-color: #b2c0f5;
 }
 #minecraft {
-    margin-top: 50px;
+    width: 1762px;
+    height: 908px;
+    margin-top: 10px;
     border: 1px solid #000;
     background: url('sky.png');
 }
@@ -85,7 +86,7 @@ body {
     font-size: 60px;
     text-shadow: 1px 1px 1px #000;
     margin-left: 1450px;
-    margin-top: -20px;
+    margin-top: -160px;
 }
 .player {
     z-index: 0;
@@ -402,7 +403,8 @@ body {
     left: -1200px;
 }
 .inventory-title {
-    margin-left: 60px;
+    margin-left: 230px;
+    color: #fff;
 }
 .gui-inventory {
     z-index: 1;
@@ -411,7 +413,7 @@ body {
     border: 1px solid #000;
     width: 500px;
     height: 500px;
-    background-color: grey;
+    background-color: #333;
 }
 .chat {
     z-index: 1;
@@ -420,7 +422,6 @@ body {
     border: 1px solid #000;
     width: 500px;
     height: 500px;
-    background-color: grey;
 }
 .blocks-display {
     margin-left: 20px;
@@ -510,7 +511,7 @@ label {
     top: 40px;
     left: 90px;
     background-color: rgba(0, 0, 0, 0.2);
-    color: white;
+    color: #fff;
     padding: 5px 10px;
     font-family: Arial, sans-serif;
     font-size: 14px;
@@ -539,7 +540,7 @@ label {
     text-shadow: 2px 2px 2px #000;
     position: relative;
     left: 10px;
-    top: 850px;
+    top: 680px;
 }
 #nick {
     padding: 8px 16px;
@@ -555,14 +556,14 @@ label {
 #config {
     z-index: 0;
     position: absolute;
-    top: 120px;
+    top: 100px;
     right: 20px;
     width: 250px;
     height: 200px;
 }
 #menu {
     background-color: #333;
-    color: white;
+    color: #fff;
     padding: 100px;
 
     z-index: 1;
@@ -571,7 +572,7 @@ label {
     left: -1000px;
     border: 1px solid #000;
     width: 350px;
-    height: 400px;
+    height: 450px;
 }
 #account-info {
     margin-top: -90px;
@@ -584,4 +585,26 @@ label {
 }
 #menuUsernameDisplay {
     margin-left: 40px;
+}
+#pauseButton, #chatButton, #supriseButton {
+    cursor: pointer;
+    padding: 10px 15px;
+}
+#leftBTN {
+    margin-left: 80px;
+}
+.mobileButton {
+    margin-top: 30px;
+    width: 80px;
+    height: 80px;
+    background-color: grey;
+    cursor: pointer;
+}
+#controls-settings { padding-top: 20px; }
+#controlsStatus { cursor: pointer; }
+#btnToggleControls {
+    padding: 10px 20px;
+}
+.cloudsFix {
+    vertical-align: middle;
 }

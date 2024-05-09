@@ -2,13 +2,9 @@ var log = console.log.bind(document), warn = console.warn.bind(document);
 
 var mc = document.getElementById('minecraft');
 
-mc.style.width = '1762px';
-mc.style.height = '908px';
-
 var FPS = 60;
 
-var storedUsername;
-var profilePicture;
+var storedUsername, profilePicture;
 
 document.addEventListener('DOMContentLoaded', () => {
     storedUsername = localStorage.getItem('rememberedUsername');
@@ -18,11 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
         log(`Server: Downloaded from localStorage (username: ${storedUsername}, src: ${profilePicture}).`);
     } else if (!storedUsername || !profilePicture ) {
         log('Server: Error with downloading an account info!');
-        log('Server: The \'Remember me\' option may not have been checked.')
-        storedUsername = 'User';
+        log('Server: The \'Remember me\' option may not have been checked.');
+        alert('You need to login first!');
+        window.close();
     }
 });
-
 var allGrassBlocks = [g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, g15, g16, g17, g18, g19, g20, g21, g22];
 var allDirtBlocks = [d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22];
 var allStoneBlocks = [s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22, s23, s24, s25, s26, s27, s28, s29, s30, s31, s32, s33, s34, s35, s36, s37, s38, s39, s40, s41, s42, s43, s44, s45, s46, s47, s48, s49, s50, s51, s52, s53, s54, s55, s56, s57, s58, s59, s60, s61, s62, s63, s64, s65, s66, s67, s68, s69, s70, s71, s72, s73, s74, s75, s76, s77, s78, s79, s80, s81, s82, s83, s84, s85, s86, s87, s88];
@@ -58,12 +54,16 @@ var tntExplosion = document.getElementById('tntExplosion');
 var explosionSound = document.getElementById('explosionSound');
 var enteringNetherSound = document.getElementById('enteringNetherSound');
 var blazeSounds = document.getElementById('blazeSounds');
+var gamemodeDisplay = document.getElementById('gamemodeDisplay');
+var toggleHPDisplay = document.getElementById('toggleHPDisplay');
+var mobileControls = document.getElementById('mobileControls');
+var cloudsTitle = document.getElementById('clouds');
 
 /*  CONFIG  */
 
 var F3config = document.getElementById('config');
 
-var windowConfig = document.getElementById('windowConfig').innerHTML = `${mc.style.width.slice(0, 4)}x${mc.style.height.slice(0, 3)}`;
+var windowConfig = document.getElementById('windowConfig').innerHTML = `1762x908`;
 var FPSDisplay = document.getElementById('FPS').innerHTML = FPS;
 
 setInterval(() => {
@@ -72,7 +72,7 @@ setInterval(() => {
     var playerRightPos = playerLeftPos / playerTopPos + 10;
     var XYZDisplay = document.getElementById('xyz').innerHTML = `${playerLeftPos.toFixed(1)} / ${playerTopPos.toFixed(1)} / ${playerRightPos.toFixed(1)}`;
 
-    if (playerLeftPos < -50 || playerLeftPos >= 1760) {
+    if (playerLeftPos < -50 || playerLeftPos >= 1740) {
         window.location.reload();
     }
 }, 200);
@@ -124,6 +124,7 @@ var playerPosition = 0;
 var isGuiOpen = false;
 var isInNether = false;
 var isInOverworld = true;
+var allowedPlacingBlocks = true;
 var chat = null;
 var menu;
 var isInventoryOpen;
@@ -168,44 +169,44 @@ var running = true;
 
 if (running) {
 
-    document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
 
         log('Server: Successfully loaded the world.');
         music.play();
 
         var biomes = {
-
             nether: {
                 ID: 0,
                 name: 'Nether',
-                isNetherBiome: false
+                isNetherBiome: false,
             },
             normal: {
                 ID: 1,
                 name: 'Normal',
-                isNormalBiome: false
+                isNormalBiome: false,
             },
             desert: { 
                 ID: 2,
                 name: 'Desert',
-                isDesertBiome: false
+                isDesertBiome: false,
             },
             icy: {
                 ID: 3,
                 name: 'Icy',
-                isIcyBiome: false
+                isIcyBiome: false,
             },
             snowy: {
                 ID: 4,
                 name: 'Snowy',
-                isSnowyBiome: false
+                isSnowyBiome: false,
             },
             mushroom: {
                 ID: 5,
                 name: 'Mushroom',
-                isMushroomBiome: false
+                isMushroomBiome: false,
             }
         }
+
         var biomesArray = [biomes.normal.ID, biomes.desert.ID, biomes.normal.ID, biomes.icy.ID, biomes.snowy.ID, biomes.mushroom.ID];
         var b = Math.floor(Math.random() * biomesArray.length);
         var biome = biomesArray[b];
@@ -478,31 +479,42 @@ if (running) {
             clickedPlace.style.position = 'absolute';
             clickedPlace.style.width = '50px';
             clickedPlace.style.height = '50px';
-            if (oakPlanks) {
+            if (allowedPlacingBlocks && oakPlanks) {
                 clickedPlace.style.background = "url('oak_plank.png')";
-            } else if (cobbleStone) {
+                log(`Client: Oak planks placed at x: ${event.clientX - 84}.`);
+            } else if (allowedPlacingBlocks && cobbleStone) {
                 clickedPlace.style.background = "url('cobblestone.png')";
-            } else if (sandStone) {
+                log(`Client: Cobblestone placed at x: ${event.clientX - 84}.`);
+            } else if (allowedPlacingBlocks && sandStone) {
                 clickedPlace.style.background = "url('sandstone.png')";
-            } else if (oakLeaves) {
+                log(`Client: Sandstone block placed at x: ${event.clientX - 84}.`);
+            } else if (allowedPlacingBlocks && oakLeaves) {
                 clickedPlace.style.background = "url('oak_leaves.png')";
-            } else if (dirt) {
+                log(`Client: Oak leaves placed at x: ${event.clientX - 84}.`);
+            } else if (allowedPlacingBlocks && dirt) {
                 clickedPlace.style.background = "url('dirt.png')";
-            } else if (stone) {
+                log(`Client: Dirt block placed at x: ${event.clientX - 84}.`);
+            } else if (allowedPlacingBlocks && stone) {
                 clickedPlace.style.background = "url('stone_block.png')";
-            } else if (whiteWool) {
+                log(`Client: Stone block placed at x: ${event.clientX - 84}.`);
+            } else if (allowedPlacingBlocks && whiteWool) {
                 clickedPlace.style.background = "url('white_wool.png')";
-            } else if (diamondBlock) {
+                log(`Client: White wool placed at x: ${event.clientX - 84}.`);
+            } else if (allowedPlacingBlocks && diamondBlock) {
                 clickedPlace.style.background = "url('diamond_block.png')";
-            } else if (obsidianBlock) {
+                log(`Client: Diamond block placed at x: ${event.clientX - 84}.`);
+            } else if (allowedPlacingBlocks && obsidianBlock) {
                 clickedPlace.style.background = "url('obsidian.png')";
-            } else if (barrierBlock) {
+                log(`Client: Obsidian block placed at x: ${event.clientX - 84}.`);
+            } else if (allowedPlacingBlocks && barrierBlock) {
                 clickedPlace.style.background = "url('barrier.png')";
+                log(`Client: Barrier block placed at x: ${event.clientX - 84}.`);
                 setTimeout(() => {
                     clickedPlace.style.display = 'none';
                 }, 2000);
-            }  else if (tntBlock) {
+            }  else if (allowedPlacingBlocks && tntBlock) {
                 clickedPlace.style.background = "url('tnt.png')";
+                log(`Client: TNT placed at x: ${event.clientX - 84}.`);
 
                 let blocksToTNTDestroy = 
                 [g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12,
@@ -569,11 +581,11 @@ if (running) {
             clickedPlace.addEventListener('click', () => {
                 if (!tntBlock) {
                     clickedPlace.hidden = true;
+                    log(`Client: Some block was removed at x: ${event.clientX - 84}.`);
                 }
             });
         });
     });
-    
     document.body.addEventListener('keydown', (e) => {
         if (e.key == 'Escape') {
             if (!isGuiOpen) {
@@ -581,6 +593,75 @@ if (running) {
                 let GuiInGameMenu = document.createElement('div');
                 GuiInGameMenu.innerHTML = `
                 <div id="menu">
+                <button class="close" onclick="closeGUI()">X</button>
+        <div id="account-info">
+            <div><img id="player-pfp" alt="player-pfp" src="${profilePicture}" draggable="false"></div>
+            <div><h1>Welcome </h1><span id="menuUsernameDisplay">${storedUsername}</span>!</div>
+        </div>
+    <div class="top-elements">
+
+        <div id="music-label">
+            <span>Music: </span>
+            <input type="range" name="music" id="vol" min="0" max="1" step="0.1" value="0.2" onchange="changeVolume()">
+        </div>
+
+        <div class="graphic">
+            <label class="graphic-title" for="graphic">Graphic: <span style="color: red;">(broken)</span></label>
+            <button onclick="setLowGraphic()" class="graphicBtn">Low</button>
+            <button onclick="setNormalGraphic()" class="graphicBtn">Normal</button>
+            <button onclick="setHighGraphic()" class="graphicBtn">High</button>
+        </div>
+    </div>
+
+    <div class="chooseSkin">
+        <div class="skinsGUI">
+            <div class="steve-div">
+                <label id="steveLabel" for="steveSkin">Steve: </label>
+                <img id="steveSkin" onclick="steveChosen()" src="steve_standing.png" alt="steve_standing.png" draggable="false">
+            </div>
+            <div class="alex-div">
+                <label id="alexLabel" for="alexSkin">Alex: </label>
+                <img id="alexSkin" onclick="alexChosen()" src="alex_standing.png" alt="alex_standing.png" draggable="false">
+            </div>
+            <div class="skin1-div">
+                <label id="skin1Label" for="skin1Skin">Skin1: </label>
+                <img id="skin1Skin" onclick="skin1Chosen()" src="skin1_standing.png" alt="skin1_standing.png" draggable="false">
+            </div>
+        </div>
+    </div>
+    <div>
+        <label for="btnToggleControls">Mobile controls: </label>
+        <button id="btnToggleControls" onclick="toggleMobileControls()">ON/OFF</button>
+    </div>
+    </div>
+                `;
+                GuiInGameMenu.classList.add('gui-container');
+                document.body.appendChild(GuiInGameMenu);
+            } else {
+                isGuiOpen = false;
+                let GuiInGameMenu = document.querySelector('.gui-container');
+                GuiInGameMenu.remove();
+            }
+        }
+    });
+
+    function toggleMobileControls() {
+        if (!mobileControls.hidden) {
+            mobileControls.hidden = true;
+            cloudsTitle.classList.add('cloudsFix');
+        } else {
+            mobileControls.hidden = false;
+            cloudsTitle.classList.remove('cloudsFix');
+        }
+    }
+
+    function pauseGameButton() {
+        if (!isGuiOpen) {
+            isGuiOpen = true;
+            let GuiInGameMenu = document.createElement('div');
+            GuiInGameMenu.innerHTML = `
+            <div id="menu">
+                <button class="close" onclick="closeGUI()">X</button>
         <div id="account-info">
             <div><img id="player-pfp" alt="player-pfp" src="${profilePicture}" draggable="false"></div>
             <div><h1>Welcome </h1><span id="menuUsernameDisplay">${storedUsername}</span>!</div>
@@ -618,16 +699,15 @@ if (running) {
         </div>
     </div>
     </div>
-                `;
-                GuiInGameMenu.classList.add('gui-container');
-                document.body.appendChild(GuiInGameMenu);
-            } else {
-                isGuiOpen = false;
-                let GuiInGameMenu = document.querySelector('.gui-container');
-                GuiInGameMenu.remove();
-            }
+            `;
+            GuiInGameMenu.classList.add('gui-container');
+            document.body.appendChild(GuiInGameMenu);
+        } else {
+            isGuiOpen = false;
+            let GuiInGameMenu = document.querySelector('.gui-container');
+            GuiInGameMenu.remove();
         }
-    });
+    }
     function changeMusicVolume() {
         var musicVolume = document.getElementById('vol').value;
         music.volume = musicVolume;
@@ -1773,7 +1853,6 @@ if (running) {
             s88.setAttribute('src', 'high_netherrack.png');
         }
     }
-
     document.body.addEventListener('keydown', (e) => { 
     if (e.key === 'Control') {
         ctrlPressed = true;
@@ -1809,7 +1888,6 @@ if (running) {
             player.style.left = playerPosition + 'px';
         }
     } else if (e.key == 'ArrowUp' || e.key == ' ') {
-        e.preventDefault();
         walking = false;
         player.classList.add('jump');
 
@@ -1817,6 +1895,7 @@ if (running) {
             player.classList.remove('jump');
         }, 500);
     } else if (e.key == 'ArrowRight') {
+        e.preventDefault();
         if (playerCrouching) {
             player.src = 'steve_crouching.png';
             playerPosition += 4;
@@ -1829,6 +1908,39 @@ if (running) {
         }
     }
 });
+    function mobileControlsMethod(method) {
+        if (method == 'left') {
+            if (playerCrouching) {
+                player.src = 'steve_crouching_reversed.png';
+                playerPosition -= 30;
+                player.style.left = playerPosition + 'px';
+            } else {
+                player.src = 'steve_standing_revered.png';
+                walking = true;
+                playerPosition -= 50;
+                player.style.left = playerPosition + 'px';
+            }
+        } else if (method == 'crouch') {
+            if (!playerCrouching) {
+                player.src = 'steve_crouching.png';
+                playerCrouching = true;
+            } else {
+                player.src = 'steve_standing.png';
+                playerCrouching = false;
+            }
+        } else if (method == 'right') {
+            if (playerCrouching) {
+                player.src = 'steve_crouching.png';
+                playerPosition += 30;
+                player.style.left = playerPosition + 'px';
+            } else {
+                player.src = 'steve_standing.png';
+                walking = true;
+                playerPosition += 50;
+                player.style.left = playerPosition + 'px';
+            }
+        }
+    }
     function steveChosen() {
         isSteveChosen = true;
         isAlexChosen = false;
@@ -1865,6 +1977,7 @@ if (running) {
                 }
             }
         });
+        log('Client: Skin changed to Steve.');
     }
     function alexChosen() {
         isSteveChosen = false;
@@ -1899,6 +2012,7 @@ if (running) {
                 }
             }
         });
+        log('Client: Skin changed to Alex.');
     }
     function skin1Chosen() {
         isSteveChosen = false;
@@ -1933,11 +2047,14 @@ if (running) {
                 }
             }
         });
+        log('Client: Skin changed to Skin1.');
     }
     document.body.addEventListener('keydown', (e) => {
         if (e.key == '/') {
-            e.preventDefault();
-            player.style.top = '260px';
+            if (player.style.top != '260px') {
+                log(`Server: Teleported ${storedUsername} to the normal position.`);
+                player.style.top = '260px';
+            }
         }
     });
     document.body.addEventListener('keyup', (e) => {
@@ -1956,9 +2073,11 @@ if (running) {
                 chat.style.fontWeight = 'bold';
 
                 document.body.append(chat);
+                log('Server: The chat has been opened.');
             } else {
                 chat.removeAttribute('hidden');
                 chat.value = '';
+                log('Server: The chat has been opened.');
             }
         }
         if (e.key === 'F2') {
@@ -1969,14 +2088,46 @@ if (running) {
 
                 if (message == '/kill' || message == '/kill @s' || message == '/kill @p') {
                     player.style.display = 'none';
+                    log(`Server: ${storedUsername} died.`);
                 }
                 if (message == '/kill @a') {
                     creeper.style.display = 'none';
                     player.style.display = 'none';
+                    log(`Server: ${storedUsername} and creeper died.`);
                 }
                 if (message == '/kill @e[type=creeper]') {
                     creeper.style.display = 'none';
+                    log(`Server: Creeper died.`);
                 }
+
+                if (message == '/gamemode s' || message == '/gamemode survival' || message == '/gamemode 0') {
+                    gamemodeDisplay.innerHTML = 'Survival';
+                    playerHP = 10;
+                    setInterval(() => {
+                        toggleHPDisplay.innerHTML = `<div id="hp-display">Health: <span id="hp">${playerHP}</span>❤️</div>`;
+                    }, 10);
+                    allowedPlacingBlocks = true;
+                    log('Client: Gamemode has been set to survival.');
+                }
+                if (message == '/gamemode c' || message == '/gamemode creative' || message == '/gamemode 1') {
+                    gamemodeDisplay.innerHTML = 'Creative';
+                    toggleHPDisplay.innerHTML = null;
+                    playerHP = Infinity;
+                    allowedPlacingBlocks = true;
+                    log('Client: Gamemode has been set to creative.');
+                }
+                if (message == '/gamemode a' || message == '/gamemode adventure' || message == '/gamemode 2') {
+                    gamemodeDisplay.innerHTML = 'Adventure';
+                    playerHP = 10;
+                    setInterval(() => {
+                        toggleHPDisplay.innerHTML = `<div id="hp-display">Health: <span id="hp">${playerHP}</span>❤️</div>`;
+                    }, 10);
+                    allowedPlacingBlocks = false;
+                    log('Client: Gamemode has been set to adventure.');
+                }
+
+                log(`Client: "${String(message)}".`);
+                log('Server: The chat has been closed.');
 
                 if (message.startsWith('.r')) {
                     chat.setAttribute('hidden', true);
@@ -2160,117 +2311,220 @@ if (running) {
             }
         }
     });
+    let chatOpen = false;
+    let chat;
+    function openChatButton() {
+        if (!chatOpen) {
+            chat = document.createElement('textarea');
+            chat.setAttribute('placeholder', `Press \'F2\' to send the message.\n`);
+            chat.setAttribute('autofocus', true);
+            chat.style.width = '1000px';
+            chat.style.height = '500px';
+            chat.style.fontSize = '15px';
+            chat.style.backgroundColor = '#232533';
+            chat.style.color = '#ff69b4';
+            chat.style.fontWeight = 'bold';
+    
+            document.body.append(chat);
 
+            log('Server: The chat has been opened.');
+    
+            chatOpen = true;
+        } else {
+            let message = chat.value;
+            speech.text = chat.value;
+            window.speechSynthesis.speak(speech);
+    
+            if (message == '/kill' || message == '/kill @s' || message == '/kill @p') {
+                player.style.display = 'none';
+            }
+            if (message == '/kill @a') {
+                creeper.style.display = 'none';
+                player.style.display = 'none';
+            }
+            if (message == '/kill @e[type=creeper]') {
+                creeper.style.display = 'none';
+            }
+
+            if (message == '/gamemode s' || message == '/gamemode 0') {
+                toggleHPDisplay.innerHTML = '<div id="hp-display">Health: <span id="hp"></span>❤️</div>';
+                playerHP = 10;
+                allowedPlacingBlocks = true;
+                log('Client: Gamemode has been set to survival.');
+            }
+            if (message == '/gamemode c' || message == '/gamemode 1') {
+                toggleHPDisplay.innerHTML = null;
+                playerHP = Infinity;
+                allowedPlacingBlocks = true;
+                log('Client: Gamemode has been set to creative.');
+            }
+            if (message == '/gamemode a' || message == '/gamemode 2') {
+                toggleHPDisplay.innerHTML = '<div id="hp-display">Health: <span id="hp"></span>❤️</div>';
+                playerHP = 10;
+                allowedPlacingBlocks = false;
+                log('Client: Gamemode has been set to adventure.');
+            }
+             else {
+                chat.setAttribute('hidden', true);
+    
+                let messageContainer = document.createElement('div');
+    
+                messageContainer.classList.add('message');
+    
+                messageContainer.innerHTML = message;
+                document.body.append(messageContainer);
+                setTimeout(() => {
+                    messageContainer.setAttribute('hidden', true);
+                }, 3500);
+            }
+            chatOpen = false;
+        }
+    }
+    function supriseButton() {
+        log('Server: Suprise button has been activated.');
+        mc.hidden = true;
+        setTimeout(() => {
+            let supriseVID = document.createElement('video');
+            supriseVID.width = 1280;
+            supriseVID.height = 720;
+            supriseVID.src = 'suprise.mp4';
+            supriseVID.autoplay = true;
+            supriseVID.loop = true;
+            document.body.append(supriseVID);
+        }, 500);
+    }
     function grassBlockBreak() {
         g1.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g1.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 1 has been destroyed.`);
         }});
         g2.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g2.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 2 has been destroyed.`);
         }});
         g3.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g3.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 3 has been destroyed.`);
         }});
         g4.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g4.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 4 has been destroyed.`);
         }});
         g5.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g5.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 5 has been destroyed.`);
         }});
         g6.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g6.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 6 has been destroyed.`);
         }});
         g7.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g7.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 7 has been destroyed.`);
         }});
         g8.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g8.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 8 has been destroyed.`);
         }});
         g9.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g9.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 9 has been destroyed.`);
         }});
         g10.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g10.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 10 has been destroyed.`);
         }});
         g11.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g11.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 11 has been destroyed.`);
         }});
         g12.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g12.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 12 has been destroyed.`);
         }});
         g13.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g13.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 13 has been destroyed.`);
         }});
         g14.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g14.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 14 has been destroyed.`);
         }});
         g15.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g15.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 15 has been destroyed.`);
         }});
         g16.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g16.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 16 has been destroyed.`);
         }});
         g17.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g17.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 17 has been destroyed.`);
         }});
         g18.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g18.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 18 has been destroyed.`);
         }});
         g19.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g19.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 19 has been destroyed.`);
         }});
         g20.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g20.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 20 has been destroyed.`);
         }});
         g21.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g21.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 21 has been destroyed.`);
         }});
         g22.addEventListener('click', () => {
             if (player.style.top == '260px' || player.style.top == '350px' || player.style.top == '420px') {
                 g22.hidden = true;
                 player.style.top = '350px';
+                log(`Server: The grass block with ID: 22 has been destroyed.`);
         }});
     }
     grassBlockBreak();
@@ -2280,111 +2534,133 @@ if (running) {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d1.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 1 has been destroyed.`);
         }});
         d2.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d2.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 2 has been destroyed.`);
         }});
         d3.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d3.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 3 has been destroyed.`);
         }});
         d4.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d4.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 4 has been destroyed.`);
         }});
         d5.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d5.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 5 has been destroyed.`);
         }});
         d6.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d6.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 6 has been destroyed.`);
         }});
         d7.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d7.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 7 has been destroyed.`);
         }});
         d8.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d8.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 8 has been destroyed.`);
         }});
         d9.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d9.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 9 has been destroyed.`);
         }});
         d10.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d10.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 10 has been destroyed.`);
         }});
         d11.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d11.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 11 has been destroyed.`);
         }});
         d12.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d12.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 12 has been destroyed.`);
         }});
         d13.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d13.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 13 has been destroyed.`);
         }});
         d14.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d14.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 14 has been destroyed.`);
         }});
         d15.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d15.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 15 has been destroyed.`);
         }});
         d16.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d16.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 16 has been destroyed.`);
         }});
         d17.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d17.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 17 has been destroyed.`);
         }});
         d18.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d18.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 18 has been destroyed.`);
         }});
         d19.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d19.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 19 has been destroyed.`);
         }});
         d20.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d20.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 20 has been destroyed.`);
         }});
         d21.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d21.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 21 has been destroyed.`);
         }});
         d22.addEventListener('click', () => {
             if (player.style.top == '350px' || player.style.top == '420px' || player.style.top == '490px') {
                 d22.hidden = true;
                 player.style.top = '420px';
+                log(`Server: The dirt block with ID: 22 has been destroyed.`);
         }});
     }
     dirtBreak();
@@ -2394,331 +2670,397 @@ if (running) {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s1.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 1 has been destroyed.`);
         }});
         s2.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s2.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 2 has been destroyed.`);
         }});
         s3.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s3.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 3 has been destroyed.`);
         }});
         s4.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s4.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 4 has been destroyed.`);
         }});
         s5.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s5.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 5 has been destroyed.`);
         }});
         s6.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s6.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 6 has been destroyed.`);
         }});
         s7.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s7.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 7 has been destroyed.`);
         }});
         s8.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s8.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 8 has been destroyed.`);
         }});
         s9.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s9.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 9 has been destroyed.`);
         }});
         s10.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s10.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 10 has been destroyed.`);
         }});
         s11.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s11.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 11 has been destroyed.`);
         }});
         s12.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s12.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 12 has been destroyed.`);
         }});
         s13.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s13.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 13 has been destroyed.`);
         }});
         s14.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s14.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 14 has been destroyed.`);
         }});
         s15.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s15.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 15 has been destroyed.`);
         }});
         s16.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s16.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 16 has been destroyed.`);
         }});
         s17.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s17.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 17 has been destroyed.`);
         }});
         s18.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s18.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 18 has been destroyed.`);
         }});
         s19.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s19.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 19 has been destroyed.`);
         }});
         s20.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s20.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 20 has been destroyed.`);
         }});
         s21.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s21.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 21 has been destroyed.`);
         }});
         s22.addEventListener('click', () => {
             if (player.style.top == '420px' || player.style.top == '490px' || player.style.top == '570px') {
                 s22.hidden = true;
                 player.style.top = '490px';
+                log(`Server: The stone block with ID: 22 has been destroyed.`);
         }});
         s23.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s23.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 23 has been destroyed.`);
         }});
         s24.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s24.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 24 has been destroyed.`);
         }});
         s25.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s25.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 25 has been destroyed.`);
         }});
         s26.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s26.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 26 has been destroyed.`);
         }});
         s27.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s27.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 27 has been destroyed.`);
         }});
         s28.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s28.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 28 has been destroyed.`);
         }});
         s29.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s29.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 29 has been destroyed.`);
         }});
         s30.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s30.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 30 has been destroyed.`);
         }});
         s31.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s31.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 31 has been destroyed.`);
         }});
         s32.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s32.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 32 has been destroyed.`);
         }});
         s33.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s33.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 33 has been destroyed.`);
         }});
         s34.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s34.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 34 has been destroyed.`);
         }});
         s35.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s35.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 35 has been destroyed.`);
         }});
         s36.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s36.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 36 has been destroyed.`);
         }});
         s37.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s37.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 37 has been destroyed.`);
         }});
         s38.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s38.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 38 has been destroyed.`);
         }});
         s39.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s39.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 39 has been destroyed.`);
         }});
         s40.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s40.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 40 has been destroyed.`);
         }});
         s41.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s41.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 41 has been destroyed.`);
         }});
         s42.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s42.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 42 has been destroyed.`);
         }});
         s43.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s43.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 43 has been destroyed.`);
         }});
         s44.addEventListener('click', () => {
             if (player.style.top == '490px' || player.style.top == '570px' || player.style.top == '650px') {
                 s44.hidden = true;
                 player.style.top = '570px';
+                log(`Server: The stone block with ID: 44 has been destroyed.`);
         }});
         s45.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s45.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 45 has been destroyed.`);
         }});
         s46.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s46.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 46 has been destroyed.`);
         }});
         s47.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s47.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 47 has been destroyed.`);
         }});
         s48.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s48.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 48 has been destroyed.`);
         }});
         s49.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s49.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 49 has been destroyed.`);
         }});
         s50.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s50.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 50 has been destroyed.`);
         }});
         s51.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s51.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 51 has been destroyed.`);
         }});
         s52.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s52.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 52 has been destroyed.`);
         }});
         s53.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s53.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 53 has been destroyed.`);
         }});
         s54.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s54.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 54 has been destroyed.`);
         }});
         s55.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s55.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 55 has been destroyed.`);
         }});
         s56.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s56.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 56 has been destroyed.`);
         }});
         s57.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s57.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 57 has been destroyed.`);
         }});
         s58.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s58.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 58 has been destroyed.`);
         }});
         s59.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s59.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 59 has been destroyed.`);
         }});
         s60.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s60.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 60 has been destroyed.`);
         }});
         s61.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s61.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 61 has been destroyed.`);
         }});
         s62.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s62.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 62 has been destroyed.`);
         }});
         s63.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s63.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 63 has been destroyed.`);
         }});
         s64.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s64.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 64 has been destroyed.`);
         }});
         s65.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s65.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 65 has been destroyed.`);
         }});
         s66.addEventListener('click', () => {
             if (player.style.top == '570px' || player.style.top == '650px') {
                 s66.hidden = true;
                 player.style.top = '650px';
+                log(`Server: The stone block with ID: 66 has been destroyed.`);
         }});
     }
     stoneBlockBreak();
@@ -2883,6 +3225,7 @@ if (running) {
                 <button onclick="closeInventoryGUI()" class="close">X</button>
                 <h1 class="inventory-title">Inventory</h1>
             </div>
+            <hr>
             <div class="blocks-display">
                 <div class="blockDisplay">
                     <div class="b"><img title="Oak Leaves" id="glass" draggable="false" onclick="oakLeavesChosen()" width="50" height="50" src="oak_leaves.png" alt="oak_leaves.png"></div>
@@ -3232,6 +3575,8 @@ if (running) {
             enteringNetherSound.play();
             isInOverworld = false;
             isInNether = true;
+
+            log('Server: Succesfully joined the nether.')
         
             mc.style.background = "url('nether_sky.png')";
             mc.style.backgroundAttachment = "fixed";
@@ -3248,6 +3593,8 @@ if (running) {
                     let blaze = document.createElement('div');
                     blaze.innerHTML = `<img id="blazeElement" draggable="false" src="blaze.png" alt="blaze.png">`;
                     blaze.classList.add('blazeAnimation');
+
+                    log('Server: Blaze has been spawned.');
         
                     blaze.addEventListener('click', () => {
                         blazeHP--;
@@ -3265,7 +3612,6 @@ if (running) {
             });
         }
     }
-    
     function checkBlazeCollision(element1, element2) {
         let rect1 = element1.getBoundingClientRect();
         let rect2 = element2.getBoundingClientRect();
@@ -3274,7 +3620,6 @@ if (running) {
             rect1.bottom < rect2.top ||
             rect1.top > rect2.bottom);
     }
-    
     function checkBlazeCollisionsPeriodically() {
         let blaze = document.getElementById('blazeElement');
         if (blaze && checkBlazeCollision(player, blaze)) {
@@ -3282,6 +3627,7 @@ if (running) {
     
             if (playerHP <= 0) {
                 player.hidden = true;
+                log(`Server: ${storedUsername} died.`);
                 let actionAfterDeath = prompt('YOU DIED!\n\nWhat you want to do?\nRespawn (r)\nSpectate (s)').toLowerCase();
     
                 if (actionAfterDeath == 'r') {
@@ -3317,10 +3663,10 @@ function numberOfObsidians() {
 
         if (createPortal == 'y') {
             let portalBlockPositions = 
-                    [d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22,
-                    s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22,
-                    s23, s24, s25, s26, s27, s28, s29, s30, s31, s32, s33, s34, s35, s36, s37, s38, s39, s40, s41, s42,
-                    s43, s44];
+                [d3, d4, d5, d6, d7, d8, d9, d10, d11, d12, d13, d14, d15, d16, d17, d18, d19, d20, d21, d22,
+                s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12, s13, s14, s15, s16, s17, s18, s19, s20, s21, s22,
+                s23, s24, s25, s26, s27, s28, s29, s30, s31, s32, s33, s34, s35, s36, s37, s38, s39, s40, s41, s42,
+                s43, s44];
             let randomPortalPosition = Math.floor(Math.random() * portalBlockPositions.length);
             portalPosition = portalBlockPositions[randomPortalPosition];
 

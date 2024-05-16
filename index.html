@@ -7,15 +7,15 @@
     <meta name="description" content="Strona logowanie do launchera minecraft.">
     <meta name="keywords" content="login, game, minecraft, 2024">
     <title>Sign-in to Orzech Launcher</title>
-    <link rel="icon" href="assets/minecraft/textures/blocks/grass_block.png" type="image/x-icon">
+    <link rel="icon" href="grass_block.png" type="image/x-icon">
     <link rel="stylesheet" href="style2.css" type="text/css">
 </head>
 <body>
     <div class="login-form">
         <form>
-            <img class="minecraft-title" draggable="false" src="assets/launcher/icons/minecraft-title.png" alt="minecraft-title.png">
+            <img class="minecraft-title" draggable="false" src="minecraft-title.png" alt="minecraft-title.png">
             <div class="gui">
-                <h1><img src="assets/minecraft/textures/blocks/grass_block.png" draggable="false" alt="grass_block.png">By Orzech</h1>
+                <h1><img src="grass_block.png" draggable="false" alt="grass_block.png">By Orzech</h1>
                 <hr>
                 <h1>Sign in</h1>
                 <input class="input" type="text" name="username" id="username" placeholder="Enter username" minlength="4" maxlength="14" autofocus required autocomplete="username">
@@ -40,7 +40,7 @@
                     onclick=
                     "
                     localStorage.setItem('rememberedUsername', 'Null');
-                    localStorage.setItem('pfp', 'assets/launcher/profilePictures/null.png');
+                    localStorage.setItem('pfp', 'null.png');
                     window.open('minecraft2.html', '_blank');
                     "
                     class="btn">Skip logging in</button>

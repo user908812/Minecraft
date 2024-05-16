@@ -3,7 +3,7 @@
 /* LOGIN */
 
 body {
-    background: url('assets/launcher/background/mc-background.png');
+    background: url('mc-background.png');
     background-attachment: fixed;
 
     display: flex;
@@ -159,7 +159,7 @@ h1 {
 }
 .added {
     color: #42e742;
-    list-style-image: url('assets/launcher/icons/plus.png');
+    list-style-image: url('plus.png');
 }
 .important {
     color: #ff0000;

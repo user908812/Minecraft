@@ -9,7 +9,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url('assets/minecraft/textures/background/background.png');
+    background: url('background.png');
     background-attachment: fixed;
 }
 .gui {
@@ -56,7 +56,7 @@ body {
 #minecraft {
     margin-top: 50px;
     border: 1px solid #000;
-    background: url('assets/minecraft/textures/background/sky.png');
+    background: url('sky.png');
 }
 .clouds {
     z-index: 1;

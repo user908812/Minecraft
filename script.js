@@ -477,8 +477,8 @@ document.addEventListener('DOMContentLoaded', function() {
             clickedPlace.style.left = event.clientX + 'px';
             clickedPlace.style.top = event.clientY + 'px';
             clickedPlace.style.position = 'absolute';
-            clickedPlace.style.width = '50px';
-            clickedPlace.style.height = '50px';
+            clickedPlace.style.width = '82px';
+            clickedPlace.style.height = '82px';
             if (allowedPlacingBlocks && oakPlanks) {
                 clickedPlace.style.background = "url('oak_plank.png')";
                 log(`Client: Oak planks placed at x: ${event.clientX - 84}.`);
@@ -654,7 +654,6 @@ document.addEventListener('DOMContentLoaded', function() {
             cloudsTitle.classList.remove('cloudsFix');
         }
     }
-
     function pauseGameButton() {
         if (!isGuiOpen) {
             isGuiOpen = true;

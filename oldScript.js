@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function() {
     music.play();
 });
 
-// mc.style.marginLeft = '950px';
 mc.style.width = '1762px';
 mc.style.height = '900px';
 

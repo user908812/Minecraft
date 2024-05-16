@@ -9,7 +9,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: url('background.png');
+    background: url('assets/minecraft/textures/background/background.png');
     background-attachment: fixed;
 }
 .gui {
@@ -56,7 +56,7 @@ body {
 #minecraft {
     margin-top: 50px;
     border: 1px solid #000;
-    background: url('sky.png');
+    background: url('assets/minecraft/textures/background/sky.png');
 }
 .clouds {
     z-index: 1;
@@ -234,11 +234,6 @@ body {
     grid-template-columns: repeat(22, 80px);
     margin-top: -6px;
 }
-/* .stone-container2 {
-    display: grid;
-    grid-template-columns: repeat(35, 80px);
-    margin-top: -12px;
-} */
 .stone_block {
     width: 80px;
     height: 80px;

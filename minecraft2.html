@@ -10,13 +10,13 @@
 
     <title>Minecraft | v100.0.2 (beta)</title>
 
-    <link rel="icon" href="grass_block.png" type="image/x-icon">
+    <link rel="icon" href="assets/minecraft/textures/blocks/grass_block.png" type="image/x-icon">
     <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
     <section id="minecraft">
-        <button id="pauseButton" onclick="pauseGameButton()">☰</button>
-        <button id="chatButton" onclick="openChatButton()">💬</button>
+        <button id="pauseButton" onclick="pauseGameButton()" title="Pause game">☰</button>
+        <button id="chatButton" onclick="openChatButton()" title="Open chat / Send message">💬</button>
         <button id="supriseButton" onclick="supriseButton()" title="DON'T CLICK ME">卍</button>
         <div id="config">
             <span>Display: <span id="windowConfig"></span></span>
@@ -40,198 +40,199 @@
             <span>Gamemode: <span id="gamemodeDisplay">Survival</span></span>
         </div>
         <div id="mobileControls">
-            <button id="leftBTN" class="mobileButton" onclick="mobileControlsMethod('left')"><img draggable="false" width="45" height="45" src="leftBTN.png" alt="leftBTN.png"></button>
-            <button id="crouchBTN" class="mobileButton" onclick="mobileControlsMethod('crouch')"><img draggable="false" width="45" height="45" src="crouchBTN.png" alt="crouchBTN.png"></button>
-            <button id="rightBTN" class="mobileButton" onclick="mobileControlsMethod('right')"><img draggable="false" width="45" height="45" src="rightBTN.png" alt="rightBTN.png"></button>
+            <button id="leftBTN" class="mobileButton" onclick="mobileControlsMethod('left')"><img draggable="false" width="45" height="45" src="assets/minecraft/textures/misc/controls/leftBTN.png" alt="leftBTN.png"></button>
+            <button id="crouchBTN" class="mobileButton" onclick="mobileControlsMethod('crouch')"><img draggable="false" width="45" height="45" src="assets/minecraft/textures/misc/controls/crouchBTN.png" alt="crouchBTN.png"></button>
+            <button id="rightBTN" class="mobileButton" onclick="mobileControlsMethod('right')"><img draggable="false" width="45" height="45" src="assets/minecraft/textures/misc/controls/rightBTN.png" alt="rightBTN.png"></button>
         </div>
         <div id="toggleHPDisplay"><div id="hp-display">Health: <span id="hp"></span>❤️</div></div>
         <h1 class="clouds">By Orzech</h1>
-        <div id="player"><img draggable="false" class="player" src="steve_standing.png" alt="steve.png"></div>
+        <div id="player"><img draggable="false" class="player" src="assets/minecraft/textures/entities/players/steve/steve_standing.png" alt="steve.png"></div>
 
         <div id="clickedPlace"></div>
 
     <div class="blocks" ondrag="event.preventDefault();">
         <div class="grass-container">
-            <div id="grass_block1"><img id="g1" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block2"><img id="g2" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block3"><img id="g3" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block4"><img id="g4" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block5"><img id="g5" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block6"><img id="g6" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block7"><img id="g7" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block8"><img id="g8" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block9"><img id="g9" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block10"><img id="g10" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block11"><img id="g11" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block12"><img id="g12" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block13"><img id="g13" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block14"><img id="g14" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block15"><img id="g15" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block16"><img id="g16" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block17"><img id="g17" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block18"><img id="g18" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block19"><img id="g19" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block20"><img id="g20" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block21"><img id="g21" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
-            <div id="grass_block22"><img id="g22" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block1"><img id="g1" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block2"><img id="g2" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block3"><img id="g3" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block4"><img id="g4" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block5"><img id="g5" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block6"><img id="g6" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block7"><img id="g7" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block8"><img id="g8" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block9"><img id="g9" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block10"><img id="g10" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block11"><img id="g11" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block12"><img id="g12" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block13"><img id="g13" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block14"><img id="g14" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block15"><img id="g15" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block16"><img id="g16" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block17"><img id="g17" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block18"><img id="g18" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block19"><img id="g19" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block20"><img id="g20" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block21"><img id="g21" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
+            <div id="grass_block22"><img id="g22" draggable="false" class="grass_block" src="assets/minecraft/textures/blocks/grass_block.png" alt="grass_block.png"></div>
         </div>
 
         <div class="dirt-container">
-            <div id="dirt1"><img id="d1" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt2"><img id="d2" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt3"><img id="d3" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt4"><img id="d4" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt5"><img id="d5" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt6"><img id="d6" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt7"><img id="d7" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt8"><img id="d8" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt9"><img id="d9" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt10"><img id="d10" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt11"><img id="d11" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt12"><img id="d12" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt13"><img id="d13" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt14"><img id="d14" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt15"><img id="d15" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt16"><img id="d16" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt17"><img id="d17" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt18"><img id="d18" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt19"><img id="d19" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt20"><img id="d20" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt21"><img id="d21" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
-            <div id="dirt22"><img id="d22" draggable="false" class="dirt" src="dirt.png" alt="dirt.png"></div>
+            <div id="dirt1"><img id="d1" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt2"><img id="d2" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt3"><img id="d3" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt4"><img id="d4" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt5"><img id="d5" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt6"><img id="d6" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt7"><img id="d7" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt8"><img id="d8" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt9"><img id="d9" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt10"><img id="d10" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt11"><img id="d11" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt12"><img id="d12" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt13"><img id="d13" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt14"><img id="d14" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt15"><img id="d15" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt16"><img id="d16" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt17"><img id="d17" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt18"><img id="d18" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt19"><img id="d19" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt20"><img id="d20" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt21"><img id="d21" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
+            <div id="dirt22"><img id="d22" draggable="false" class="dirt" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png"></div>
         </div>
 
         <div class="stone-container">
-            <div id="stone_block1"><img id="s1" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block2"><img id="s2" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block3"><img id="s3" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block4"><img id="s4" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block5"><img id="s5" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block6"><img id="s6" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block7"><img id="s7" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block8"><img id="s8" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block9"><img id="s9" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block10"><img id="s10" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block11"><img id="s11" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block12"><img id="s12" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block13"><img id="s13" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block14"><img id="s14" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block15"><img id="s15" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block16"><img id="s16" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block17"><img id="s17" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block18"><img id="s18" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block19"><img id="s19" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block20"><img id="s20" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block21"><img id="s21" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block22"><img id="s22" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block1"><img id="s1" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block2"><img id="s2" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block3"><img id="s3" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block4"><img id="s4" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block5"><img id="s5" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block6"><img id="s6" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block7"><img id="s7" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block8"><img id="s8" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block9"><img id="s9" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block10"><img id="s10" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block11"><img id="s11" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block12"><img id="s12" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block13"><img id="s13" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block14"><img id="s14" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block15"><img id="s15" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block16"><img id="s16" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block17"><img id="s17" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block18"><img id="s18" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block19"><img id="s19" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block20"><img id="s20" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block21"><img id="s21" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block22"><img id="s22" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
         </div>
-
         <div class="stone-container2">
-            <div id="stone_block23"><img id="s23" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block24"><img id="s24" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block25"><img id="s25" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block26"><img id="s26" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block27"><img id="s27" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block28"><img id="s28" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block29"><img id="s29" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block30"><img id="s30" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block31"><img id="s31" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block32"><img id="s32" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block33"><img id="s33" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block34"><img id="s34" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block35"><img id="s35" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block36"><img id="s36" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block37"><img id="s37" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block38"><img id="s38" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block39"><img id="s39" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block40"><img id="s40" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block41"><img id="s41" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block42"><img id="s42" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block43"><img id="s43" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block44"><img id="s44" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block23"><img id="s23" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block24"><img id="s24" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block25"><img id="s25" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block26"><img id="s26" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block27"><img id="s27" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block28"><img id="s28" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block29"><img id="s29" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block30"><img id="s30" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block31"><img id="s31" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block32"><img id="s32" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block33"><img id="s33" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block34"><img id="s34" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block35"><img id="s35" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block36"><img id="s36" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block37"><img id="s37" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block38"><img id="s38" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block39"><img id="s39" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block40"><img id="s40" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block41"><img id="s41" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block42"><img id="s42" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block43"><img id="s43" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block44"><img id="s44" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
         </div>
-
         <div class="stone-container3">
-            <div id="stone_block45"><img id="s45" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block46"><img id="s46" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block47"><img id="s47" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block48"><img id="s48" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block49"><img id="s49" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block50"><img id="s50" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block51"><img id="s51" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block52"><img id="s52" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block53"><img id="s53" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block54"><img id="s54" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block55"><img id="s55" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block56"><img id="s56" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block57"><img id="s57" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block58"><img id="s58" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block59"><img id="s59" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block60"><img id="s60" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block61"><img id="s61" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block62"><img id="s62" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block63"><img id="s63" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block64"><img id="s64" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block65"><img id="s65" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block66"><img id="s66" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block45"><img id="s45" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block46"><img id="s46" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block47"><img id="s47" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block48"><img id="s48" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block49"><img id="s49" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block50"><img id="s50" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block51"><img id="s51" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block52"><img id="s52" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block53"><img id="s53" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block54"><img id="s54" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block55"><img id="s55" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block56"><img id="s56" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block57"><img id="s57" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block58"><img id="s58" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block59"><img id="s59" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block60"><img id="s60" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block61"><img id="s61" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block62"><img id="s62" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block63"><img id="s63" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block64"><img id="s64" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block65"><img id="s65" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block66"><img id="s66" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
         </div>
 
         <div class="randomRowContainer">
             <div class="stone-container4">
-                <div id="stone_block67" onclick="createRandomRow()"><img id="s67" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block68" onclick="createRandomRow()"><img id="s68" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block69" onclick="createRandomRow()"><img id="s69" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block70" onclick="createRandomRow()"><img id="s70" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block71" onclick="createRandomRow()"><img id="s71" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block72" onclick="createRandomRow()"><img id="s72" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block73" onclick="createRandomRow()"><img id="s73" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block74" onclick="createRandomRow()"><img id="s74" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block75" onclick="createRandomRow()"><img id="s75" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block76" onclick="createRandomRow()"><img id="s76" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block77" onclick="createRandomRow()"><img id="s77" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block78" onclick="createRandomRow()"><img id="s78" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block79" onclick="createRandomRow()"><img id="s79" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block80" onclick="createRandomRow()"><img id="s80" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block81" onclick="createRandomRow()"><img id="s81" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block82" onclick="createRandomRow()"><img id="s82" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block83" onclick="createRandomRow()"><img id="s83" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block84" onclick="createRandomRow()"><img id="s84" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block85" onclick="createRandomRow()"><img id="s85" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block87" onclick="createRandomRow()"><img id="s87" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-                <div id="stone_block88" onclick="createRandomRow()"><img id="s88" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block67" onclick="createRandomRow()"><img id="s67" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block68" onclick="createRandomRow()"><img id="s68" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block69" onclick="createRandomRow()"><img id="s69" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block70" onclick="createRandomRow()"><img id="s70" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block71" onclick="createRandomRow()"><img id="s71" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block72" onclick="createRandomRow()"><img id="s72" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block73" onclick="createRandomRow()"><img id="s73" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block74" onclick="createRandomRow()"><img id="s74" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block75" onclick="createRandomRow()"><img id="s75" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block76" onclick="createRandomRow()"><img id="s76" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block77" onclick="createRandomRow()"><img id="s77" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block78" onclick="createRandomRow()"><img id="s78" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block79" onclick="createRandomRow()"><img id="s79" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block80" onclick="createRandomRow()"><img id="s80" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block81" onclick="createRandomRow()"><img id="s81" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block82" onclick="createRandomRow()"><img id="s82" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block83" onclick="createRandomRow()"><img id="s83" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block84" onclick="createRandomRow()"><img id="s84" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block85" onclick="createRandomRow()"><img id="s85" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block87" onclick="createRandomRow()"><img id="s87" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
+                <div id="stone_block88" onclick="createRandomRow()"><img id="s88" draggable="false" class="stone_block" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png"></div>
             </div>
         </div>
     </div>
     
     <div class="hotbar-container">
-        <img id="hotbar" draggable="false" src="hotbar.png" alt="hotbar.png">
-        <img title="Oak Planks" id="oak_plank" class="block" onclick="oakPlanksChosen()" draggable="false" src="oak_plank.png" alt="oak_plank.png">
-        <img title="Cobblestone" id="cobblestone" class="block" onclick="cobbleStoneChosen()" draggable="false" src="cobblestone.png" alt="cobblestone.png">
-        <img title="Stone" id="stone" class="block" onclick="stoneChosen()" draggable="false" src="stone_block.png" alt="stone_block.png">
-        <img title="TNT" id="tnt" class="block" onclick="tntChosen()" draggable="false" src="tnt.png" alt="tnt.png">
-        <img title="Barrier" id="barrier" class="block" onclick="barrierChosen()" draggable="false" src="barrier.png" alt="barrier.png">
-        <img title="Oak Leaves" id="oak_leaves" class="block" onclick="oakLeavesChosen()" draggable="false" src="oak_leaves.png" alt="oak_leaves.png">
-        <img title="Dirt" id="dirt" class="block" onclick="dirtChosen()" draggable="false" src="dirt.png" alt="dirt.png">
-        <img title="Sandstone" id="sandstone" class="block" onclick="sandStoneChosen()" draggable="false" src="sandstone.png" alt="sandstone.png">
-        <img title="Obsidian" id="obsidianB" class="block" onclick="obsidianBlockChosen()" draggable="false" src="obsidian.png" alt="obsidian.png">
+        <img id="hotbar" draggable="false" src="assets/minecraft/textures/misc/hotbar.png" alt="hotbar.png">
+        <img title="Oak Planks" id="oak_plank" class="block" onclick="oakPlanksChosen()" draggable="false" src="assets/minecraft/textures/blocks/oak_plank.png" alt="oak_plank.png">
+        <img title="Cobblestone" id="cobblestone" class="block" onclick="cobbleStoneChosen()" draggable="false" src="assets/minecraft/textures/blocks/cobblestone.png" alt="cobblestone.png">
+        <img title="Stone" id="stone" class="block" onclick="stoneChosen()" draggable="false" src="assets/minecraft/textures/blocks/stone_block.png" alt="stone_block.png">
+        <img title="TNT" id="tnt" class="block" onclick="tntChosen()" draggable="false" src="assets/minecraft/textures/blocks/tnt.png" alt="tnt.png">
+        <img title="Barrier" id="barrier" class="block" onclick="barrierChosen()" draggable="false" src="assets/minecraft/textures/blocks/barrier.png" alt="barrier.png">
+        <img title="Oak Leaves" id="oak_leaves" class="block" onclick="oakLeavesChosen()" draggable="false" src="assets/minecraft/textures/blocks/oak_leaves.png" alt="oak_leaves.png">
+        <img title="Dirt" id="dirt" class="block" onclick="dirtChosen()" draggable="false" src="assets/minecraft/textures/blocks/dirt.png" alt="dirt.png">
+        <img title="Sandstone" id="sandstone" class="block" onclick="sandStoneChosen()" draggable="false" src="assets/minecraft/textures/blocks/sandstone.png" alt="sandstone.png">
+        <img title="Obsidian" id="obsidianB" class="block" onclick="obsidianBlockChosen()" draggable="false" src="assets/minecraft/textures/blocks/obsidian.png" alt="obsidian.png">
         <div id="hotbarObsidian"></div>
     </div>
     </section>
     
-      <audio id="explosionSound" src="creeper_sound.mp4"></audio>
-      <audio id="waterSound" src="water_sound.mp4"></audio>
-      <audio id="grassBreaking" src="grass_breaking.mp4"></audio>
-      <audio id="sandBreaking" src="sand_breaking.mp4"></audio>
-      <audio id="sandstoneBreaking" src="sandstone_breaking.mp4"></audio>
-      <audio id="netherrackBreaking" src="netherrack_breaking.mp4"></audio>
-      <audio id="iceBreaking" src="ice_breaking.mp4"></audio>
-      <audio id="dirtBreaking" src="dirt_breaking.mp4"></audio>
-      <audio id="stoneBreaking" src="stone_breaking.mp4"></audio>
-      <audio id="tntExplosion" src="tnt_explosion.mp4"></audio>
-      <audio id="enteringNetherSound" src="entering_nether_sound.mp4"></audio>
-      <audio id="blazeSounds" src="blazeSounds.mp4"></audio>
-      <audio id="music" src="music.mp4" loop></audio>
+      <audio id="music" loop>
+        <source src="assets/minecraft/sounds/music.mp4" type="audio/mp4">
+      </audio>
+
+      <audio id="explosionSound" src="assets/minecraft/sounds/entities/creeper_sound.mp4"></audio>
+      <audio id="waterSound" src="assets/minecraft/sounds/misc/water_sound.mp4"></audio>
+      <audio id="grassBreaking" src="assets/minecraft/sounds/blocks/grass_breaking.mp4"></audio>
+      <audio id="sandBreaking" src="assets/minecraft/sounds/blocks/sand_breaking.mp4"></audio>
+      <audio id="sandstoneBreaking" src="assets/minecraft/sounds/blocks/sandstone_breaking.mp4"></audio>
+      <audio id="netherrackBreaking" src="assets/minecraft/sounds/blocks/netherrack_breaking.mp4"></audio>
+      <audio id="iceBreaking" src="assets/minecraft/sounds/blocks/ice_breaking.mp4"></audio>
+      <audio id="dirtBreaking" src="assets/minecraft/sounds/blocks/dirt_breaking.mp4"></audio>
+      <audio id="stoneBreaking" src="assets/minecraft/sounds/blocks/stone_breaking.mp4"></audio>
+      <audio id="tntExplosion" src="assets/minecraft/sounds/misc/tnt_explosion.mp4"></audio>
+      <audio id="enteringNetherSound" src="assets/minecraft/sounds/misc/entering_nether_sound.mp4"></audio>
+      <audio id="blazeSounds" src="assets/minecraft/sounds/entities/blazeSounds.mp4"></audio>
 
     <script src="script.js"></script>
 </body>

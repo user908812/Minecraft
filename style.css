@@ -25,7 +25,7 @@ body {
     border: 1px solid #000;
     width: 350px;
     height: 400px;
-    background-color: #333;
+    background-color: #333333;
 }
 .top-elements {
     margin-left: -60px;
@@ -79,15 +79,32 @@ body {
     border: 1px solid #000;
     background: url('sky.png');
 }
-.clouds {
+#config {
     z-index: 1;
+    position: absolute;
+    top: 20px;
+    right: 80px;
+    width: 250px;
+    height: 370px;
+    background-color: #4b4a4a57;
+    padding-top: 100px;
+}
+.clouds {
     color: #fff;
     font-family: 'Minecraft', sans-serif;
-    font-size: 60px;
+    font-size: 30px;
     text-shadow: 1px 1px 1px #000;
-    margin-left: 1450px;
-    margin-top: -160px;
+    margin-top: -100px;
+    margin-bottom: 10px;
+    margin-left: 55px;
 }
+#launcher-link {
+    color: #a6dda6;
+    text-shadow: 1px 1px 1px #008000;
+}
+/* .cloudsFix {
+    
+} */
 .player {
     z-index: 0;
     width: 80px;
@@ -553,16 +570,8 @@ label {
     padding: 8px 15px;
     cursor: pointer;
 }
-#config {
-    z-index: 0;
-    position: absolute;
-    top: 100px;
-    right: 20px;
-    width: 250px;
-    height: 200px;
-}
 #menu {
-    background-color: #333;
+    background-color: #333333c4;
     color: #fff;
     padding: 100px;
 
@@ -594,17 +603,14 @@ label {
     margin-left: 80px;
 }
 .mobileButton {
+    z-index: 2;
     margin-top: 30px;
     width: 80px;
     height: 80px;
     background-color: grey;
     cursor: pointer;
 }
-#controls-settings { padding-top: 20px; }
 #controlsStatus { cursor: pointer; }
 #btnToggleControls {
     padding: 10px 20px;
-}
-.cloudsFix {
-    vertical-align: middle;
 }

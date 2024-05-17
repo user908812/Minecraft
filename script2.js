@@ -72,16 +72,12 @@ function renderLauncherOnSubmit(event) {
         <div class="date"></div>
         <div class="time"></div>
         <div class="news">
-            <div id="newsDisplay"><span class="news-title">News</span> <span class="rainbowText">28/04/2024:</span></div>
+            <div id="newsDisplay"><span class="news-title">News</span> <span class="rainbowText">17/05/2024:</span></div>
             <ul>
-                <li>Fixed animations</li>
-                <li>Fixed player dying</li>
-                <li>Fixed player positions</li>
-                <li>New GUI in Game</li>
-                <li class="added">New username icons!</li>
-                <li class="added">Fixed when player goes out of field</li>
-                <li class="added">Added F3 Menu (toggled)</li>
-                <li class="important">Added biomes</li>
+                <li>Fixed gamemodes</li>
+                <li>Fixed controls and F3 menu</li>
+                <li class="added">New features to gamemodes</li>
+                <li class="important">Fixed bugs</li>
             </ul>
         </div>
         <div class="keybinds"> 
@@ -122,7 +118,6 @@ function renderLauncherOnSubmit(event) {
     </div>
 </div>
 `;
-
     launcherContainer.innerHTML = launcher;
     document.body.appendChild(launcherContainer);
 

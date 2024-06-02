@@ -16,6 +16,8 @@ body {
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* MS Edge */
     user-select: none;
+
+    cursor: url(crosshair.png) 4 12, auto;
 }
 .gui {
     z-index: 1;
@@ -407,6 +409,7 @@ body {
     position: absolute;
     width: 50px;
     height: 50px;
+    z-index: 0;
 }
 .message {
     position: relative;
@@ -613,4 +616,5 @@ label {
 #controlsStatus { cursor: pointer; }
 #btnToggleControls {
     padding: 10px 20px;
+    cursor: pointer;
 }

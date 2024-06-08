@@ -40,7 +40,7 @@ body {
     left: 0;
     width: 25px;
     height: 25px;
-    cursor: pointer;
+    cursor: url(crosshair.png) 4 12, auto;
     border-radius: 12px;
     background-color: #808080;
     font-weight: bold;
@@ -54,7 +54,7 @@ body {
     gap: 10px;
 }
 .graphic button {
-    cursor: pointer;
+    cursor: url(crosshair.png) 4 12, auto;
 }
 .graphic-title {
     vertical-align: super;
@@ -86,7 +86,7 @@ body {
     position: absolute;
     top: 20px;
     right: 80px;
-    width: 250px;
+    width: 234px;
     height: 370px;
     background-color: #4b4a4a57;
     padding-top: 100px;
@@ -129,6 +129,19 @@ body {
     animation-delay: 1s;
     animation-iteration-count: infinite;
 }
+#enderman {
+    z-index: 0;
+    width: 180px;
+    height: 370px;
+    position: relative;
+    top: -1000px;
+    left: 1500px;
+    
+    animation: movingAnimation;
+    animation-duration: 5s;
+    animation-delay: 1s;
+    animation-iteration-count: infinite;
+}
 #blazeElement {
     z-index: 0;
     width: 150px;
@@ -144,6 +157,17 @@ body {
     50% {
         transform: translateX(-100px);
         filter: brightness(500%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+@keyframes movingAnimation {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-1500px);
     }
     100% {
         transform: translateX(0);
@@ -363,7 +387,7 @@ body {
     height: 50px;
 }
 .block {
-    cursor: pointer;
+    cursor: url(crosshair.png) 4 12, auto;
     position: relative;
     top: -157px;
     width: 35px;
@@ -404,11 +428,9 @@ body {
     animation-delay: 0ms;
     animation-iteration-count: infinite;
 }
-#clickedPlace {
-    display: none;
-    position: absolute;
-    width: 50px;
-    height: 50px;
+.clickedPlace {
+    width: 95px;
+    height: 95px;
     z-index: 0;
 }
 .message {
@@ -422,6 +444,27 @@ body {
     position: relative;
     left: -1200px;
 }
+#my-skin-display {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    position: absolute;
+    top: 150px;
+    left: 510px;
+    width: 100px;
+    height: 230px;
+    background-color: transparent;
+    border: 3px solid #808080;
+}
+#my-nick-display {
+    position: absolute;
+    top: 150px;
+    left: 525px;
+    width: 100px;
+    height: 200px;
+    font-size: 22px;
+    text-shadow: 2px 2px 2xp #000;
+    color: #fff;
+}
 .inventory-title {
     margin-left: 230px;
     color: #fff;
@@ -431,7 +474,7 @@ body {
     position: relative;
     top: -50px;
     border: 1px solid #000;
-    width: 500px;
+    width: 630px;
     height: 500px;
     background-color: #333;
 }
@@ -461,7 +504,10 @@ body {
 .blockDisplay {
     position: relative;
     top: 180px;
-    cursor: pointer;
+    cursor: url(crosshair.png) 4 12, auto;
+}
+#water-block-moving-down {
+    margin-top: 12px;
 }
 .block-info {
     border: 1px solid #000;
@@ -488,7 +534,7 @@ body {
     height: 100px;
     border: 1px solid #000;
     background-color: moccasin;
-    cursor: pointer;
+    cursor: url(crosshair.png) 4 12, auto;
 }
 #music-label span {
     margin-top: 10px;
@@ -562,17 +608,6 @@ label {
     left: 10px;
     top: 680px;
 }
-#nick {
-    padding: 8px 16px;
-    margin-bottom: 5px;
-}
-#serachForServersContainer {
-    margin-top: 10px;
-}
-#serachForServersContainer button {
-    padding: 8px 15px;
-    cursor: pointer;
-}
 #menu {
     background-color: #333333c4;
     color: #fff;
@@ -598,23 +633,36 @@ label {
 #menuUsernameDisplay {
     margin-left: 40px;
 }
+#mobileControls1, #mobileControls2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 #pauseButton, #chatButton, #supriseButton {
-    cursor: pointer;
+    cursor: url(crosshair.png) 4 12, auto;
     padding: 10px 15px;
+    z-index: 1;
 }
 #leftBTN {
-    margin-left: 80px;
+    margin-left: 35px;
 }
 .mobileButton {
-    z-index: 2;
+    z-index: 1;
     margin-top: 30px;
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     background-color: grey;
-    cursor: pointer;
+    cursor: url(crosshair.png) 4 12, auto;
 }
-#controlsStatus { cursor: pointer; }
+#controlsStatus { cursor: url(crosshair.png) 4 12, auto; }
 #btnToggleControls {
     padding: 10px 20px;
-    cursor: pointer;
+    cursor: url(crosshair.png) 4 12, auto;
+}
+.playerWrongPosMoving {
+    position: absolute;
+    left: 220px;
+}
+.hiddenControls1, .hiddenControls2 {
+    visibility: hidden;
 }

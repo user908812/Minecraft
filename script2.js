@@ -72,12 +72,15 @@ function renderLauncherOnSubmit(event) {
         <div class="date"></div>
         <div class="time"></div>
         <div class="news">
-            <div id="newsDisplay"><span class="news-title">News</span> <span class="rainbowText">17/05/2024:</span></div>
+            <div id="newsDisplay"><span class="news-title">News</span> <span class="rainbowText">08/06/2024:</span></div>
             <ul>
-                <li>Fixed gamemodes</li>
-                <li>Fixed controls and F3 menu</li>
-                <li class="added">New features to gamemodes</li>
-                <li class="important">Fixed bugs</li>
+                <li>Fixed code, bugs and KISS principle</li>
+                <li>Fixed F3 Inventory</li>
+                <li>New F3 Inventory UI</li>
+                <li>Fixed player changing skin when using mobile controls</li>
+                <li class="added">New mob (Enderman)</li>
+                <li class="added">New inventory blocks</li>
+                <li class="important">New mobile controls</li>
             </ul>
         </div>
         <div class="keybinds"> 
@@ -137,25 +140,25 @@ function launchMinecraft() {
     let mc_version = document.getElementById('version-select').value;
 
     if (mc_version == 0) {
+        badSoundMP4.play();
         setTimeout(() => {
             alert('You need to select a version before you start playing!');
         }, 300);
-        badSoundMP4.play();
     } else if (mc_version == 1) {
+        soundMP4.play();
         setTimeout(() => {
             window.open('minecraft0.html', '_blank');
         }, 300);
-        soundMP4.play();
     } else if (mc_version == 2) {
+        soundMP4.play();
         setTimeout(() => {
             window.open('minecraft1.html', '_blank');
         }, 300);
-        soundMP4.play();
     } else if (mc_version == 3) {
+        soundMP4.play();
         setTimeout(() => {
             window.open('minecraft2.html', '_blank');
         }, 300);
-        soundMP4.play();
     }
 }
 function showMoreKeybinds() {

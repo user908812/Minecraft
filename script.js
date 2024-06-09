@@ -63,7 +63,7 @@ var dirtBreaking = document.getElementById('dirtBreaking');
 var stoneBreaking = document.getElementById('stoneBreaking');
 var tntExplosion = document.getElementById('tntExplosion');
 var explosionSound = document.getElementById('explosionSound');
-var enteringNetherSound = document.getElementById('enteringNetherSound');
+var enteringPortalSound = document.getElementById('enteringNetherSound');
 var blazeSounds = document.getElementById('blazeSounds');
 var gamemodeDisplay = document.getElementById('gamemodeDisplay');
 var toggleHPDisplay = document.getElementById('toggleHPDisplay');
@@ -99,11 +99,14 @@ function renderHoveredBlockIDOnScoreboard() {
 setInterval(renderHoveredBlockIDOnScoreboard, timeout);
 
 function renderPlayerLocationOnScoreboard() {
-    if (isInOverworld && !isInNether) {
+    if (isInOverworld && !isInNether && !isInTheEnd) {
         document.getElementById('playerLocation').innerHTML = 'overworld';
         F3config.style.color = '#000';
-    } else if (isInNether && !isInOverworld) {
+    } else if (isInNether && !isInOverworld && !isInTheEnd) {
         document.getElementById('playerLocation').innerHTML = 'the_nether';
+        F3config.style.color = '#fff';
+    } else if (isInTheEnd && !isInNether && !isInOverworld) {
+        document.getElementById('playerLocation').innerHTML = 'the_end';
         F3config.style.color = '#fff';
     }
 }
@@ -133,13 +136,19 @@ const playerSpeedWithControlKey = 20;
 const playerCrouchingSpeedMobile = 30;
 const playerSpeedMobile = 50;
 
+const endermanReactionTime = 200;
+const enderDragonReactionTime = 600;
+const creeperReactionTime = 1000;
+const blazeReactionTime = 200;
+
 var frameCount = 0;
 var lastTime = performance.now();
 var lastSecond = lastTime;
 var playerXPosition = 0;
 var isGuiOpen = false;
-var isInNether = false;
 var isInOverworld = true;
+var isInNether = false;
+var isInTheEnd = false;
 var allowedPlacingBlocks = true;
 var allowedDestroyingBlocks = true;
 var creativeBlocksReach = false;
@@ -152,10 +161,12 @@ var ctrlPressed = false;
 var isSteveChosen = false;
 var isAlexChosen = false;
 var isSkin1Chosen = false;
+
 var playerHP = 10;
 var blazeHP = 15;
 var creeperHP = 8;
 var endermanHP = 12;
+var enderDragonHP = 180;
 
 var oakPlanks = false;
 var cobbleStone = false;
@@ -225,6 +236,11 @@ if (running) {
                 ID: 5,
                 name: 'Mushroom',
                 isMushroomBiome: false,
+            },
+            theEnd: {
+                ID: 6,
+                name: 'The end',
+                isTheEndBiome: false,
             }
         }
         var biomesArray = [biomes.normal.ID, biomes.desert.ID, biomes.normal.ID, biomes.icy.ID, biomes.snowy.ID, biomes.mushroom.ID];
@@ -235,19 +251,24 @@ if (running) {
         if (biome == 1) {
             biomes.normal.isNormalBiome = true;
             setInterval(() => {
-                if (isInOverworld && !isInNether) {
+                if (isInOverworld && !isInNether && !isInTheEnd) {
                     document.getElementById('selectedBiome').innerHTML = biomes.normal.name;
-                } else if (isInNether && !isInOverworld) {
+                } else if (isInNether && !isInOverworld && !isInTheEnd) {
                     document.getElementById('selectedBiome').innerHTML = biomes.nether.name;
+                } else if (isInTheEnd && !isInNether && !isInOverworld) {
+                    document.getElementById('selectedBiome').innerHTML = biomes.theEnd.name;
                 }
             }, 200);
+            log(`Server: The biome is ${biomes.normal.name}.`);
         } else if (biome == 2) {
             biomes.desert.isDesertBiome = true;
             setInterval(() => {
-                if (isInOverworld && !isInNether) {
+                if (isInOverworld && !isInNether && !isInTheEnd) {
                     document.getElementById('selectedBiome').innerHTML = biomes.desert.name;
-                } else if (isInNether && !isInOverworld) {
+                } else if (isInNether && !isInOverworld && !isInTheEnd) {
                     document.getElementById('selectedBiome').innerHTML = biomes.nether.name;
+                } else if (isInTheEnd && !isInNether && !isInOverworld) {
+                    document.getElementById('selectedBiome').innerHTML = biomes.theEnd.name;
                 }
             }, 200);
 
@@ -263,13 +284,16 @@ if (running) {
             stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => {
                 stoneBlockThirdLevel.src = 'stone_block.png';
             });
+            log(`Server: The biome is ${biomes.desert.name}.`);
         } else if (biome == 3) {
             biomes.icy.isIcyBiome = true;
             setInterval(() => {
-                if (isInOverworld && !isInNether) {
+                if (isInOverworld && !isInNether && !isInTheEnd) {
                     document.getElementById('selectedBiome').innerHTML = biomes.icy.name;
-                } else if (isInNether && !isInOverworld) {
+                } else if (isInNether && !isInOverworld && !isInTheEnd) {
                     document.getElementById('selectedBiome').innerHTML = biomes.nether.name;
+                } else if (isInTheEnd && !isInNether && !isInOverworld) {
+                    document.getElementById('selectedBiome').innerHTML = biomes.theEnd.name;
                 }
             }, 200);
 
@@ -285,13 +309,16 @@ if (running) {
             stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => {
                 stoneBlockThirdLevel.src = 'stone_block.png';
             });
+            log(`Server: The biome is ${biomes.icy.name}.`);
         } else if (biome == 4) {
             biomes.snowy.isSnowyBiome = true;
             setInterval(() => {
-                if (isInOverworld && !isInNether) {
+                if (isInOverworld && !isInNether && !isInTheEnd) {
                     document.getElementById('selectedBiome').innerHTML = biomes.snowy.name;
-                } else if (isInNether && !isInOverworld) {
+                } else if (isInNether && !isInOverworld && !isInTheEnd) {
                     document.getElementById('selectedBiome').innerHTML = biomes.nether.name;
+                } else if (isInTheEnd && !isInNether && !isInOverworld) {
+                    document.getElementById('selectedBiome').innerHTML = biomes.theEnd.name;
                 }
             }, 200);
 
@@ -307,13 +334,16 @@ if (running) {
             stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => {
                 stoneBlockThirdLevel.src = 'stone_block.png';
             });
+            log(`Server: The biome is ${biomes.snowy.name}.`);
         } else if (biome == 5) {
             biomes.mushroom.isMushroomBiome = true;
             setInterval(() => {
-                if (isInOverworld && !isInNether) {
+                if (isInOverworld && !isInNether && !isInTheEnd) {
                     document.getElementById('selectedBiome').innerHTML = biomes.mushroom.name;
-                } else if (isInNether && !isInOverworld) {
+                } else if (isInNether && !isInOverworld && !isInTheEnd) {
                     document.getElementById('selectedBiome').innerHTML = biomes.nether.name;
+                } else if (isInTheEnd && !isInNether && !isInOverworld) {
+                    document.getElementById('selectedBiome').innerHTML = biomes.theEnd.name;
                 }
             }, 200);
 
@@ -335,6 +365,7 @@ if (running) {
             stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => {
                 stoneBlockThirdLevel.src = 'stone_block.png';
             });
+            log(`Server: The biome is ${biomes.mushroom.name}.`);
         }
     }
     setBiome();
@@ -357,11 +388,12 @@ if (running) {
                 }, 300);
             }
         });
+        log(`Server: Creeper has been spawned.`);
     }
     renderCreeper();
         
     function isPlayerInNether() {
-        if (isInNether && !isInOverworld) {
+        if (isInNether && !isInOverworld && !isInTheEnd) {
 
             grassBlockElementsArray.forEach(grassBlockInGrassBlocks => {
                 grassBlockInGrassBlocks.addEventListener('click', () => {
@@ -381,6 +413,28 @@ if (running) {
         } 
     }
     setInterval(isPlayerInNether, timeout);
+
+    function isPlayerInTheEnd() {
+        if (isInTheEnd && !isInOverworld && !isInNether) {
+
+            grassBlockElementsArray.forEach(grassBlockInGrassBlocks => {
+                grassBlockInGrassBlocks.addEventListener('click', () => {
+                    stoneBreaking.play();
+                });
+            });
+            dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => {
+                dirtBlockInDirtBlocks.addEventListener('click', () => {
+                    stoneBreaking.play();
+                });
+            });
+            stoneBlockElementsArray.forEach(stoneBlockInStoneBlocks => {
+                stoneBlockInStoneBlocks.addEventListener('click', () => {
+                    stoneBreaking.play();
+                });
+            });
+        } 
+    }
+    setInterval(isPlayerInTheEnd, timeout);
     
     function setBlockSoundsForBiome() {
         if (biomes.normal.isNormalBiome) {
@@ -634,6 +688,7 @@ if (running) {
             if (e.key == 'Escape') {
                 if (!isGuiOpen) {
                     isGuiOpen = true;
+                    log(`Client: user has opened the escape menu.`);
                     let GuiInGameMenu = document.createElement('div');
                     GuiInGameMenu.innerHTML = `
                     <div id="menu">
@@ -685,6 +740,7 @@ if (running) {
                     isGuiOpen = false;
                     let GuiInGameMenu = document.querySelector('.gui-container');
                     GuiInGameMenu.remove();
+                    log(`Client: user has closed the escape menu.`);
                 }
             }
         });
@@ -694,6 +750,7 @@ if (running) {
     function openMobileGuiInGameMenu() {
         if (!isGuiOpen) {
             isGuiOpen = true;
+            log(`Client: user has opened the escape menu.`);
             let GuiInGameMenu = document.createElement('div');
             GuiInGameMenu.innerHTML = `
             <div id="menu">
@@ -745,6 +802,7 @@ if (running) {
             isGuiOpen = false;
             let GuiInGameMenu = document.querySelector('.gui-container');
             GuiInGameMenu.remove();
+            log(`Client: user has closed the escape menu.`);
         }
     }
 
@@ -752,6 +810,7 @@ if (running) {
         isGuiOpen = false;
         let GuiInGameMenu = document.querySelector('.gui-container');
         GuiInGameMenu.remove();
+        log(`Client: user has closed the gui in game menu.`);
     }
 
     function toggleMobileControls() {
@@ -759,10 +818,12 @@ if (running) {
             mobileControls1.classList.add('hiddenControls1');
             mobileControls2.classList.add('hiddenControls2');
             cloudsTitle.classList.remove('cloudsFix');
+            log(`Client: user has turned on mobile controls.`);
         } else {
             mobileControls1.classList.remove('hiddenControls1');
             mobileControls2.classList.remove('hiddenControls2');
             cloudsTitle.classList.add('cloudsFix');
+            log(`Client: user has turned off mobile controls.`);
         }
     }
 
@@ -800,14 +861,17 @@ if (running) {
         stoneBlockElementsArray.push(document.getElementById('s' + i));
     }
 
-    function normalNetherrack() {
-        allBlocks.forEach(blockElement => {
-            blockElement.src = 'netherrack.png';
-        });
+    function setNetherrack() {
+        allBlocks.forEach(blockElement => blockElement.src = 'netherrack.png');
+        log(`Server: All blocks have been set to netherrack.`);
+    }
+    function setEndStone() {
+        allBlocks.forEach(blockElement => blockElement.src = 'endstone.png');
+        log(`Server: All blocks have been set to endstone.`);
     }
 
     function setLowGraphic() {
-        if (isInOverworld && !isInNether) {
+        if (isInOverworld && !isInNether && !isInTheEnd) {
             mc.style.background = 'skyblue';
             creeper.src = 'low_creeper.png';
 
@@ -818,7 +882,7 @@ if (running) {
         stoneBlockElementsArray.forEach(stoneBlockElement => stoneBlockElement.src = 'low_stone_block.png');
 
         } 
-        else if (isInNether || !isInOverworld) {
+        else if (isInNether || !isInOverworld || !isInTheEnd) {
 
             mc.style.background = "url('low_nether_sky.png')";
 
@@ -827,7 +891,7 @@ if (running) {
     }
 
     function setNormalGraphic() {
-        if (isInOverworld && !isInNether) {
+        if (isInOverworld && !isInNether && !isInTheEnd) {
             mc.style.background = 'url(\'sky.png\')';
             creeper.src = 'creeper.png';
 
@@ -838,7 +902,7 @@ if (running) {
         stoneBlockElementsArray.forEach(stoneBlockElement => stoneBlockElement.src = 'stone_block.png');
 
         } 
-        else if (isInNether || !isInOverworld) {
+        else if (isInNether || !isInOverworld || !isInTheEnd) {
 
             mc.style.background = "url('nether_sky.png')";
 
@@ -847,7 +911,7 @@ if (running) {
     }
 
     function setHighGraphic() {
-        if (isInOverworld && !isInNether) {
+        if (isInOverworld && !isInNether && !isInTheEnd) {
             mc.style.background = 'url(\'high_sky.png\')';
             creeper.src = 'high_creeper.png';
 
@@ -858,7 +922,7 @@ if (running) {
         stoneBlockElementsArray.forEach(stoneBlockElement => stoneBlockElement.src = 'high_stone_block.png');
 
         } 
-        else if (isInNether || !isInOverworld) {
+        else if (isInNether || !isInOverworld || !isInTheEnd) {
 
             mc.style.background = "url('high_nether_sky.png')";
             mc.style.backgroundPosition = 'center';
@@ -1105,33 +1169,46 @@ if (running) {
         } else if (method == 'openInv') {
             openInventoryGUI();
         } else if (method == 'spawnBlaze') {
-            if (isInNether && !isInOverworld) {
-                blazeSounds.play();
-                let blaze = document.createElement('div');
-                blaze.innerHTML = `<img id="blazeElement" draggable="false" src="blaze.png" alt="blaze.png">`;
-                blaze.classList.add('blazeAnimation');
-
-                log('Server: Blaze has been spawned.');
-
-                blaze.addEventListener('click', () => {
-                    blazeHP--;
-                    if (blazeHP <= 0) {
-                        blaze.querySelector('img').src = 'damaged_blaze.png';
-                        setTimeout(() => {
-                            blaze.parentNode.removeChild(blaze);
-                            numOfBlazeRods++;
-                            log(`Number of blaze rods: ${numOfBlazeRods}`);
-                        }, 3000);
-                    }
-                });
-                mc.appendChild(blaze);
-            }
+            renderBlaze();
         } else if (method == 'spawnEnderman') {
             renderEnderman();
         }
     }
 
     window.addEventListener('keydown', (e) => e.key == '0' ? renderEnderman() : false);
+    window.addEventListener('keydown', (e) => e.key == 'b' ? renderBlaze() : false);
+
+    function checkOverworldPortalCollision() {
+        let playerRect = player.getBoundingClientRect();
+        let portalRect = overworldPortalPosition.getBoundingClientRect();
+        
+        if (
+            playerRect.top < portalRect.bottom &&
+            playerRect.bottom > portalRect.top &&
+            playerRect.left < portalRect.right &&
+            playerRect.right > portalRect.left
+        ) {
+            enteringPortalSound.play();
+            isInOverworld = false;
+            isInTheEnd = false;
+            isInNether = false;
+        
+            endGameTitles();
+            log('Server: Congratulations! You beat the game.');
+        }
+    }
+
+    function goToOverworld() {
+    overworldPortalPosition = s45;
+
+    overworldPortalPosition.src = 'end_portal.png';
+
+    setTimeout(() => {
+        overworldPortalPosition.hidden = true;
+    }, 10000);
+
+    setInterval(checkOverworldPortalCollision, 100);
+    }
 
     function renderEnderman() {
         let enderman = document.createElement('div');
@@ -1150,6 +1227,55 @@ if (running) {
             }
         });
         mc.appendChild(enderman);
+        log('Server: Enderman has been spawned.');
+    }
+
+    function renderEnderDragon() {
+        let enderDragon = document.createElement('div');
+        enderDragon.innerHTML = `<img id="enderDragon" draggable="false" src="enderDragon.png" alt="enderDragon.png">`;
+        mc.appendChild(enderDragon);
+
+        log('Server: Enderdragon has been spawned.');
+
+        enderDragon.addEventListener('click', (e) => {
+        enderDragonHP--;
+
+        if (enderDragonHP == 0) {
+            enderDragon.querySelector('img').src = 'damaged_enderDragon.png';
+            setTimeout(() => {
+                enderDragon.querySelector('img').src = 'enderDragon.png';
+                enderDragon.hidden = true;
+            }, 300);
+            setTimeout(() => {
+                alert('Congratulations! You won!');
+                goToOverworld();
+            }, 800);
+            }
+        });
+    }
+
+    function renderBlaze() {
+        if (isInNether && !isInOverworld && !isInTheEnd) {
+            blazeSounds.play();
+            let blaze = document.createElement('div');
+            blaze.innerHTML = `<img id="blazeElement" draggable="false" src="blaze.png" alt="blaze.png">`;
+            blaze.classList.add('blazeAnimation');
+
+            log('Server: Blaze has been spawned.');
+
+            blaze.addEventListener('click', () => {
+                blazeHP--;
+                if (blazeHP <= 0) {
+                    blaze.querySelector('img').src = 'damaged_blaze.png';
+                    setTimeout(() => {
+                        blaze.parentNode.removeChild(blaze);
+                        numOfBlazeRods++;
+                        log(`Number of blaze rods: ${numOfBlazeRods}`);
+                    }, 3000);
+                }
+            });
+            mc.appendChild(blaze);
+        }
     }
 
     function steveChosen() {
@@ -1630,6 +1756,18 @@ if (running) {
             supriseVID.autoplay = true;
             supriseVID.loop = true;
             document.body.append(supriseVID);
+        }, 500);
+    }
+
+    function endGameTitles() {
+        allowedPlacingBlocks = false;
+        mc.hidden = true;
+        setTimeout(() => {
+            let endGameIMG = document.createElement('img');
+            endGameIMG.width = 1280;
+            endGameIMG.height = 720;
+            endGameIMG.src = 'thanks_for_playing.png';
+            document.body.append(endGameIMG);
         }, 500);
     }
     function grassBlockBreak() {
@@ -3235,11 +3373,13 @@ function openInventoryGUI() {
     `;
     Inventory.innerHTML = menu;
     document.body.append(Inventory);
+    log('Client: user has opened the inventory.');
 }
 
 function closeInventoryGUI() {
     isInventoryOpen = false;
     Inventory.hidden = true;
+    log('Client: user has closed the inventory.');
 }
 
     let stoneBlocks = `
@@ -3519,11 +3659,12 @@ function closeInventoryGUI() {
             playerRect.left < portalRect.right &&
             playerRect.right > portalRect.left
         ) {
-            enteringNetherSound.play();
-            isInOverworld = false;
+            enteringPortalSound.play();
             isInNether = true;
+            isInOverworld = false;
+            isInTheEnd = false;
 
-            log('Server: Succesfully joined the nether.')
+            log('Server: Succesfully joined the nether.');
         
             mc.style.background = "url('nether_sky.png')";
             mc.style.backgroundAttachment = "fixed";
@@ -3532,31 +3673,35 @@ function closeInventoryGUI() {
             creeper.hidden = true;
             player.style.top = '260px';
         
-            normalNetherrack();
+            setNetherrack();
+        }
+    }    
+    
+    function checkEndPortalCollision() {
+        let playerRect = player.getBoundingClientRect();
+        let portalRect = endPortalPosition.getBoundingClientRect();
         
-            document.addEventListener('keydown', (e) => {
-                if (e.key == 'b') {
-                    blazeSounds.play();
-                    let blaze = document.createElement('div');
-                    blaze.innerHTML = `<img id="blazeElement" draggable="false" src="blaze.png" alt="blaze.png">`;
-                    blaze.classList.add('blazeAnimation');
+        if (
+            playerRect.top < portalRect.bottom &&
+            playerRect.bottom > portalRect.top &&
+            playerRect.left < portalRect.right &&
+            playerRect.right > portalRect.left
+        ) {
+            enteringPortalSound.play();
+            isInTheEnd = true;
+            isInOverworld = false;
+            isInNether = false;
 
-                    log('Server: Blaze has been spawned.');
+            log('Server: Succesfully joined the end.');
         
-                    blaze.addEventListener('click', () => {
-                        blazeHP--;
-                        if (blazeHP <= 0) {
-                            blaze.querySelector('img').src = 'damaged_blaze.png';
-                            setTimeout(() => {
-                                blaze.parentNode.removeChild(blaze);
-                                numOfBlazeRods++;
-                                log(`Number of blaze rods: ${numOfBlazeRods}`);
-                            }, 3000);
-                        }
-                    });
-                    mc.appendChild(blaze);
-                }
-            });
+            mc.style.background = "url('end_sky.png')";
+            mc.style.backgroundAttachment = "fixed";
+        
+            creeper.hidden = true;
+            player.style.top = '260px';
+            
+            setEndStone();
+            renderEnderDragon();
         }
     }
     function checkBlazeCollision(element1, element2) {
@@ -3599,7 +3744,7 @@ function closeInventoryGUI() {
             }
         }
     }
-    setInterval(checkBlazeCollisionsPeriodically, 200);
+    setInterval(checkBlazeCollisionsPeriodically, blazeReactionTime);
 
 function numberOfObsidians() {
     numOfObsidians++;
@@ -3607,15 +3752,19 @@ function numberOfObsidians() {
 
     if (numOfObsidians == 10) {
         do {
-            shouldCreatePortal = prompt('Congratulations! You have 10 obsidians. Do you want to make a nether portal? (y/n):').toLowerCase();
+            shouldCreatePortal = prompt('Do you want to make a nether portal? (y/n):').toLowerCase();
         } while (shouldCreatePortal != 'y' && shouldCreatePortal != 'n');
 
         if (shouldCreatePortal == 'y') {
-            let portalBlockPositions = allBlocks;
+            let portalBlockPositions = allBlocks.filter(block => block !== s66 && block !== s45);
             let randomPortalPosition = Math.floor(Math.random() * portalBlockPositions.length);
             portalPosition = portalBlockPositions[randomPortalPosition];
 
             portalPosition.src = 'portal.png';
+
+            setTimeout(() => {
+                portalPosition.hidden = true;
+            }, 10000);
 
             setInterval(checkPortalCollision, 100);
             numOfObsidians = 0;
@@ -3629,69 +3778,112 @@ function numberOfObsidians() {
 }
 numberOfObsidians();
 
+    function checkMaterialsToTheEnd() {
+        if (numOfEnderPearls >= 5 && numOfBlazeRods >= 5) {
+            do {
+                shouldCreatePortal = prompt('Do you want to make an end portal? (y/n):').toLowerCase();
+            } while (shouldCreatePortal != 'y' && shouldCreatePortal != 'n');
+    
+            if (shouldCreatePortal == 'y') {
+                endPortalPosition = s66;
+    
+                endPortalPosition.src = 'end_portal.png';
+
+                setTimeout(() => {
+                    endPortalPosition.hidden = true;
+                }, 10000);
+    
+                setInterval(checkEndPortalCollision, 100);
+                numOfBlazeRods = 0;
+                numOfEnderPearls = 0;
+            } else if (shouldCreatePortal == 'n') {
+                alert('Nether portal won\'t be created.');
+            } else {
+                alert('Extremely rare error! Something went wrong.');
+            }
+        }
+    }
+    setInterval(checkMaterialsToTheEnd, timeout);
+
     function removeDiamondOre1() {
         let diamond_o = document.getElementById('diamond_o');
         diamond_o.hidden = true;
+        log('Server: diamond ore removed.');
     }
     function removeIronOre1() {
         let iron_ore1 = document.getElementById('iron_ore1');
         iron_ore1.hidden = true;
+        log('Server: iron ore removed.');
     }
     function removeIronOre2() {
         let iron_ore2 = document.getElementById('iron_ore2');
         iron_ore2.hidden = true;
+        log('Server: iron ore removed.');
     }
     function removeGoldOre1() {
         let gold_ore1 = document.getElementById('gold_ore1');
         gold_ore1.hidden = true;
+        log('Server: gold ore removed.');
     }
     function removeGoldOre2() {
         let gold_ore2 = document.getElementById('gold_ore2');
         gold_ore2.hidden = true;
+        log('Server: gold ore removed.');
     }
     function removeGoldOre3() {
         let gold_ore3 = document.getElementById('gold_ore3');
         gold_ore3.hidden = true;
+        log('Server: gold ore removed.');
     }
     function removeEmeraldOre1() {
         let emerald_ore1 = document.getElementById('emerald_ore1');
         emerald_ore1.hidden = true;
+        log('Server: emerald ore removed.');
     }
     function removeCoalOre1() {
         let coal_ore1 = document.getElementById('coal_ore1');
         coal_ore1.hidden = true;
+        log('Server: coal ore removed.');
     }
     function removeCoalOre2() {
         let coal_ore2 = document.getElementById('coal_ore2');
         coal_ore2.hidden = true;
+        log('Server: coal ore removed.');
     }
     function removeCoalOre3() {
         let coal_ore3 = document.getElementById('coal_ore3');
         coal_ore3.hidden = true;
+        log('Server: coal ore removed.');
     }
     function removeCoalOre4() {
         let coal_ore4 = document.getElementById('coal_ore4');
         coal_ore4.hidden = true;
+        log('Server: coal ore removed.');
     }
     function removeCoalOre5() {
         let coal_ore5 = document.getElementById('coal_ore5');
         coal_ore5.hidden = true;
+        log('Server: coal ore removed.');
     }
     function removeCoalOre6() {
         let coal_ore6 = document.getElementById('coal_ore6');
         coal_ore6.hidden = true;
+        log('Server: coal ore removed.');
     }
     function removeCoalOre7() {
         let coal_ore7 = document.getElementById('coal_ore7');
         coal_ore7.hidden = true;
+        log('Server: coal ore removed.');
     }
     function removeCoalOre8() {
         let coal_ore8 = document.getElementById('coal_ore8');
         coal_ore8.hidden = true;
+        log('Server: coal ore removed.');
     }
     function removeCoalOre9() {
         let coal_ore9 = document.getElementById('coal_ore9');
         coal_ore9.hidden = true;
+        log('Server: coal ore removed.');
     }
 
     function checkCollision(element1, element2) {
@@ -3753,7 +3945,7 @@ numberOfObsidians();
             }, 100);
         }
     }
-    setInterval(checkCollisionsPeriodically, 1000);
+    setInterval(checkCollisionsPeriodically, creeperReactionTime);
 
     function checkEndermanCollision() {
         if (checkCollision(player, enderman)) {
@@ -3787,7 +3979,41 @@ numberOfObsidians();
                 }
         }
     }
-    setInterval(checkEndermanCollision, 1000);
+    setInterval(checkEndermanCollision, endermanReactionTime);
+
+    function checkEnderDragonCollision() {
+        if (checkCollision(player, enderDragon)) {
+
+                playerHP -= 3;
+
+                if (playerHP <= 0) {
+                    player.hidden = true;
+                    log(`Server: ${storedUsername} died.`);
+                    let actionAfterDeath = prompt('YOU DIED!\n\nWhat you want to do?\nRespawn (r)\nSpectate (s)').toLowerCase();
+        
+                    if (actionAfterDeath == 'r') {
+                        window.location.reload();
+                    } else if (actionAfterDeath == 's') {
+                        let toggleHPDisplay = document.getElementById('toggleHPDisplay');
+                        toggleHPDisplay.hidden = true;
+                    } else {
+                        alert('Invalid action! Error code: 400.');
+                        window.close();
+                    }
+                }
+                if (gamemode != 1) {
+                    let playerImg = isSteveChosen ? 'steve_standing.png' :
+                                isAlexChosen ? 'alex_standing.png' :
+                                isSkin1Chosen ? 'skin1_standing.png' : 'steve_standing.png';
+        
+                player.src = `damaged_${playerImg}`;
+                setTimeout(() => {
+                    player.src = playerImg;
+                }, 350);
+                }
+        }
+    }
+    setInterval(checkEnderDragonCollision, enderDragonReactionTime);
 
     document.body.addEventListener('keydown', (e) => {
         if ((e.ctrlKey && e.key == 'a') ||

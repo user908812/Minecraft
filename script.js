@@ -3366,7 +3366,7 @@ function openInventoryGUI() {
                 <div id="my-nick-display">${storedUsername}</div>
                 <img id="my-skin-display" src=${isSteveChosen ? 'steve_standing.png' :
                     isAlexChosen ? 'alex_standing.png' :
-                    isSkin1Chosen ? 'skin1_standing.png' : 'steve_standing.png'} alt="skin1_standing.png">
+                    isSkin1Chosen ? 'skin1_standing.png' : 'steve_standing.png'} draggable="false" alt="skin1_standing.png">
             </div>
         </div>
     </div>

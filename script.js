@@ -45,6 +45,10 @@ const allBlocks = [g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, 
 
 var speech = new SpeechSynthesisUtterance;
 
+const WHITE = '#fff';
+const gameResolution = '1762x908';
+const hostName = window.location.hostname;
+
 var player = document.querySelector('.player');
 var stoneContainer4 = document.querySelector('.stone-container4');
 var hotbarContainer = document.querySelector('.hotbar-container');
@@ -68,6 +72,7 @@ var blazeSounds = document.getElementById('blazeSounds');
 var gamemodeDisplay = document.getElementById('gamemodeDisplay');
 var toggleHPDisplay = document.getElementById('toggleHPDisplay');
 var cloudsTitle = document.getElementById('clouds');
+var currentBiomeDisplay = document.getElementById('selectedBiome');
 
 var mobileControls1 = document.getElementById('mobileControls1');
 var mobileControls2 = document.getElementById('mobileControls2');
@@ -104,10 +109,10 @@ function renderPlayerLocationOnScoreboard() {
         F3config.style.color = '#000';
     } else if (isInNether && !isInOverworld && !isInTheEnd) {
         document.getElementById('playerLocation').innerHTML = 'the_nether';
-        F3config.style.color = '#fff';
+        F3config.style.color = WHITE;
     } else if (isInTheEnd && !isInNether && !isInOverworld) {
         document.getElementById('playerLocation').innerHTML = 'the_end';
-        F3config.style.color = '#fff';
+        F3config.style.color = WHITE;
     }
 }
 setInterval(renderPlayerLocationOnScoreboard, timeout);
@@ -120,9 +125,9 @@ if (window.performance && window.performance.memory) {
   }
   var currentMemory = document.getElementById('currentMemory').innerHTML = `${memoryPercentage.toFixed(0)}% ${usedMemoryMB.toFixed(0)}/${totalMemoryMB.toFixed(0)}MB`;
 
-  var windowResolutionDisplay = document.getElementById('windowConfig').innerHTML = `1762x908`;
+  var windowResolutionDisplay = document.getElementById('windowConfig').innerHTML = gameResolution;
   var FPSDisplay = document.getElementById('FPS').innerHTML = FPS;
-  var IPDisplay = document.getElementById('ipNum').innerHTML = window.location.hostname;
+  var IPDisplay = document.getElementById('ipNum').innerHTML = hostName;
   var seedNum = Math.floor(Math.random() * 100000);
   var SeedDisplay = document.getElementById('seed').innerHTML = seedNum;
 /*   ------   */
@@ -140,6 +145,91 @@ const endermanReactionTime = 200;
 const enderDragonReactionTime = 600;
 const creeperReactionTime = 1000;
 const blazeReactionTime = 200;
+
+const steveStandingPNG = 'steve_standing.png';
+const steveStandingReversedPNG = 'steve_standing_reversed.png';
+const steveCrouchingPNG = 'steve_crouching.png';
+const steveCrouchingReversedPNG = 'steve_crouching_reversed.png';
+const damagedSteveStandingPNG = 'damaged_steve_standing.png';
+
+const alexStandingPNG = 'alex_standing.png';
+const alexStandingReversedPNG = 'alex_standing_reversed.png';
+const alexCrouchingPNG = 'alex_crouching.png';
+const alexCrouchingReversedPNG = 'alex_crouching_reversed.png';
+const damagedAlexStandingPNG = 'damaged_alex_standing.png';
+
+const skin1StandingPNG = 'skin1_standing.png';
+const skin1StandingReversedPNG = 'skin1_standing_reversed.png';
+const skin1CrouchingPNG = 'skin1_crouching.png';
+const skin1CrouchingReversedPNG = 'skin1_crouching_reversed.png';
+const damagedSkin1StandingPNG = 'damaged_skin1_standing.png';
+
+const creeperPNG = 'creeper.png';
+const lowGraphicCreeper = 'low_creeper.png';
+const highGraphicCreeper = 'high_creeper.png';
+const damagedCreeperPNG = 'damaged_creeper.png';
+const creeperDieSound = 'OUCCHHHHHHHH!';
+
+const EndermanPNG = 'enderman.png';
+const damagedEndermanPNG = 'damaged_enderman.png';
+
+const EnderDragonPNG = 'enderDragon.png';
+const damagedEnderDragonPNG = 'damaged_enderDragon.png';
+
+const blazePNG = 'blaze.png';
+const damagedBlazePNG = 'damaged_blaze.png';
+
+const sandBlockPNG = 'sand_block.png';
+const sandstoneBlockPNG = 'sandstone.png';
+const lowStoneBlockPNG = 'low_stone_block.png';
+const stoneBlockPNG = 'stone_block.png';
+const highGraphicStoneBlock = 'high_stone_block.png';
+const iceBlockPNG = 'ice_block.png';
+const waterBlockPNG = 'water.png';
+const snowyGrassBlockPNG = 'snowy_grass.png';
+const lowDirtBlockPNG = 'low_dirt.png';
+const dirtBlockPNG = 'dirt.png';
+const highGraphicDirtBlock = 'high_dirt.png';
+const myceliumBlockPNG = 'mycelium_block.png';
+const oakPlanksBlockPNG = 'oak_plank.png';
+const oakLeavesBlockPNG = 'oak_leaves.png';
+const whiteWoolBlockPNG = 'white_wool.png';
+const diamondBlockPNG = 'diamond_block.png';
+const obsidianBlockPNG = 'obsidian.png';
+const barrierBlockPNG = 'barrier.png';
+const diamondOreBlockPNG = 'diamond_ore.png';
+const cobbleStoneBlockPNG = 'cobblestone.png';
+const tntBlockPNG = 'tnt.png';
+const lowNetherrackBlockPNG = 'low_netherrack.png';
+const netherrackBlockPNG = 'netherrack.png';
+const highGraphicNetherrackBlock = 'high_netherrack.png';
+const endStoneBlockPNG = 'endstone.png';
+const lowGrassBlockPNG = 'low_grass_block.png';
+const grassBlockPNG = 'grass_block.png';
+const highGraphicGrassBlock = 'high_grass_block.png';
+const ironOreBlockPNG = 'iron_ore.png';
+const goldOreBlockPNG = 'gold_ore.png';
+const emeraldOreBlockPNG = 'emerald_ore.png';
+const coalOreBlockPNG = 'coal_ore.png';
+
+const endPortalPNG = 'end_portal.png';
+const netherPortalPNG = 'portal.png';
+
+const skyPNG = 'sky.png';
+const lowGraphicSky = 'skyblue';
+const highGraphicSky = 'high_sky.png';
+const lowGraphicNetherSky = 'low_nether_sky.png';
+const netherSky = 'nether_sky.png';
+const highGraphicNetherSky = 'high_nether_sky.png';
+const theEndSky = 'end_sky.png';
+
+const creeperIMGTag = `<img id="creeper" draggable="false" src="${creeperPNG}" alt="${creeperPNG}">`;
+const endermanIMGTag = `<img id="enderman" draggable="false" src="${EndermanPNG}" alt="${EndermanPNG}">`;
+const enderDragonIMGTag = `<img id="enderDragon" draggable="false" src="${EnderDragonPNG}" alt="${EnderDragonPNG}">`;
+const blazeIMGTag = `<img id="blazeElement" draggable="false" src="${blazePNG}" alt="${blazePNG}">`;
+
+const supriseVidMP4 = 'suprise.mp4';
+const thanksForPlayingIMG = 'thanks_for_playing.png';
 
 var frameCount = 0;
 var lastTime = performance.now();
@@ -169,7 +259,6 @@ var endermanHP = 12;
 var enderDragonHP = 180;
 
 var oakPlanks = false;
-var cobbleStone = false;
 var sandStone = false;
 var oakLeaves = false;
 var dirt = false;
@@ -201,8 +290,9 @@ var shouldCreatePortal;
 
 if (running) {
 
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', onDOMContentLoad);
 
+    function onDOMContentLoad() {
         log('Server: Successfully loaded the world.');
         music.play();
 
@@ -252,11 +342,11 @@ if (running) {
             biomes.normal.isNormalBiome = true;
             setInterval(() => {
                 if (isInOverworld && !isInNether && !isInTheEnd) {
-                    document.getElementById('selectedBiome').innerHTML = biomes.normal.name;
+                    currentBiomeDisplay.innerHTML = biomes.normal.name;
                 } else if (isInNether && !isInOverworld && !isInTheEnd) {
-                    document.getElementById('selectedBiome').innerHTML = biomes.nether.name;
+                    currentBiomeDisplay.innerHTML = biomes.nether.name;
                 } else if (isInTheEnd && !isInNether && !isInOverworld) {
-                    document.getElementById('selectedBiome').innerHTML = biomes.theEnd.name;
+                    currentBiomeDisplay.innerHTML = biomes.theEnd.name;
                 }
             }, 200);
             log(`Server: The biome is ${biomes.normal.name}.`);
@@ -264,107 +354,71 @@ if (running) {
             biomes.desert.isDesertBiome = true;
             setInterval(() => {
                 if (isInOverworld && !isInNether && !isInTheEnd) {
-                    document.getElementById('selectedBiome').innerHTML = biomes.desert.name;
+                    currentBiomeDisplay.innerHTML = biomes.desert.name;
                 } else if (isInNether && !isInOverworld && !isInTheEnd) {
-                    document.getElementById('selectedBiome').innerHTML = biomes.nether.name;
+                    currentBiomeDisplay.innerHTML = biomes.nether.name;
                 } else if (isInTheEnd && !isInNether && !isInOverworld) {
-                    document.getElementById('selectedBiome').innerHTML = biomes.theEnd.name;
+                    currentBiomeDisplay.innerHTML = biomes.theEnd.name;
                 }
             }, 200);
+            grassBlockElementsArray.forEach(grassBlockInGrassBlocks => grassBlockInGrassBlocks.src = sandBlockPNG);
+            dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => dirtBlockInDirtBlocks.src = sandstoneBlockPNG);
+            stoneBlockElementsArray.forEach(stoneBlockInStoneBlocks => stoneBlockInStoneBlocks.src = sandstoneBlockPNG);
+            stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => stoneBlockThirdLevel.src = stoneBlockPNG);
 
-            grassBlockElementsArray.forEach(grassBlockInGrassBlocks => {
-                grassBlockInGrassBlocks.src = 'sand_block.png';
-            });
-            dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => {
-                dirtBlockInDirtBlocks.src = 'sandstone.png';
-            });
-            stoneBlockElementsArray.forEach(stoneBlockInStoneBlocks => {
-                stoneBlockInStoneBlocks.src = 'sandstone.png';
-            });
-            stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => {
-                stoneBlockThirdLevel.src = 'stone_block.png';
-            });
             log(`Server: The biome is ${biomes.desert.name}.`);
         } else if (biome == 3) {
             biomes.icy.isIcyBiome = true;
             setInterval(() => {
                 if (isInOverworld && !isInNether && !isInTheEnd) {
-                    document.getElementById('selectedBiome').innerHTML = biomes.icy.name;
+                    currentBiomeDisplay.innerHTML = biomes.icy.name;
                 } else if (isInNether && !isInOverworld && !isInTheEnd) {
-                    document.getElementById('selectedBiome').innerHTML = biomes.nether.name;
+                    currentBiomeDisplay.innerHTML = biomes.nether.name;
                 } else if (isInTheEnd && !isInNether && !isInOverworld) {
-                    document.getElementById('selectedBiome').innerHTML = biomes.theEnd.name;
+                    currentBiomeDisplay.innerHTML = biomes.theEnd.name;
                 }
             }, 200);
+            grassBlockElementsArray.forEach(grassBlockInGrassBlocks => grassBlockInGrassBlocks.src = iceBlockPNG);
+            dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => dirtBlockInDirtBlocks.src = waterBlockPNG);
+            stoneBlockElementsArray.forEach(stoneBlockInStoneBlocks => stoneBlockInStoneBlocks.src = waterBlockPNG);
+            stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => stoneBlockThirdLevel.src = stoneBlockPNG);
 
-            grassBlockElementsArray.forEach(grassBlockInGrassBlocks => {
-                grassBlockInGrassBlocks.src = 'ice_block.png';
-            });
-            dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => {
-                dirtBlockInDirtBlocks.src = 'water.png';
-            });
-            stoneBlockElementsArray.forEach(stoneBlockInStoneBlocks => {
-                stoneBlockInStoneBlocks.src = 'water.png';
-            });
-            stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => {
-                stoneBlockThirdLevel.src = 'stone_block.png';
-            });
             log(`Server: The biome is ${biomes.icy.name}.`);
         } else if (biome == 4) {
             biomes.snowy.isSnowyBiome = true;
             setInterval(() => {
                 if (isInOverworld && !isInNether && !isInTheEnd) {
-                    document.getElementById('selectedBiome').innerHTML = biomes.snowy.name;
+                    currentBiomeDisplay.innerHTML = biomes.snowy.name;
                 } else if (isInNether && !isInOverworld && !isInTheEnd) {
-                    document.getElementById('selectedBiome').innerHTML = biomes.nether.name;
+                    currentBiomeDisplay.innerHTML = biomes.nether.name;
                 } else if (isInTheEnd && !isInNether && !isInOverworld) {
-                    document.getElementById('selectedBiome').innerHTML = biomes.theEnd.name;
+                    currentBiomeDisplay.innerHTML = biomes.theEnd.name;
                 }
             }, 200);
+            grassBlockElementsArray.forEach(grassBlockInGrassBlocks => grassBlockInGrassBlocks.src = snowyGrassBlockPNG);
+            dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => dirtBlockInDirtBlocks.src = dirtBlockPNG);
+            stoneBlockElementsArray.forEach(stoneBlockInStoneBlocks => stoneBlockInStoneBlocks.src = stoneBlockPNG);
+            stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => stoneBlockThirdLevel.src = stoneBlockPNG);
 
-            grassBlockElementsArray.forEach(grassBlockInGrassBlocks => {
-                grassBlockInGrassBlocks.src = 'snowy_grass.png';
-            });
-            dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => {
-                dirtBlockInDirtBlocks.src = 'dirt.png';
-            });
-            stoneBlockElementsArray.forEach(stoneBlockInStoneBlocks => {
-                stoneBlockInStoneBlocks.src = 'stone_block.png';
-            });
-            stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => {
-                stoneBlockThirdLevel.src = 'stone_block.png';
-            });
             log(`Server: The biome is ${biomes.snowy.name}.`);
         } else if (biome == 5) {
             biomes.mushroom.isMushroomBiome = true;
             setInterval(() => {
                 if (isInOverworld && !isInNether && !isInTheEnd) {
-                    document.getElementById('selectedBiome').innerHTML = biomes.mushroom.name;
+                    currentBiomeDisplay.innerHTML = biomes.mushroom.name;
                 } else if (isInNether && !isInOverworld && !isInTheEnd) {
-                    document.getElementById('selectedBiome').innerHTML = biomes.nether.name;
+                    currentBiomeDisplay.innerHTML = biomes.nether.name;
                 } else if (isInTheEnd && !isInNether && !isInOverworld) {
-                    document.getElementById('selectedBiome').innerHTML = biomes.theEnd.name;
+                    currentBiomeDisplay.innerHTML = biomes.theEnd.name;
                 }
             }, 200);
+            grassBlockElementsArray.forEach(grassBlockInGrassBlocks => grassBlockInGrassBlocks.src = myceliumBlockPNG);
+            dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => dirtBlockInDirtBlocks.src = dirtBlockPNG);
+            stoneBlocksInFirstLevel.forEach(stoneBlockInFirstLevel => stoneBlockInFirstLevel.src = dirtBlockPNG);
+            stoneBlocksInSecondLevel.forEach(stoneBlockInSecondLevel => stoneBlockInSecondLevel.src = stoneBlockPNG);
+            stoneBlocksInThirdLevel.forEach(stoneBlockInThirdLevel => stoneBlockInThirdLevel.src = stoneBlockPNG);
+            stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => stoneBlockThirdLevel.src = stoneBlockPNG);
 
-            grassBlockElementsArray.forEach(grassBlockInGrassBlocks => {
-                grassBlockInGrassBlocks.src = 'mycelium_block.png';
-            });
-            dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => {
-                dirtBlockInDirtBlocks.src = 'dirt.png';
-            });
-            stoneBlocksInFirstLevel.forEach(stoneBlockInFirstLevel => {
-                stoneBlockInFirstLevel.src = 'dirt.png';
-            });
-            stoneBlocksInSecondLevel.forEach(stoneBlockInSecondLevel => {
-                stoneBlockInSecondLevel.src = 'stone_block.png';
-            });
-            stoneBlocksInThirdLevel.forEach(stoneBlockInThirdLevel => {
-                stoneBlockInThirdLevel.src = 'stone_block.png';
-            });
-            stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => {
-                stoneBlockThirdLevel.src = 'stone_block.png';
-            });
             log(`Server: The biome is ${biomes.mushroom.name}.`);
         }
     }
@@ -372,18 +426,18 @@ if (running) {
 
     function renderCreeper() {
         let creeper = document.createElement('div');
-        creeper.innerHTML = `<img id="creeper" draggable="false" src="creeper.png" alt="creeper.png">`;
+        creeper.innerHTML = creeperIMGTag;
         mc.appendChild(creeper);
 
-        creeper.addEventListener('click', (e) => {
+        creeper.addEventListener('click', () => {
             creeperHP--;
 
             if (creeperHP == 0) {
-                creeper.querySelector('img').src = 'damaged_creeper.png';
+                creeper.querySelector('img').src = damagedCreeperPNG;
                 setTimeout(() => {
-                    creeper.querySelector('img').src = 'creeper.png';
+                    creeper.querySelector('img').src = creeperPNG;
                     creeper.hidden = true;
-                    speech.text = 'OUCCHHHHHHHH!';
+                    speech.text = creeperDieSound;
                     window.speechSynthesis.speak(speech);
                 }, 300);
             }
@@ -394,21 +448,14 @@ if (running) {
         
     function isPlayerInNether() {
         if (isInNether && !isInOverworld && !isInTheEnd) {
-
             grassBlockElementsArray.forEach(grassBlockInGrassBlocks => {
-                grassBlockInGrassBlocks.addEventListener('click', () => {
-                    netherrackBreaking.play();
-                });
+                grassBlockInGrassBlocks.addEventListener('click', () => netherrackBreaking.play());
             });
             dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => {
-                dirtBlockInDirtBlocks.addEventListener('click', () => {
-                    netherrackBreaking.play();
-                });
+                dirtBlockInDirtBlocks.addEventListener('click', () => netherrackBreaking.play());
             });
             stoneBlockElementsArray.forEach(stoneBlockInStoneBlocks => {
-                stoneBlockInStoneBlocks.addEventListener('click', () => {
-                    netherrackBreaking.play();
-                });
+                stoneBlockInStoneBlocks.addEventListener('click', () => netherrackBreaking.play());
             });
         } 
     }
@@ -416,21 +463,14 @@ if (running) {
 
     function isPlayerInTheEnd() {
         if (isInTheEnd && !isInOverworld && !isInNether) {
-
             grassBlockElementsArray.forEach(grassBlockInGrassBlocks => {
-                grassBlockInGrassBlocks.addEventListener('click', () => {
-                    stoneBreaking.play();
-                });
+                grassBlockInGrassBlocks.addEventListener('click', () => stoneBreaking.play());
             });
             dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => {
-                dirtBlockInDirtBlocks.addEventListener('click', () => {
-                    stoneBreaking.play();
-                });
+                dirtBlockInDirtBlocks.addEventListener('click', () => stoneBreaking.play());
             });
             stoneBlockElementsArray.forEach(stoneBlockInStoneBlocks => {
-                stoneBlockInStoneBlocks.addEventListener('click', () => {
-                    stoneBreaking.play();
-                });
+                stoneBlockInStoneBlocks.addEventListener('click', () => stoneBreaking.play());
             });
         } 
     }
@@ -439,240 +479,197 @@ if (running) {
     function setBlockSoundsForBiome() {
         if (biomes.normal.isNormalBiome) {
             grassBlockElementsArray.forEach(grassBlockInGrassBlocks => {
-                grassBlockInGrassBlocks.addEventListener('click', () => {
-                    grassBreaking.play();
-                });
+                grassBlockInGrassBlocks.addEventListener('click', () => grassBreaking.play());
             });
             dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => {
-                dirtBlockInDirtBlocks.addEventListener('click', () => {
-                    dirtBreaking.play();
-                });
+                dirtBlockInDirtBlocks.addEventListener('click', () => dirtBreaking.play());
             });
             stoneBlockElementsArray.forEach(stoneBlockInStoneBlocks => {
-                stoneBlockInStoneBlocks.addEventListener('click', () => {
-                    stoneBreaking.play();
-                });
+                stoneBlockInStoneBlocks.addEventListener('click', () => stoneBreaking.play());
             });
         } 
         else if (biomes.desert.isDesertBiome) {
             grassBlockElementsArray.forEach(grassBlockInGrassBlocks => {
-                grassBlockInGrassBlocks.addEventListener('click', () => {
-                    sandBreaking.play();
-                });
+                grassBlockInGrassBlocks.addEventListener('click', () => sandBreaking.play());
             });
             dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => {
-                dirtBlockInDirtBlocks.addEventListener('click', () => {
-                    sandstoneBreaking.play();
-                });
+                dirtBlockInDirtBlocks.addEventListener('click', () => sandstoneBreaking.play());
             });
             stoneBlocksInFirstLevel.forEach(stoneBlockInFirstLevel => {
-                stoneBlockInFirstLevel.addEventListener('click', () => {
-                    sandstoneBreaking.play();
-                });
+                stoneBlockInFirstLevel.addEventListener('click', () => sandstoneBreaking.play());
             });
             stoneBlocksInSecondLevel.forEach(stoneBlockInSecondLevel => {
-                stoneBlockInSecondLevel.addEventListener('click', () => {
-                    sandstoneBreaking.play();
-                });
+                stoneBlockInSecondLevel.addEventListener('click', () => sandstoneBreaking.play());
             });
             stoneBlocksInThirdLevel.forEach(stoneBlockInThirdLevel => {
-                stoneBlockInThirdLevel.addEventListener('click', () => {
-                    stoneBreaking.play();
-                });
+                stoneBlockInThirdLevel.addEventListener('click', () => stoneBreaking.play());
             });
         } 
         else if (biomes.icy.isIcyBiome) {
             grassBlockElementsArray.forEach(grassBlockInGrassBlocks => {
-                grassBlockInGrassBlocks.addEventListener('click', () => {
-                    iceBreaking.play();
-                });
+                grassBlockInGrassBlocks.addEventListener('click', () => iceBreaking.play());
             });
             dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => {
-                dirtBlockInDirtBlocks.addEventListener('click', () => {
-                    waterSound.play();
-                });
+                dirtBlockInDirtBlocks.addEventListener('click', () => waterSound.play());
             });
             stoneBlocksInFirstLevel.forEach(stoneBlockInFirstLevel => {
-                stoneBlockInFirstLevel.addEventListener('click', () => {
-                    waterSound.play();
-                });
+                stoneBlockInFirstLevel.addEventListener('click', () => waterSound.play());
             });
             stoneBlocksInSecondLevel.forEach(stoneBlockInSecondLevel => {
-                stoneBlockInSecondLevel.addEventListener('click', () => {
-                    waterSound.play();
-                });
+                stoneBlockInSecondLevel.addEventListener('click', () => waterSound.play());
             });
             stoneBlocksInThirdLevel.forEach(stoneBlockInThirdLevel => {
-                stoneBlockInThirdLevel.addEventListener('click', () => {
-                    stoneBreaking.play();
-                });
+                stoneBlockInThirdLevel.addEventListener('click', () => stoneBreaking.play());
             });
         }
         else if (biomes.snowy.isSnowyBiome) {
             grassBlockElementsArray.forEach(grassBlockInGrassBlocks => {
-                grassBlockInGrassBlocks.addEventListener('click', () => {
-                    grassBreaking.play();
-                });
+                grassBlockInGrassBlocks.addEventListener('click', () => grassBreaking.play());
             });
             dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => {
-                dirtBlockInDirtBlocks.addEventListener('click', () => {
-                    dirtBreaking.play();
-                });
+                dirtBlockInDirtBlocks.addEventListener('click', () => dirtBreaking.play());
             });
             stoneBlockElementsArray.forEach(stoneBlockInStoneBlocks => {
-                stoneBlockInStoneBlocks.addEventListener('click', () => {
-                    stoneBreaking.play();
-                });
+                stoneBlockInStoneBlocks.addEventListener('click', () => stoneBreaking.play());
             });
         }
         else if (biomes.mushroom.isMushroomBiome) {
             grassBlockElementsArray.forEach(grassBlockInGrassBlocks => {
-                grassBlockInGrassBlocks.addEventListener('click', () => {
-                    grassBreaking.play();
-                });
+                grassBlockInGrassBlocks.addEventListener('click', () => grassBreaking.play());
             });
             dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => {
-                dirtBlockInDirtBlocks.addEventListener('click', () => {
-                    dirtBreaking.play();
-                });
+                dirtBlockInDirtBlocks.addEventListener('click', () => dirtBreaking.play());
             });
             stoneBlocksInFirstLevel.forEach(stoneBlockInFirstLevel => {
-                stoneBlockInFirstLevel.addEventListener('click', () => {
-                    dirtBreaking.play();
-                });
+                stoneBlockInFirstLevel.addEventListener('click', () => dirtBreaking.play());
             });
             stoneBlocksInSecondLevel.forEach(stoneBlockInSecondLevel => {
-                stoneBlockInSecondLevel.addEventListener('click', () => {
-                    stoneBreaking.play();
-                });
+                stoneBlockInSecondLevel.addEventListener('click', () => stoneBreaking.play());
             });
             stoneBlocksInThirdLevel.forEach(stoneBlockInThirdLevel => {
-                stoneBlockInThirdLevel.addEventListener('click', () => {
-                    stoneBreaking.play();
-                });
+                stoneBlockInThirdLevel.addEventListener('click', () => stoneBreaking.play());
             });
         }
     }
     setBlockSoundsForBiome();
+}
 
-    // Place blocks
-    document.addEventListener('contextmenu', function(event) {
+    function updateBlocks(event) {
         event.preventDefault();
         let clickedPlace = document.createElement('div');
         clickedPlace.classList.add('clickedPlace');
         clickedPlace.style.position = 'absolute';
         clickedPlace.style.left = event.clientX + 'px';
         clickedPlace.style.top = event.clientY + 'px';
-        if (allowedPlacingBlocks && oakPlanks) {
-            clickedPlace.style.background = "url('oak_plank.png')";
-            log(`Client: Oak planks placed at x: ${event.clientX - 84}.`);
-        } else if (allowedPlacingBlocks && cobbleStone) {
-            clickedPlace.style.background = "url('cobblestone.png')";
-            log(`Client: Cobblestone placed at x: ${event.clientX - 84}.`);
-        } else if (allowedPlacingBlocks && sandStone) {
-            clickedPlace.style.background = "url('sandstone.png')";
-            log(`Client: Sandstone block placed at x: ${event.clientX - 84}.`);
-        } else if (allowedPlacingBlocks && oakLeaves) {
-            clickedPlace.style.background = "url('oak_leaves.png')";
-            log(`Client: Oak leaves placed at x: ${event.clientX - 84}.`);
-        } else if (allowedPlacingBlocks && dirt) {
-            clickedPlace.style.background = "url('dirt.png')";
-            log(`Client: Dirt block placed at x: ${event.clientX - 84}.`);
-        } else if (allowedPlacingBlocks && stone) {
-            clickedPlace.style.background = "url('stone_block.png')";
-            log(`Client: Stone block placed at x: ${event.clientX - 84}.`);
-        } else if (allowedPlacingBlocks && whiteWool) {
-            clickedPlace.style.background = "url('white_wool.png')";
-            log(`Client: White wool placed at x: ${event.clientX - 84}.`);
-        } else if (allowedPlacingBlocks && diamondBlock) {
-            clickedPlace.style.background = "url('diamond_block.png')";
-            log(`Client: Diamond block placed at x: ${event.clientX - 84}.`);
-        } else if (allowedPlacingBlocks && obsidianBlock) {
-            clickedPlace.style.background = "url('obsidian.png')";
-            log(`Client: Obsidian block placed at x: ${event.clientX - 84}.`);
-        } else if (allowedPlacingBlocks && barrierBlock) {
-            clickedPlace.style.background = "url('barrier.png')";
-            log(`Client: Barrier block placed at x: ${event.clientX - 84}.`);
-            setTimeout(() => {
-                clickedPlace.style.display = 'none';
-            }, 2000);
-        } else if (allowedPlacingBlocks && diamondOreBlock) {
-            clickedPlace.style.background = "url('diamond_ore.png')";
-            log(`Client: Diamond ore placed at x: ${event.clientX - 84}.`);
-        } else if (allowedPlacingBlocks && waterBlock) {
-            clickedPlace.style.background = "url('water.png')";
-            log(`Client: Water block placed at x: ${event.clientX - 84}.`);
-        } else if (allowedPlacingBlocks && iceBlock) {
-            clickedPlace.style.background = "url('ice_block.png')";
-            log(`Client: Ice block placed at x: ${event.clientX - 84}.`);
-        } else if (allowedPlacingBlocks && cobbleStoneBlock) {
-            clickedPlace.style.background = "url('cobblestone.png')";
-            log(`Client: Cobblestone block placed at x: ${event.clientX - 84}.`);
-        } else if (allowedPlacingBlocks && tntBlock) {
-            clickedPlace.style.background = "url('tnt.png')";
-            log(`Client: TNT placed at x: ${event.clientX - 84}.`);
+        
+        if (allowedPlacingBlocks) {
+            if (oakPlanks) {
+                clickedPlace.style.background = `url('${oakPlanksBlockPNG}')`;
+                log(`Client: Oak planks placed at x: ${event.clientX - 84}.`);
+            } else if (sandStone) {
+                clickedPlace.style.background = `url('${sandstoneBlockPNG}')`;
+                log(`Client: Sandstone block placed at x: ${event.clientX - 84}.`);
+            } else if (oakLeaves) {
+                clickedPlace.style.background = `url('${oakLeavesBlockPNG}')`;
+                log(`Client: Oak leaves placed at x: ${event.clientX - 84}.`);
+            } else if (dirt) {
+                clickedPlace.style.background = `url('${dirtBlockPNG}')`;
+                log(`Client: Dirt block placed at x: ${event.clientX - 84}.`);
+            } else if (stone) {
+                clickedPlace.style.background = `url('${stoneBlockPNG}')`;
+                log(`Client: Stone block placed at x: ${event.clientX - 84}.`);
+            } else if (whiteWool) {
+                clickedPlace.style.background = `url('${whiteWoolBlockPNG}')`;
+                log(`Client: White wool placed at x: ${event.clientX - 84}.`);
+            } else if (diamondBlock) {
+                clickedPlace.style.background = `url('${diamondBlockPNG}')`;
+                log(`Client: Diamond block placed at x: ${event.clientX - 84}.`);
+            } else if (obsidianBlock) {
+                clickedPlace.style.background = `url('${obsidianBlockPNG}')`;
+                log(`Client: Obsidian block placed at x: ${event.clientX - 84}.`);
+            } else if (barrierBlock) {
+                clickedPlace.style.background = `url('${barrierBlockPNG}')`;
+                log(`Client: Barrier block placed at x: ${event.clientX - 84}.`);
+                setTimeout(() => {
+                    clickedPlace.style.display = 'none';
+                }, 2000);
+            } else if (diamondOreBlock) {
+                clickedPlace.style.background = `url('${diamondOreBlockPNG}')`;
+                log(`Client: Diamond ore placed at x: ${event.clientX - 84}.`);
+            } else if (waterBlock) {
+                clickedPlace.style.background = `url('${waterBlockPNG}')`;
+                log(`Client: Water block placed at x: ${event.clientX - 84}.`);
+            } else if (iceBlock) {
+                clickedPlace.style.background = `url('${iceBlockPNG}')`;
+                log(`Client: Ice block placed at x: ${event.clientX - 84}.`);
+            } else if (cobbleStoneBlock) {
+                clickedPlace.style.background = `url('${cobbleStoneBlockPNG}')`;
+                log(`Client: Cobblestone block placed at x: ${event.clientX - 84}.`);
+            } else if (tntBlock) {
+                clickedPlace.style.background = `url('${tntBlockPNG}')`;
+                log(`Client: TNT placed at x: ${event.clientX - 84}.`);
 
-            let blocksToTNTDestroy = 
-            [g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12,
-            g13, g14, g15, g16, g17, g18, g19, g20, g21, g22,
-            d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12,
-            d13, d14, d15, d16, d17, d18, d19, d20, d21, d22,
-            s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12,
-            s13, s14, s15, s16, s17, s18, s19, s20, s21, s22];
+                const blocksToTNTDestroy = 
+                [g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12,
+                g13, g14, g15, g16, g17, g18, g19, g20, g21, g22,
+                d1, d2, d3, d4, d5, d6, d7, d8, d9, d10, d11, d12,
+                d13, d14, d15, d16, d17, d18, d19, d20, d21, d22,
+                s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11, s12,
+                s13, s14, s15, s16, s17, s18, s19, s20, s21, s22];
 
-            let numOfBlocks = [1, 2, 3, 4, 5];
-            let randomNumberOfBlocks = Math.floor(Math.random() * numOfBlocks.length);
-            let numberOfBlocks = numOfBlocks[randomNumberOfBlocks];
+                let numOfBlocks = [1, 2, 3, 4, 5];
+                let randomNumberOfBlocks = Math.floor(Math.random() * numOfBlocks.length);
+                let numberOfBlocks = numOfBlocks[randomNumberOfBlocks];
 
-            let rand1 = Math.floor(Math.random() * blocksToTNTDestroy.length);
-            let rand2 = Math.floor(Math.random() * blocksToTNTDestroy.length);
-            let rand3 = Math.floor(Math.random() * blocksToTNTDestroy.length);
-            let rand4 = Math.floor(Math.random() * blocksToTNTDestroy.length);
-            let rand5 = Math.floor(Math.random() * blocksToTNTDestroy.length);
+                let rand1 = Math.floor(Math.random() * blocksToTNTDestroy.length);
+                let rand2 = Math.floor(Math.random() * blocksToTNTDestroy.length);
+                let rand3 = Math.floor(Math.random() * blocksToTNTDestroy.length);
+                let rand4 = Math.floor(Math.random() * blocksToTNTDestroy.length);
+                let rand5 = Math.floor(Math.random() * blocksToTNTDestroy.length);
 
-            let randomBlock1 = blocksToTNTDestroy[rand1];
-            let randomBlock2 = blocksToTNTDestroy[rand2];
-            let randomBlock3 = blocksToTNTDestroy[rand3];
-            let randomBlock4 = blocksToTNTDestroy[rand4];
-            let randomBlock5 = blocksToTNTDestroy[rand5];
+                let randomBlock1 = blocksToTNTDestroy[rand1];
+                let randomBlock2 = blocksToTNTDestroy[rand2];
+                let randomBlock3 = blocksToTNTDestroy[rand3];
+                let randomBlock4 = blocksToTNTDestroy[rand4];
+                let randomBlock5 = blocksToTNTDestroy[rand5];
 
-            setTimeout(() => {
-                clickedPlace.style.display = 'none';
+                setTimeout(() => {
+                    clickedPlace.style.display = 'none';
 
-                switch (numberOfBlocks) {
-                    case 1:
-                        tntExplosion.play();
-                        randomBlock1.style.display = 'none';
-                        break;
-                    case 2:
-                        tntExplosion.play();
-                        randomBlock1.style.display = 'none';
-                        randomBlock2.style.display = 'none';
-                        break;
-                    case 3:
-                        tntExplosion.play();
-                        randomBlock1.style.display = 'none';
-                        randomBlock2.style.display = 'none';
-                        randomBlock3.style.display = 'none';
-                        break;
-                    case 4:
-                        tntExplosion.play();
-                        randomBlock1.style.display = 'none';
-                        randomBlock2.style.display = 'none';
-                        randomBlock3.style.display = 'none';
-                        randomBlock4.style.display = 'none';
-                        break;
-                    case 5:
-                        tntExplosion.play();
-                        randomBlock1.style.display = 'none';
-                        randomBlock2.style.display = 'none';
-                        randomBlock3.style.display = 'none';
-                        randomBlock4.style.display = 'none';
-                        randomBlock5.style.display = 'none';
-                }
-            }, 1000);
-        }
-        document.body.appendChild(clickedPlace);
+                    switch (numberOfBlocks) {
+                        case 1:
+                            tntExplosion.play();
+                            randomBlock1.style.display = 'none';
+                            break;
+                        case 2:
+                            tntExplosion.play();
+                            randomBlock1.style.display = 'none';
+                            randomBlock2.style.display = 'none';
+                            break;
+                        case 3:
+                            tntExplosion.play();
+                            randomBlock1.style.display = 'none';
+                            randomBlock2.style.display = 'none';
+                            randomBlock3.style.display = 'none';
+                            break;
+                        case 4:
+                            tntExplosion.play();
+                            randomBlock1.style.display = 'none';
+                            randomBlock2.style.display = 'none';
+                            randomBlock3.style.display = 'none';
+                            randomBlock4.style.display = 'none';
+                            break;
+                        case 5:
+                            tntExplosion.play();
+                            randomBlock1.style.display = 'none';
+                            randomBlock2.style.display = 'none';
+                            randomBlock3.style.display = 'none';
+                            randomBlock4.style.display = 'none';
+                            randomBlock5.style.display = 'none';
+                    }
+                }, 1000);
+            }}
+            document.body.appendChild(clickedPlace);
 
         clickedPlace.addEventListener('click', () => {
             if (!tntBlock && allowedDestroyingBlocks) {
@@ -680,11 +677,12 @@ if (running) {
                 log(`Client: Some block was removed at x: ${event.clientX - 84}.`);
             }
         });
-    });
-});
+    }
+
+    document.addEventListener('contextmenu', updateBlocks);
 
     function openGuiInGameMenu() {
-        document.body.addEventListener('keydown', (e) => {
+        window.addEventListener('keydown', (e) => {
             if (e.key == 'Escape') {
                 if (!isGuiOpen) {
                     isGuiOpen = true;
@@ -716,15 +714,15 @@ if (running) {
             <div class="skinsGUI">
                 <div class="steve-div">
                     <label id="steveLabel" for="steveSkin">Steve: </label>
-                    <img id="steveSkin" onclick="steveChosen()" src="steve_standing.png" alt="steve_standing.png" draggable="false">
+                    <img id="steveSkin" onclick="steveChosen()" src="${steveStandingPNG}" alt="${steveStandingPNG}" draggable="false">
                 </div>
                 <div class="alex-div">
                     <label id="alexLabel" for="alexSkin">Alex: </label>
-                    <img id="alexSkin" onclick="alexChosen()" src="alex_standing.png" alt="alex_standing.png" draggable="false">
+                    <img id="alexSkin" onclick="alexChosen()" src="${alexStandingPNG}" alt="${alexStandingPNG}" draggable="false">
                 </div>
                 <div class="skin1-div">
                     <label id="skin1Label" for="skin1Skin">Skin1: </label>
-                    <img id="skin1Skin" onclick="skin1Chosen()" src="skin1_standing.png" alt="skin1_standing.png" draggable="false">
+                    <img id="skin1Skin" onclick="skin1Chosen()" src="${skin1StandingPNG}" alt="${skin1StandingPNG}" draggable="false">
                 </div>
             </div>
         </div>
@@ -778,15 +776,15 @@ if (running) {
             <div class="skinsGUI">
                 <div class="steve-div">
                     <label id="steveLabel" for="steveSkin">Steve: </label>
-                    <img id="steveSkin" onclick="steveChosen()" src="steve_standing.png" alt="steve_standing.png" draggable="false">
+                    <img id="steveSkin" onclick="steveChosen()" src="${steveStandingPNG}" alt="${steveStandingPNG}" draggable="false">
                 </div>
                 <div class="alex-div">
                     <label id="alexLabel" for="alexSkin">Alex: </label>
-                    <img id="alexSkin" onclick="alexChosen()" src="alex_standing.png" alt="alex_standing.png" draggable="false">
+                    <img id="alexSkin" onclick="alexChosen()" src="${alexStandingPNG}" alt="${alexStandingPNG}" draggable="false">
                 </div>
                 <div class="skin1-div">
                     <label id="skin1Label" for="skin1Skin">Skin1: </label>
-                    <img id="skin1Skin" onclick="skin1Chosen()" src="skin1_standing.png" alt="skin1_standing.png" draggable="false">
+                    <img id="skin1Skin" onclick="skin1Chosen()" src="${skin1StandingPNG}" alt="${skin1StandingPNG}" draggable="false">
                 </div>
             </div>
         </div>
@@ -862,72 +860,62 @@ if (running) {
     }
 
     function setNetherrack() {
-        allBlocks.forEach(blockElement => blockElement.src = 'netherrack.png');
+        allBlocks.forEach(blockElement => blockElement.src = netherrackBlockPNG);
         log(`Server: All blocks have been set to netherrack.`);
     }
     function setEndStone() {
-        allBlocks.forEach(blockElement => blockElement.src = 'endstone.png');
+        allBlocks.forEach(blockElement => blockElement.src = endStoneBlockPNG);
         log(`Server: All blocks have been set to endstone.`);
     }
 
     function setLowGraphic() {
         if (isInOverworld && !isInNether && !isInTheEnd) {
-            mc.style.background = 'skyblue';
-            creeper.src = 'low_creeper.png';
+            mc.style.background = lowGraphicSky;
+            creeper.src = lowGraphicCreeper;
 
-        grassBlockElementsArray.forEach(grassBlockElement => grassBlockElement.src = 'low_grass_block.png');
-
-        dirtBlockElementsArray.forEach(dirtBlockElement => dirtBlockElement.src = 'low_dirt.png');
-        
-        stoneBlockElementsArray.forEach(stoneBlockElement => stoneBlockElement.src = 'low_stone_block.png');
-
+            grassBlockElementsArray.forEach(grassBlockElement => grassBlockElement.src = lowGrassBlockPNG);
+            dirtBlockElementsArray.forEach(dirtBlockElement => dirtBlockElement.src = lowDirtBlockPNG);
+            stoneBlockElementsArray.forEach(stoneBlockElement => stoneBlockElement.src = lowStoneBlockPNG);
         } 
         else if (isInNether || !isInOverworld || !isInTheEnd) {
-
-            mc.style.background = "url('low_nether_sky.png')";
-
-            allBlocks.forEach(blockElement => blockElement.src = 'low_netherrack.png');
+            mc.style.background = `url('${lowGraphicNetherSky}')`;
+            allBlocks.forEach(blockElement => blockElement.src = lowNetherrackBlockPNG);
         }
     }
 
     function setNormalGraphic() {
         if (isInOverworld && !isInNether && !isInTheEnd) {
-            mc.style.background = 'url(\'sky.png\')';
-            creeper.src = 'creeper.png';
+            mc.style.background = `url(${skyPNG})`;
+            creeper.src = creeperPNG;
 
-        grassBlockElementsArray.forEach(grassBlockElement => grassBlockElement.src = 'grass_block.png');
-
-        dirtBlockElementsArray.forEach(dirtBlockElement => dirtBlockElement.src = 'dirt.png');
-        
-        stoneBlockElementsArray.forEach(stoneBlockElement => stoneBlockElement.src = 'stone_block.png');
-
+        grassBlockElementsArray.forEach(grassBlockElement => grassBlockElement.src = grassBlockPNG);
+        dirtBlockElementsArray.forEach(dirtBlockElement => dirtBlockElement.src = dirtBlockPNG);
+        stoneBlockElementsArray.forEach(stoneBlockElement => stoneBlockElement.src = stoneBlockPNG);
         } 
         else if (isInNether || !isInOverworld || !isInTheEnd) {
-
-            mc.style.background = "url('nether_sky.png')";
-
-            allBlocks.forEach(blockElement => blockElement.src = 'netherrack.png');
+            mc.style.background = `url('${netherSky}')`;
+            allBlocks.forEach(blockElement => blockElement.src = netherrackBlockPNG);
         }
     }
 
     function setHighGraphic() {
         if (isInOverworld && !isInNether && !isInTheEnd) {
-            mc.style.background = 'url(\'high_sky.png\')';
-            creeper.src = 'high_creeper.png';
+            mc.style.background = `url('${highGraphicSky}')`;
+            creeper.src = highGraphicCreeper;
 
-        grassBlockElementsArray.forEach(grassBlockElement => grassBlockElement.src = 'high_grass_block.png');
+        grassBlockElementsArray.forEach(grassBlockElement => grassBlockElement.src = highGraphicGrassBlock);
 
-        dirtBlockElementsArray.forEach(dirtBlockElement => dirtBlockElement.src = 'high_dirt.png');
+        dirtBlockElementsArray.forEach(dirtBlockElement => dirtBlockElement.src = highGraphicDirtBlock);
         
-        stoneBlockElementsArray.forEach(stoneBlockElement => stoneBlockElement.src = 'high_stone_block.png');
+        stoneBlockElementsArray.forEach(stoneBlockElement => stoneBlockElement.src = highGraphicStoneBlock);
 
         } 
         else if (isInNether || !isInOverworld || !isInTheEnd) {
 
-            mc.style.background = "url('high_nether_sky.png')";
+            mc.style.background = `url('${highGraphicNetherSky}')`;
             mc.style.backgroundPosition = 'center';
 
-            allBlocks.forEach(blockElement => blockElement.src = 'high_netherrack.png');
+            allBlocks.forEach(blockElement => blockElement.src = highGraphicNetherrackBlock);
         }
     }
 
@@ -939,57 +927,57 @@ if (running) {
             if (e.key == 'Shift') {
                 if (!playerCrouching) {
                     if (isSteveChosen) {
-                        player.src = 'steve_crouching.png';
+                        player.src = steveCrouchingPNG;
                     }
                     else if (isAlexChosen) {
-                        player.src = 'alex_crouching.png';
+                        player.src = alexCrouchingPNG;
                     }
                     else if (isSkin1Chosen) {
-                        player.src = 'skin1_crouching.png';
+                        player.src = skin1CrouchingPNG;
                     } else {
-                        player.src = 'steve_crouching.png';
+                        player.src = steveCrouchingPNG;
                     }
                     playerCrouching = true;
                 } else {
                     if (isSteveChosen) {
-                        player.src = 'steve_standing.png';
+                        player.src = steveStandingPNG;
                     }
                     else if (isAlexChosen) {
-                        player.src = 'alex_standing.png';
+                        player.src = alexStandingPNG;
                     }
                     else if (isSkin1Chosen) {
-                        player.src = 'skin1_standing.png';
+                        player.src = skin1StandingPNG;
                     } else {
-                        player.src = 'steve_standing.png';
+                        player.src = steveStandingPNG;
                     }
                     playerCrouching = false;
                 }
             } else if (e.key == 'ArrowLeft' || e.key == 's' || e.key == 'a') {
                 if (playerCrouching) {
                     if (isSteveChosen) {
-                        player.src = 'steve_crouching_reversed.png';
+                        player.src = steveCrouchingReversedPNG;
                     }
                     else if (isAlexChosen) {
-                        player.src = 'alex_crouching_reversed.png';
+                        player.src = alexCrouchingReversedPNG;
                     }
                     else if (isSkin1Chosen) {
-                        player.src = 'skin1_crouching_reversed.png';
+                        player.src = skin1CrouchingReversedPNG;
                     } else {
-                        player.src = 'steve_crouching_reversed.png';
+                        player.src = steveCrouchingReversedPNG;
                     }
                     playerXPosition -= playerCrouchingSpeed;
                     player.style.left = playerXPosition + 'px';
                 } else {
                     if (isSteveChosen) {
-                        player.src = 'steve_standing_reversed.png';
+                        player.src = steveStandingReversedPNG;
                     }
                     else if (isAlexChosen) {
-                        player.src = 'alex_standing_reversed.png';
+                        player.src = alexStandingReversedPNG;
                     }
                     else if (isSkin1Chosen) {
-                        player.src = 'skin1_standing_reversed.png';
+                        player.src = skin1StandingReversedPNG;
                     } else {
-                        player.src = 'steve_standing_reversed.png';
+                        player.src = steveStandingReversedPNG;
                     }
                     playerXPosition -= (ctrlPressed ? playerSpeedWithControlKey : playerSpeed);
                     player.style.left = playerXPosition + 'px';
@@ -997,29 +985,29 @@ if (running) {
             } else if (e.key == 'w' || e.key == 'd') {
                 if (playerCrouching) {
                     if (isSteveChosen) {
-                        player.src = 'steve_crouching.png';
+                        player.src = steveCrouchingPNG;
                     }
                     else if (isAlexChosen) {
-                        player.src = 'alex_crouching.png';
+                        player.src = alexCrouchingPNG;
                     }
                     else if (isSkin1Chosen) {
-                        player.src = 'skin1_crouching.png';
+                        player.src = skin1CrouchingPNG;
                     } else {
-                        player.src = 'steve_crouching.png';
+                        player.src = steveCrouchingPNG;
                     }
                     playerXPosition += playerCrouchingSpeed;
                     player.style.left = playerXPosition + 'px';
                 } else {
                     if (isSteveChosen) {
-                        player.src = 'steve_standing.png';
+                        player.src = steveStandingPNG;
                     }
                     else if (isAlexChosen) {
-                        player.src = 'alex_standing.png';
+                        player.src = alexStandingPNG;
                     }
                     else if (isSkin1Chosen) {
-                        player.src = 'skin1_standing.png';
+                        player.src = skin1StandingPNG;
                     } else {
-                        player.src = 'steve_standing.png';
+                        player.src = steveStandingPNG;
                     }
                     playerXPosition += (ctrlPressed ? playerSpeedWithControlKey : playerSpeed);
                     player.style.left = playerXPosition + 'px';
@@ -1034,29 +1022,29 @@ if (running) {
                 e.preventDefault();
                 if (playerCrouching) {
                     if (isSteveChosen) {
-                        player.src = 'steve_crouching.png';
+                        player.src = steveCrouchingPNG;
                     }
                     else if (isAlexChosen) {
-                        player.src = 'alex_crouching.png';
+                        player.src = alexCrouchingPNG;
                     }
                     else if (isSkin1Chosen) {
-                        player.src = 'skin1_crouching.png';
+                        player.src = skin1CrouchingPNG;
                     } else {
-                        player.src = 'steve_crouching.png';
+                        player.src = steveCrouchingPNG;
                     }
                     playerXPosition += playerCrouchingSpeed;
                     player.style.left = playerXPosition + 'px';
                 } else {
                     if (isSteveChosen) {
-                        player.src = 'steve_standing.png';
+                        player.src = steveStandingPNG;
                     }
                     else if (isAlexChosen) {
-                        player.src = 'alex_standing.png';
+                        player.src = alexStandingPNG;
                     }
                     else if (isSkin1Chosen) {
-                        player.src = 'skin1_standing.png';
+                        player.src = skin1StandingPNG;
                     } else {
-                        player.src = 'steve_standing.png';
+                        player.src = steveStandingPNG;
                     }
                     playerXPosition += (ctrlPressed ? playerSpeedWithControlKey : playerSpeed);
                     player.style.left = playerXPosition + 'px';
@@ -1070,29 +1058,29 @@ if (running) {
         if (method == 'left') {
             if (playerCrouching) {
                 if (isSteveChosen) {
-                    player.src = 'steve_crouching_reversed.png';
+                    player.src = steveCrouchingReversedPNG;
                 }
                 else if (isAlexChosen) {
-                    player.src = 'alex_crouching_reversed.png';
+                    player.src = alexCrouchingReversedPNG;
                 }
                 else if (isSkin1Chosen) {
-                    player.src = 'skin1_crouching_reversed.png';
+                    player.src = skin1CrouchingReversedPNG;
                 } else {
-                    player.src = 'steve_crouching_reversed.png';
+                    player.src = steveCrouchingReversedPNG;
                 }
                 playerXPosition -= playerCrouchingSpeedMobile;
                 player.style.left = playerXPosition + 'px';
             } else {
                 if (isSteveChosen) {
-                    player.src = 'steve_standing_reversed.png';
+                    player.src = steveStandingReversedPNG;
                 }
                 else if (isAlexChosen) {
-                    player.src = 'alex_standing_reversed.png';
+                    player.src = alexStandingReversedPNG;
                 }
                 else if (isSkin1Chosen) {
-                    player.src = 'skin1_standing_reversed.png';
+                    player.src = skin1StandingReversedPNG;
                 } else {
-                    player.src = 'steve_standing_reversed.png';
+                    player.src = steveStandingReversedPNG;
                 }
                 playerXPosition -= playerSpeedMobile;
                 player.style.left = playerXPosition + 'px';
@@ -1100,57 +1088,57 @@ if (running) {
         } else if (method == 'crouch') {
             if (!playerCrouching) {
                 if (isSteveChosen) {
-                    player.src = 'steve_crouching.png';
+                    player.src = steveCrouchingPNG;
                 }
                 else if (isAlexChosen) {
-                    player.src = 'alex_crouching.png';
+                    player.src = alexCrouchingPNG;
                 }
                 else if (isSkin1Chosen) {
-                    player.src = 'skin1_crouching.png';
+                    player.src = skin1CrouchingPNG;
                 } else {
-                    player.src = 'steve_crouching.png';
+                    player.src = steveCrouchingPNG;
                 }
                 playerCrouching = true;
             } else {
                 if (isSteveChosen) {
-                        player.src = 'steve_standing.png';
+                        player.src = steveStandingPNG;
                     }
                     else if (isAlexChosen) {
-                        player.src = 'alex_standing.png';
+                        player.src = alexStandingPNG;
                     }
                     else if (isSkin1Chosen) {
-                        player.src = 'skin1_standing.png';
+                        player.src = skin1StandingPNG;
                     } else {
-                        player.src = 'steve_standing.png';
+                        player.src = steveStandingPNG;
                     }
                 playerCrouching = false;
             }
         } else if (method == 'right') {
             if (playerCrouching) {
                 if (isSteveChosen) {
-                    player.src = 'steve_crouching.png';
+                    player.src = steveCrouchingPNG;
                 }
                 else if (isAlexChosen) {
-                    player.src = 'alex_crouching.png';
+                    player.src = alexCrouchingPNG;
                 }
                 else if (isSkin1Chosen) {
-                    player.src = 'skin1_crouching.png';
+                    player.src = skin1CrouchingPNG;
                 } else {
-                    player.src = 'steve_crouching.png';
+                    player.src = steveCrouchingPNG;
                 }
                 playerXPosition += playerCrouchingSpeedMobile;
                 player.style.left = playerXPosition + 'px';
             } else {
                 if (isSteveChosen) {
-                        player.src = 'steve_standing.png';
+                        player.src = steveStandingPNG;
                     }
                     else if (isAlexChosen) {
-                        player.src = 'alex_standing.png';
+                        player.src = alexStandingPNG;
                     }
                     else if (isSkin1Chosen) {
-                        player.src = 'skin1_standing.png';
+                        player.src = skin1StandingPNG;
                     } else {
-                        player.src = 'steve_standing.png';
+                        player.src = steveStandingPNG;
                     }
                 playerXPosition += playerSpeedMobile;
                 player.style.left = playerXPosition + 'px';
@@ -1201,7 +1189,7 @@ if (running) {
     function goToOverworld() {
     overworldPortalPosition = s45;
 
-    overworldPortalPosition.src = 'end_portal.png';
+    overworldPortalPosition.src = endPortalPNG;
 
     setTimeout(() => {
         overworldPortalPosition.hidden = true;
@@ -1212,13 +1200,13 @@ if (running) {
 
     function renderEnderman() {
         let enderman = document.createElement('div');
-        enderman.innerHTML = `<img id="enderman" draggable="false" src="enderman.png" alt="enderman.png">`;
+        enderman.innerHTML = endermanIMGTag;
         mc.appendChild(enderman);
 
         enderman.addEventListener('click', () => {
             endermanHP--;
             if (endermanHP <= 0) {
-                enderman.querySelector('img').src = 'damaged_enderman.png';
+                enderman.querySelector('img').src = damagedEndermanPNG;
                 setTimeout(() => {
                     enderman.parentNode.removeChild(enderman);
                     numOfEnderPearls++;
@@ -1232,18 +1220,18 @@ if (running) {
 
     function renderEnderDragon() {
         let enderDragon = document.createElement('div');
-        enderDragon.innerHTML = `<img id="enderDragon" draggable="false" src="enderDragon.png" alt="enderDragon.png">`;
+        enderDragon.innerHTML = enderDragonIMGTag;
         mc.appendChild(enderDragon);
 
         log('Server: Enderdragon has been spawned.');
 
-        enderDragon.addEventListener('click', (e) => {
+        enderDragon.addEventListener('click', () => {
         enderDragonHP--;
 
         if (enderDragonHP == 0) {
-            enderDragon.querySelector('img').src = 'damaged_enderDragon.png';
+            enderDragon.querySelector('img').src = damagedEnderDragonPNG;
             setTimeout(() => {
-                enderDragon.querySelector('img').src = 'enderDragon.png';
+                enderDragon.querySelector('img').src = EnderDragonPNG;
                 enderDragon.hidden = true;
             }, 300);
             setTimeout(() => {
@@ -1258,7 +1246,7 @@ if (running) {
         if (isInNether && !isInOverworld && !isInTheEnd) {
             blazeSounds.play();
             let blaze = document.createElement('div');
-            blaze.innerHTML = `<img id="blazeElement" draggable="false" src="blaze.png" alt="blaze.png">`;
+            blaze.innerHTML = blazeIMGTag;
             blaze.classList.add('blazeAnimation');
 
             log('Server: Blaze has been spawned.');
@@ -1266,7 +1254,7 @@ if (running) {
             blaze.addEventListener('click', () => {
                 blazeHP--;
                 if (blazeHP <= 0) {
-                    blaze.querySelector('img').src = 'damaged_blaze.png';
+                    blaze.querySelector('img').src = damagedBlazePNG;
                     setTimeout(() => {
                         blaze.parentNode.removeChild(blaze);
                         numOfBlazeRods++;
@@ -1283,34 +1271,34 @@ if (running) {
         isAlexChosen = false;
         isSkin1Chosen = false;
 
-        player.src = 'steve_standing.png';
-        document.body.addEventListener('keydown', (e) => { 
+        player.src = steveStandingPNG;
+        window.addEventListener('keydown', (e) => { 
             if (e.key === 'Control') {
                 ctrlPressed = true;
             }      
             if (e.key == 'Shift') {
                 if (!playerCrouching) {
-                    player.src = 'steve_crouching.png';
+                    player.src = steveCrouchingPNG;
                 } else {
-                    player.src = 'steve_standing.png';
+                    player.src = steveStandingPNG;
                 }
             } else if (e.key == 'ArrowLeft' || e.key == 's' || e.key == 'a') {
                 if (playerCrouching) {
-                    player.src = 'steve_crouching_reversed.png';
+                    player.src = steveCrouchingReversedPNG;
                 } else {
-                    player.src = 'steve_standing_reversed.png';
+                    player.src = steveStandingReversedPNG;
                 }
             } else if (e.key == 'w' || e.key == 'd') {
                 if (playerCrouching) {
-                    player.src = 'steve_crouching.png';
+                    player.src = steveCrouchingPNG;
                 } else {
-                    player.src = 'steve_standing.png';
+                    player.src = steveStandingPNG;
                 }
             } else if (e.key == 'ArrowRight') {
                 if (playerCrouching) {
-                    player.src = 'steve_crouching.png';
+                    player.src = steveCrouchingPNG;
                 } else {
-                    player.src = 'steve_standing.png';
+                    player.src = steveStandingPNG;
                 }
             }
         });
@@ -1321,31 +1309,31 @@ if (running) {
         isAlexChosen = true;
         isSkin1Chosen = false;
 
-        player.src = 'alex_standing.png';
-        document.body.addEventListener('keydown', (e) => {     
+        player.src = alexStandingPNG;
+        window.addEventListener('keydown', (e) => {     
             if (e.key == 'Shift') {
                 if (!playerCrouching) {
-                    player.src = 'alex_crouching.png';
+                    player.src = alexCrouchingPNG;
                 } else {
-                    player.src = 'alex_standing.png';
+                    player.src = alexStandingPNG;
                 }
             } else if (e.key == 'ArrowLeft' || e.key == 's' || e.key == 'a') {
                 if (playerCrouching) {
-                    player.src = 'alex_crouching_reversed.png';
+                    player.src = alexCrouchingReversedPNG;
                 } else {
-                    player.src = 'alex_standing_reversed.png';
+                    player.src = alexStandingReversedPNG;
                 }
             } else if (e.key == 'w' || e.key == 'd') {
                 if (playerCrouching) {
-                    player.src = 'alex_crouching.png';
+                    player.src = alexCrouchingPNG;
                 } else {
-                    player.src = 'alex_standing.png';
+                    player.src = alexStandingPNG;
                 }
             } else if (e.key == 'ArrowRight') {
                 if (playerCrouching) {
-                    player.src = 'alex_crouching.png';
+                    player.src = alexCrouchingPNG;
                 } else {
-                    player.src = 'alex_standing.png';
+                    player.src = alexStandingPNG;
                 }
             }
         });
@@ -1356,31 +1344,31 @@ if (running) {
         isAlexChosen = false;
         isSkin1Chosen = true;
 
-        player.src = 'skin1_standing.png';
-        document.body.addEventListener('keydown', (e) => {     
+        player.src = skin1StandingPNG;
+        window.addEventListener('keydown', (e) => {     
             if (e.key == 'Shift') {
                 if (!playerCrouching) {
-                    player.src = 'skin1_crouching.png';
+                    player.src = skin1CrouchingPNG;
                 } else {
-                    player.src = 'skin1_standing.png';
+                    player.src = skin1StandingPNG;
                 }
             } else if (e.key == 'ArrowLeft' || e.key == 's' || e.key == 'a') {
                 if (playerCrouching) {
-                    player.src = 'skin1_crouching_reversed.png';
+                    player.src = skin1CrouchingReversedPNG;
                 } else {
-                    player.src = 'skin1_standing_reversed.png';
+                    player.src = skin1StandingReversedPNG;
                 }
             } else if (e.key == 'w' || e.key == 'd') {
                 if (playerCrouching) {
-                    player.src = 'skin1_crouching.png';
+                    player.src = skin1CrouchingPNG;
                 } else {
-                    player.src = 'skin1_standing.png';
+                    player.src = skin1StandingPNG;
                 }
             } else if (e.key == 'ArrowRight') {
                 if (playerCrouching) {
-                    player.src = 'skin1_crouching.png';
+                    player.src = skin1CrouchingPNG;
                 } else {
-                    player.src = 'skin1_standing.png';
+                    player.src = skin1StandingPNG;
                 }
             }
         });
@@ -1388,7 +1376,7 @@ if (running) {
     }
 
     function setDefaultPlayerPosition() {
-        document.body.addEventListener('keydown', (e) => {
+        window.addEventListener('keydown', (e) => {
             if (e.key == '/') {
                 if (player.style.top != '260px') {
                     log(`Server: Teleported ${storedUsername} to the normal position.`);
@@ -1752,7 +1740,7 @@ if (running) {
             let supriseVID = document.createElement('video');
             supriseVID.width = 1280;
             supriseVID.height = 720;
-            supriseVID.src = 'suprise.mp4';
+            supriseVID.src = supriseVidMP4;
             supriseVID.autoplay = true;
             supriseVID.loop = true;
             document.body.append(supriseVID);
@@ -1766,7 +1754,7 @@ if (running) {
             let endGameIMG = document.createElement('img');
             endGameIMG.width = 1280;
             endGameIMG.height = 720;
-            endGameIMG.src = 'thanks_for_playing.png';
+            endGameIMG.src = thanksForPlayingIMG;
             document.body.append(endGameIMG);
         }, 500);
     }
@@ -2994,24 +2982,6 @@ if (running) {
 
     function oakPlanksChosen() {
         oakPlanks = true;
-        cobbleStone = false;
-        sandStone = false;
-        oakLeaves = false;
-        dirt = false;
-        stone = false;
-        whiteWool = false;
-        diamondBlock = false;
-        barrierBlock = false;
-        tntBlock = false;
-        obsidianBlock = false;
-        diamondOreBlock = false;
-        waterBlock = false;
-        iceBlock = false;
-        cobbleStoneBlock = false;
-    }
-    function cobbleStoneChosen() {
-        cobbleStone = true;
-        oakPlanks = false;
         sandStone = false;
         oakLeaves = false;
         dirt = false;
@@ -3028,7 +2998,6 @@ if (running) {
     }
     function sandStoneChosen() {
         sandStone = true;
-        cobbleStone = false;
         oakPlanks = false;
         oakLeaves = false;
         dirt = false;
@@ -3046,7 +3015,6 @@ if (running) {
     function oakLeavesChosen() {
         oakLeaves = true;
         sandStone = false;
-        cobbleStone = false;
         oakPlanks = false;
         dirt = false;
         stone = false;
@@ -3064,7 +3032,6 @@ if (running) {
         dirt = true;
         oakLeaves = false;
         sandStone = false;
-        cobbleStone = false;
         oakPlanks = false;
         stone = false;
         whiteWool = false;
@@ -3082,7 +3049,6 @@ if (running) {
         dirt = false;
         oakLeaves = false;
         sandStone = false;
-        cobbleStone = false;
         oakPlanks = false;
         whiteWool = false;
         diamondBlock = false;
@@ -3100,7 +3066,6 @@ if (running) {
         dirt = false;
         oakLeaves = false;
         sandStone = false;
-        cobbleStone = false;
         oakPlanks = false;
         diamondBlock = false;
         barrierBlock = false;
@@ -3118,7 +3083,6 @@ if (running) {
         dirt = false;
         oakLeaves = false;
         sandStone = false;
-        cobbleStone = false;
         oakPlanks = false;
         barrierBlock = false;
         tntBlock = false;
@@ -3136,7 +3100,6 @@ if (running) {
         dirt = false;
         oakLeaves = false;
         sandStone = false;
-        cobbleStone = false;
         oakPlanks = false;
         tntBlock = false;
         obsidianBlock = false;
@@ -3154,7 +3117,6 @@ if (running) {
         dirt = false;
         oakLeaves = false;
         sandStone = false;
-        cobbleStone = false;
         oakPlanks = false;
         obsidianBlock = false;
         diamondOreBlock = false;
@@ -3172,7 +3134,6 @@ if (running) {
         dirt = false;
         oakLeaves = false;
         sandStone = false;
-        cobbleStone = false;
         oakPlanks = false;
         diamondOreBlock = false;
         waterBlock = false;
@@ -3190,7 +3151,6 @@ if (running) {
         dirt = false;
         oakLeaves = false;
         sandStone = false;
-        cobbleStone = false;
         oakPlanks = false;
         waterBlock = false;
         iceBlock = false;
@@ -3208,7 +3168,6 @@ if (running) {
         dirt = false;
         oakLeaves = false;
         sandStone = false;
-        cobbleStone = false;
         oakPlanks = false;
         iceBlock = false;
         cobbleStoneBlock = false;
@@ -3226,7 +3185,6 @@ if (running) {
         dirt = false;
         oakLeaves = false;
         sandStone = false;
-        cobbleStone = false;
         oakPlanks = false;
         cobbleStoneBlock = false;
     }
@@ -3244,13 +3202,12 @@ if (running) {
         dirt = false;
         oakLeaves = false;
         sandStone = false;
-        cobbleStone = false;
         oakPlanks = false;
     }
 
     let Inventory = document.createElement('div');
 
-document.body.addEventListener('keydown', (e) => {
+window.addEventListener('keydown', (e) => {
     if (e.key === 'F3') {
         e.preventDefault();
 
@@ -3275,28 +3232,28 @@ function openInventoryGUI() {
             <hr>
             <div class="blocks-display">
                 <div class="blockDisplay">
-                    <div class="b"><img title="Oak Leaves" id="glass" draggable="false" onclick="oakLeavesChosen()" width="50" height="50" src="oak_leaves.png" alt="oak_leaves.png"></div>
+                    <div class="b"><img title="Oak Leaves" id="glass" draggable="false" onclick="oakLeavesChosen()" width="50" height="50" src="${oakLeavesBlockPNG}" alt="${oakLeavesBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">Oak Leaves</div>
                         <div class="block-id">ID: 18</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="Sandstone" id="sandstone" draggable="false" onclick="sandStoneChosen()" width="50" height="50" src="sandstone.png" alt="sandstone.png"></div>
+                    <div class="b"><img title="Sandstone" id="sandstone" draggable="false" onclick="sandStoneChosen()" width="50" height="50" src="${sandstoneBlockPNG}" alt="${sandstoneBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">Sandstone</div>
                         <div class="block-id">ID: 24</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="Dirt" id="dirt" draggable="false" onclick="dirtChosen()" width="50" height="50" src="dirt.png" alt="dirt.png"></div>
+                    <div class="b"><img title="Dirt" id="dirt" draggable="false" onclick="dirtChosen()" width="50" height="50" src="${dirtBlockPNG}" alt="${dirtBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">Dirt</div>
                         <div class="block-id">ID: 3</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="Stone" id="stone_block" draggable="false" onclick="stoneChosen()" width="50" height="50" src="stone_block.png" alt="stone_block.png"></div>
+                    <div class="b"><img title="Stone" id="stone_block" draggable="false" onclick="stoneChosen()" width="50" height="50" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">Stone</div>
                         <div class="block-id">ID: 1</div>
@@ -3305,56 +3262,56 @@ function openInventoryGUI() {
             </div>
             <div class="blocks-display2">
                 <div class="blockDisplay">
-                    <div class="b"><img title="White Wool" id="white_wool" draggable="false" onclick="whiteWoolChosen()" width="50" height="50" src="white_wool.png" alt="white_wool.png"></div>
+                    <div class="b"><img title="White Wool" id="white_wool" draggable="false" onclick="whiteWoolChosen()" width="50" height="50" src="${whiteWoolBlockPNG}" alt="${whiteWoolBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">White Wool</div>
                         <div class="block-id">ID: 35</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="Diamond Block" id="diamond_block" draggable="false" onclick="diamondBlockChosen()" width="50" height="50" src="diamond_block.png" alt="diamond_block.png"></div>
+                    <div class="b"><img title="Diamond Block" id="diamond_block" draggable="false" onclick="diamondBlockChosen()" width="50" height="50" src="${diamondBlockPNG}" alt="${diamondBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">Diamond Block</div>
                         <div class="block-id">ID: 57</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="Barrier" id="barrier" draggable="false" onclick="barrierChosen()" width="50" height="50" src="barrier.png" alt="barrier.png"></div>
+                    <div class="b"><img title="Barrier" id="barrier" draggable="false" onclick="barrierChosen()" width="50" height="50" src="${barrierBlockPNG}" alt="${barrierBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">Barrier</div>
                         <div class="block-id">ID: 166</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="TNT" id="tnt" draggable="false" onclick="tntChosen()" width="50" height="50" src="tnt.png" alt="tnt.png"></div>
+                    <div class="b"><img title="TNT" id="tnt" draggable="false" onclick="tntChosen()" width="50" height="50" src="${tntBlockPNG}" alt="${tntBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">TNT</div>
                         <div class="block-id">ID: 46</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="Diamond ore" id="diamond_ore" draggable="false" onclick="diamondOreChosen()" width="50" height="50" src="diamond_ore.png" alt="diamond_ore.png"></div>
+                    <div class="b"><img title="Diamond ore" id="diamond_ore" draggable="false" onclick="diamondOreChosen()" width="50" height="50" src="${diamondOreBlockPNG}" alt="${diamondOreBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">Diamond Ore</div>
                         <div class="block-id">ID: 56</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b" id="water-block-moving-down"><img title="Water block" id="water_block" draggable="false" onclick="waterBlockChosen()" width="50" height="50" src="water.png" alt="water.png"></div>
+                    <div class="b" id="water-block-moving-down"><img title="Water block" id="water_block" draggable="false" onclick="waterBlockChosen()" width="50" height="50" src="${waterBlockPNG}" alt="${waterBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">Still Water</div>
                         <div class="block-id">ID: 9</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="Ice block" id="ice_block" draggable="false" onclick="iceBlockChosen()" width="50" height="50" src="ice_block.png" alt="ice_block.png"></div>
+                    <div class="b"><img title="Ice block" id="ice_block" draggable="false" onclick="iceBlockChosen()" width="50" height="50" src="${iceBlockPNG}" alt="${iceBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">Ice</div>
                         <div class="block-id">ID: 79</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="Cobblestone Block" id="cobblestone_block" draggable="false" onclick="cobbleStoneBlockChosen()" width="50" height="50" src="cobblestone.png" alt="cobblestone.png"></div>
+                    <div class="b"><img title="Cobblestone Block" id="cobblestone_block" draggable="false" onclick="cobbleStoneBlockChosen()" width="50" height="50" src="${cobbleStoneBlockPNG}" alt="${cobbleStoneBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">Cobblestone</div>
                         <div class="block-id">ID: 4</div>
@@ -3364,9 +3321,9 @@ function openInventoryGUI() {
 
             <div id="inv-skin-display">
                 <div id="my-nick-display">${storedUsername}</div>
-                <img id="my-skin-display" src=${isSteveChosen ? 'steve_standing.png' :
-                    isAlexChosen ? 'alex_standing.png' :
-                    isSkin1Chosen ? 'skin1_standing.png' : 'steve_standing.png'} draggable="false" alt="skin1_standing.png">
+                <img id="my-skin-display" src=${isSteveChosen ? steveStandingPNG :
+                    isAlexChosen ? alexStandingPNG :
+                    isSkin1Chosen ? skin1StandingPNG : steveStandingPNG} draggable="false" alt="my-skin">
             </div>
         </div>
     </div>
@@ -3384,28 +3341,28 @@ function closeInventoryGUI() {
 
     let stoneBlocks = `
     <div class="stone-container4">
-        <div id="stone_block67" onclick="createRandomRow()"><img id="s67" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block68" onclick="createRandomRow()"><img id="s68" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block69" onclick="createRandomRow()"><img id="s69" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block70" onclick="createRandomRow()"><img id="s70" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block71" onclick="createRandomRow()"><img id="s71" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block72" onclick="createRandomRow()"><img id="s72" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block73" onclick="createRandomRow()"><img id="s73" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block74" onclick="createRandomRow()"><img id="s74" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block75" onclick="createRandomRow()"><img id="s75" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block76" onclick="createRandomRow()"><img id="s76" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block77" onclick="createRandomRow()"><img id="s77" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block78" onclick="createRandomRow()"><img id="s78" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block79" onclick="createRandomRow()"><img id="s79" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block80" onclick="createRandomRow()"><img id="s80" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block81" onclick="createRandomRow()"><img id="s81" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block82" onclick="createRandomRow()"><img id="s82" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block83" onclick="createRandomRow()"><img id="s83" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block84" onclick="createRandomRow()"><img id="s84" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block85" onclick="createRandomRow()"><img id="s85" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block87" onclick="createRandomRow()"><img id="s87" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-        <div id="stone_block88" onclick="createRandomRow()"><img id="s88" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+        <div id="stone_block67" onclick="createRandomRow()"><img id="s67" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block68" onclick="createRandomRow()"><img id="s68" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block69" onclick="createRandomRow()"><img id="s69" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block70" onclick="createRandomRow()"><img id="s70" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block71" onclick="createRandomRow()"><img id="s71" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block72" onclick="createRandomRow()"><img id="s72" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block73" onclick="createRandomRow()"><img id="s73" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block74" onclick="createRandomRow()"><img id="s74" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block75" onclick="createRandomRow()"><img id="s75" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block76" onclick="createRandomRow()"><img id="s76" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block77" onclick="createRandomRow()"><img id="s77" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block78" onclick="createRandomRow()"><img id="s78" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block79" onclick="createRandomRow()"><img id="s79" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block80" onclick="createRandomRow()"><img id="s80" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block81" onclick="createRandomRow()"><img id="s81" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block82" onclick="createRandomRow()"><img id="s82" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block83" onclick="createRandomRow()"><img id="s83" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block84" onclick="createRandomRow()"><img id="s84" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block85" onclick="createRandomRow()"><img id="s85" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block87" onclick="createRandomRow()"><img id="s87" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+        <div id="stone_block88" onclick="createRandomRow()"><img id="s88" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
     </div>
     `;
 
@@ -3414,132 +3371,132 @@ function closeInventoryGUI() {
         row1 = stoneBlocks;
         row2 = `
         <div class="stone-container4">
-            <div id="diamond_o" onclick="removeDiamondOre1()"><img onclick="numberOfDiamonds()" id="diamond1" draggable="false" class="stone_block" src="diamond_ore.png" alt="diamond_ore.png"></div>
-            <div id="stone_block68" onclick="createRandomRow()"><img id="s68" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block69" onclick="createRandomRow()"><img id="s69" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block70" onclick="createRandomRow()"><img id="s70" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block71" onclick="createRandomRow()"><img id="s71" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block72" onclick="createRandomRow()"><img id="s72" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block73" onclick="createRandomRow()"><img id="s73" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block74" onclick="createRandomRow()"><img id="s74" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block75" onclick="createRandomRow()"><img id="s75" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block76" onclick="createRandomRow()"><img id="s76" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block77" onclick="createRandomRow()"><img id="s77" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block78" onclick="createRandomRow()"><img id="s78" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block79" onclick="createRandomRow()"><img id="s79" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block80" onclick="createRandomRow()"><img id="s80" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block81" onclick="createRandomRow()"><img id="s81" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block82" onclick="createRandomRow()"><img id="s82" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block83" onclick="createRandomRow()"><img id="s83" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block84" onclick="createRandomRow()"><img id="s84" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block85" onclick="createRandomRow()"><img id="s85" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="iron_ore1" onclick="removeIronOre1()"><img onclick="numberOfIron()" id="i1" draggable="false" class="stone_block" src="iron_ore.png" alt="iron_ore.png"></div>
-            <div id="iron_ore2" onclick="removeIronOre2()"><img onclick="numberOfIron()" id="i2" draggable="false" class="stone_block" src="iron_ore.png" alt="iron_ore.png"></div>
+            <div id="diamond_o" onclick="removeDiamondOre1()"><img onclick="numberOfDiamonds()" id="diamond1" draggable="false" class="stone_block" src="${diamondOreBlockPNG}" alt="${diamondOreBlockPNG}"></div>
+            <div id="stone_block68" onclick="createRandomRow()"><img id="s68" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block69" onclick="createRandomRow()"><img id="s69" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block70" onclick="createRandomRow()"><img id="s70" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block71" onclick="createRandomRow()"><img id="s71" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block72" onclick="createRandomRow()"><img id="s72" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block73" onclick="createRandomRow()"><img id="s73" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block74" onclick="createRandomRow()"><img id="s74" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block75" onclick="createRandomRow()"><img id="s75" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block76" onclick="createRandomRow()"><img id="s76" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block77" onclick="createRandomRow()"><img id="s77" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block78" onclick="createRandomRow()"><img id="s78" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block79" onclick="createRandomRow()"><img id="s79" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block80" onclick="createRandomRow()"><img id="s80" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block81" onclick="createRandomRow()"><img id="s81" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block82" onclick="createRandomRow()"><img id="s82" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block83" onclick="createRandomRow()"><img id="s83" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block84" onclick="createRandomRow()"><img id="s84" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block85" onclick="createRandomRow()"><img id="s85" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="iron_ore1" onclick="removeIronOre1()"><img onclick="numberOfIron()" id="i1" draggable="false" class="stone_block" src="${ironOreBlockPNG}" alt="${ironOreBlockPNG}"></div>
+            <div id="iron_ore2" onclick="removeIronOre2()"><img onclick="numberOfIron()" id="i2" draggable="false" class="stone_block" src="${ironOreBlockPNG}" alt="${ironOreBlockPNG}"></div>
         </div>
         `;
         row3 = `
         <div class="stone-container4">
-            <div id="stone_block67" onclick="createRandomRow()"><img id="s67" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="gold_ore1" onclick="removeGoldOre1()"><img onclick="numberOfGold()" id="go1" draggable="false" class="stone_block" src="gold_ore.png" alt="gold_ore.png"></div>
-            <div id="gold_ore2" onclick="removeGoldOre2()"><img onclick="numberOfGold()" id="go2" draggable="false" class="stone_block" src="gold_ore.png" alt="gold_ore.png"></div>
-            <div id="gold_ore3" onclick="removeGoldOre3()"><img onclick="numberOfGold()" id="go3" draggable="false" class="stone_block" src="gold_ore.png" alt="gold_ore.png"></div>
-            <div id="stone_block71" onclick="createRandomRow()"><img id="s71" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block72" onclick="createRandomRow()"><img id="s72" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block73" onclick="createRandomRow()"><img id="s73" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block74" onclick="createRandomRow()"><img id="s74" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block75" onclick="createRandomRow()"><img id="s75" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block76" onclick="createRandomRow()"><img id="s76" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block77" onclick="createRandomRow()"><img id="s77" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block78" onclick="createRandomRow()"><img id="s78" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block79" onclick="createRandomRow()"><img id="s79" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block80" onclick="createRandomRow()"><img id="s80" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block81" onclick="createRandomRow()"><img id="s81" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block82" onclick="createRandomRow()"><img id="s82" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block83" onclick="createRandomRow()"><img id="s83" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block84" onclick="createRandomRow()"><img id="s84" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block85" onclick="createRandomRow()"><img id="s85" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block87" onclick="createRandomRow()"><img id="s87" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block88" onclick="createRandomRow()"><img id="s88" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block67" onclick="createRandomRow()"><img id="s67" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="gold_ore1" onclick="removeGoldOre1()"><img onclick="numberOfGold()" id="go1" draggable="false" class="stone_block" src="${goldOreBlockPNG}" alt="${goldOreBlockPNG}"></div>
+            <div id="gold_ore2" onclick="removeGoldOre2()"><img onclick="numberOfGold()" id="go2" draggable="false" class="stone_block" src="${goldOreBlockPNG}" alt="${goldOreBlockPNG}"></div>
+            <div id="gold_ore3" onclick="removeGoldOre3()"><img onclick="numberOfGold()" id="go3" draggable="false" class="stone_block" src="${goldOreBlockPNG}" alt="${goldOreBlockPNG}"></div>
+            <div id="stone_block71" onclick="createRandomRow()"><img id="s71" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block72" onclick="createRandomRow()"><img id="s72" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block73" onclick="createRandomRow()"><img id="s73" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block74" onclick="createRandomRow()"><img id="s74" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block75" onclick="createRandomRow()"><img id="s75" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block76" onclick="createRandomRow()"><img id="s76" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block77" onclick="createRandomRow()"><img id="s77" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block78" onclick="createRandomRow()"><img id="s78" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block79" onclick="createRandomRow()"><img id="s79" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block80" onclick="createRandomRow()"><img id="s80" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block81" onclick="createRandomRow()"><img id="s81" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block82" onclick="createRandomRow()"><img id="s82" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block83" onclick="createRandomRow()"><img id="s83" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block84" onclick="createRandomRow()"><img id="s84" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block85" onclick="createRandomRow()"><img id="s85" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block87" onclick="createRandomRow()"><img id="s87" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block88" onclick="createRandomRow()"><img id="s88" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
         </div>
         `;
         row4 = `
         <div class="stone-container4">
-            <div id="stone_block67" onclick="createRandomRow()"><img id="s67" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block68" onclick="createRandomRow()"><img id="s68" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block69" onclick="createRandomRow()"><img id="s69" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block70" onclick="createRandomRow()"><img id="s70" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block71" onclick="createRandomRow()"><img id="s71" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block72" onclick="createRandomRow()"><img id="s72" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block73" onclick="createRandomRow()"><img id="s73" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block74" onclick="createRandomRow()"><img id="s74" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block75" onclick="createRandomRow()"><img id="s75" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block76" onclick="createRandomRow()"><img id="s76" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block77" onclick="createRandomRow()"><img id="s77" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block78" onclick="createRandomRow()"><img id="s78" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block79" onclick="createRandomRow()"><img id="s79" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block80" onclick="createRandomRow()"><img id="s80" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block81" onclick="createRandomRow()"><img id="s81" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block82" onclick="createRandomRow()"><img id="s82" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block83" onclick="createRandomRow()"><img id="s83" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="emerald_ore1" onclick="removeEmeraldOre1()"><img onclick="numberOfEmeralds()" id="s84" draggable="false" class="stone_block" src="emerald_ore.png" alt="emerald_ore.png"></div>
-            <div id="stone_block85" onclick="createRandomRow()"><img id="s85" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block87" onclick="createRandomRow()"><img id="s87" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block88" onclick="createRandomRow()"><img id="s88" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block67" onclick="createRandomRow()"><img id="s67" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block68" onclick="createRandomRow()"><img id="s68" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block69" onclick="createRandomRow()"><img id="s69" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block70" onclick="createRandomRow()"><img id="s70" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block71" onclick="createRandomRow()"><img id="s71" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block72" onclick="createRandomRow()"><img id="s72" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block73" onclick="createRandomRow()"><img id="s73" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block74" onclick="createRandomRow()"><img id="s74" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block75" onclick="createRandomRow()"><img id="s75" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block76" onclick="createRandomRow()"><img id="s76" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block77" onclick="createRandomRow()"><img id="s77" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block78" onclick="createRandomRow()"><img id="s78" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block79" onclick="createRandomRow()"><img id="s79" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block80" onclick="createRandomRow()"><img id="s80" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block81" onclick="createRandomRow()"><img id="s81" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block82" onclick="createRandomRow()"><img id="s82" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block83" onclick="createRandomRow()"><img id="s83" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="emerald_ore1" onclick="removeEmeraldOre1()"><img onclick="numberOfEmeralds()" id="s84" draggable="false" class="stone_block" src="${emeraldOreBlockPNG}" alt="${emeraldOreBlockPNG}"></div>
+            <div id="stone_block85" onclick="createRandomRow()"><img id="s85" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block87" onclick="createRandomRow()"><img id="s87" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block88" onclick="createRandomRow()"><img id="s88" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
         </div>
         `;
         row5 = `
         <div class="stone-container4">
-            <div id="stone_block67" onclick="createRandomRow()"><img id="s67" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="coal_ore1" onclick="removeCoalOre1()"><img onclick="numberOfCoal()" id="co1" draggable="false" class="stone_block" src="coal_ore.png" alt="coal_ore.png"></div>
-            <div id="coal_ore2" onclick="removeCoalOre2()"><img onclick="numberOfCoal()" id="co2" draggable="false" class="stone_block" src="coal_ore.png" alt="coal_ore.png"></div>
-            <div id="coal_ore3" onclick="removeCoalOre3()"><img onclick="numberOfCoal()" id="co3" draggable="false" class="stone_block" src="coal_ore.png" alt="coal_ore.png"></div>
-            <div id="coal_ore4" onclick="removeCoalOre4()"><img onclick="numberOfCoal()" id="co4" draggable="false" class="stone_block" src="coal_ore.png" alt="coal_ore.png"></div>
-            <div id="coal_ore5" onclick="removeCoalOre5()"><img onclick="numberOfCoal()" id="co5" draggable="false" class="stone_block" src="coal_ore.png" alt="coal_ore.png"></div>
-            <div id="coal_ore6" onclick="removeCoalOre6()"><img onclick="numberOfCoal()" id="co6" draggable="false" class="stone_block" src="coal_ore.png" alt="coal_ore.png"></div>
-            <div id="coal_ore7" onclick="removeCoalOre7()"><img onclick="numberOfCoal()" id="co7" draggable="false" class="stone_block" src="coal_ore.png" alt="coal_ore.png"></div>
-            <div id="coal_ore8" onclick="removeCoalOre8()"><img onclick="numberOfCoal()" id="co8" draggable="false" class="stone_block" src="coal_ore.png" alt="coal_ore.png"></div>
-            <div id="coal_ore9" onclick="removeCoalOre9()"><img onclick="numberOfCoal()" id="co9" draggable="false" class="stone_block" src="coal_ore.png" alt="coal_ore.png"></div>
-            <div id="stone_block77" onclick="createRandomRow()"><img id="s77" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block78" onclick="createRandomRow()"><img id="s78" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block79" onclick="createRandomRow()"><img id="s79" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block80" onclick="createRandomRow()"><img id="s80" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block81" onclick="createRandomRow()"><img id="s81" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block82" onclick="createRandomRow()"><img id="s82" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block83" onclick="createRandomRow()"><img id="s83" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block84" onclick="createRandomRow()"><img id="s84" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block85" onclick="createRandomRow()"><img id="s85" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block87" onclick="createRandomRow()"><img id="s87" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block88" onclick="createRandomRow()"><img id="s88" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block67" onclick="createRandomRow()"><img id="s67" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="coal_ore1" onclick="removeCoalOre1()"><img onclick="numberOfCoal()" id="co1" draggable="false" class="stone_block" src="${coalOreBlockPNG}" alt="${coalOreBlockPNG}"></div>
+            <div id="coal_ore2" onclick="removeCoalOre2()"><img onclick="numberOfCoal()" id="co2" draggable="false" class="stone_block" src="${coalOreBlockPNG}" alt="${coalOreBlockPNG}"></div>
+            <div id="coal_ore3" onclick="removeCoalOre3()"><img onclick="numberOfCoal()" id="co3" draggable="false" class="stone_block" src="${coalOreBlockPNG}" alt="${coalOreBlockPNG}"></div>
+            <div id="coal_ore4" onclick="removeCoalOre4()"><img onclick="numberOfCoal()" id="co4" draggable="false" class="stone_block" src="${coalOreBlockPNG}" alt="${coalOreBlockPNG}"></div>
+            <div id="coal_ore5" onclick="removeCoalOre5()"><img onclick="numberOfCoal()" id="co5" draggable="false" class="stone_block" src="${coalOreBlockPNG}" alt="${coalOreBlockPNG}"></div>
+            <div id="coal_ore6" onclick="removeCoalOre6()"><img onclick="numberOfCoal()" id="co6" draggable="false" class="stone_block" src="${coalOreBlockPNG}" alt="${coalOreBlockPNG}"></div>
+            <div id="coal_ore7" onclick="removeCoalOre7()"><img onclick="numberOfCoal()" id="co7" draggable="false" class="stone_block" src="${coalOreBlockPNG}" alt="${coalOreBlockPNG}"></div>
+            <div id="coal_ore8" onclick="removeCoalOre8()"><img onclick="numberOfCoal()" id="co8" draggable="false" class="stone_block" src="${coalOreBlockPNG}" alt="${coalOreBlockPNG}"></div>
+            <div id="coal_ore9" onclick="removeCoalOre9()"><img onclick="numberOfCoal()" id="co9" draggable="false" class="stone_block" src="${coalOreBlockPNG}" alt="${coalOreBlockPNG}"></div>
+            <div id="stone_block77" onclick="createRandomRow()"><img id="s77" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block78" onclick="createRandomRow()"><img id="s78" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block79" onclick="createRandomRow()"><img id="s79" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block80" onclick="createRandomRow()"><img id="s80" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block81" onclick="createRandomRow()"><img id="s81" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block82" onclick="createRandomRow()"><img id="s82" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block83" onclick="createRandomRow()"><img id="s83" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block84" onclick="createRandomRow()"><img id="s84" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block85" onclick="createRandomRow()"><img id="s85" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block87" onclick="createRandomRow()"><img id="s87" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block88" onclick="createRandomRow()"><img id="s88" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
         </div>
         `;
         row6 = `
         <div class="stone-container4">
-            <div id="stone_block68" onclick="createRandomRow()"><img id="s68" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block69" onclick="createRandomRow()"><img id="s69" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block70" onclick="createRandomRow()"><img id="s70" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block71" onclick="createRandomRow()"><img id="s71" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block72" onclick="createRandomRow()"><img id="s72" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block73" onclick="createRandomRow()"><img id="s73" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block74" onclick="createRandomRow()"><img id="s74" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block75" onclick="createRandomRow()"><img id="s75" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block76" onclick="createRandomRow()"><img id="s76" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block77" onclick="createRandomRow()"><img id="s77" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block78" onclick="createRandomRow()"><img id="s78" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block79" onclick="createRandomRow()"><img id="s79" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block80" onclick="createRandomRow()"><img id="s80" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block81" onclick="createRandomRow()"><img id="s81" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block82" onclick="createRandomRow()"><img id="s82" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="diamond_ore1" onclick="createRandomRow()"><img onclick="numberOfDiamonds()" id="diamond1" draggable="false" class="stone_block" src="diamond_ore.png" alt="diamond_ore.png"></div>
-            <div id="stone_block83" onclick="createRandomRow()"><img id="s83" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block84" onclick="createRandomRow()"><img id="s84" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block85" onclick="createRandomRow()"><img id="s85" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block68" onclick="createRandomRow()"><img id="s68" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block69" onclick="createRandomRow()"><img id="s69" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block70" onclick="createRandomRow()"><img id="s70" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block71" onclick="createRandomRow()"><img id="s71" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block72" onclick="createRandomRow()"><img id="s72" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block73" onclick="createRandomRow()"><img id="s73" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block74" onclick="createRandomRow()"><img id="s74" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block75" onclick="createRandomRow()"><img id="s75" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block76" onclick="createRandomRow()"><img id="s76" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block77" onclick="createRandomRow()"><img id="s77" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block78" onclick="createRandomRow()"><img id="s78" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block79" onclick="createRandomRow()"><img id="s79" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block80" onclick="createRandomRow()"><img id="s80" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block81" onclick="createRandomRow()"><img id="s81" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block82" onclick="createRandomRow()"><img id="s82" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="diamond_ore1" onclick="createRandomRow()"><img onclick="numberOfDiamonds()" id="diamond1" draggable="false" class="stone_block" src="${diamondOreBlockPNG}" alt="${diamondOreBlockPNG}"></div>
+            <div id="stone_block83" onclick="createRandomRow()"><img id="s83" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block84" onclick="createRandomRow()"><img id="s84" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block85" onclick="createRandomRow()"><img id="s85" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
         </div>
         `;
         row7 = stoneBlocks;
@@ -3550,28 +3507,28 @@ function closeInventoryGUI() {
         row12 = stoneBlocks;
         row13 = `
         <div class="stone-container4">
-            <div id="stone_block67" onclick="createRandomRow()"><img id="s67" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block68" onclick="createRandomRow()"><img id="s68" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block69" onclick="createRandomRow()"><img id="s69" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block70" onclick="createRandomRow()"><img id="s70" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block71" onclick="createRandomRow()"><img id="s71" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block72" onclick="createRandomRow()"><img id="s72" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="obsidian1" onclick="createRandomRow()"><img onclick="numberOfObsidians()" id="obs1" draggable="false" class="stone_block" src="obsidian.png" alt="obsidian.png"></div>
-            <div id="stone_block73" onclick="createRandomRow()"><img id="s73" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block74" onclick="createRandomRow()"><img id="s74" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block75" onclick="createRandomRow()"><img id="s75" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block76" onclick="createRandomRow()"><img id="s76" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block77" onclick="createRandomRow()"><img id="s77" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block78" onclick="createRandomRow()"><img id="s78" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block79" onclick="createRandomRow()"><img id="s79" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block80" onclick="createRandomRow()"><img id="s80" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block82" onclick="createRandomRow()"><img id="s82" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block83" onclick="createRandomRow()"><img id="s83" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block84" onclick="createRandomRow()"><img id="s84" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block85" onclick="createRandomRow()"><img id="s85" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block87" onclick="createRandomRow()"><img id="s87" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block88" onclick="createRandomRow()"><img id="s88" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block67" onclick="createRandomRow()"><img id="s67" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block68" onclick="createRandomRow()"><img id="s68" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block69" onclick="createRandomRow()"><img id="s69" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block70" onclick="createRandomRow()"><img id="s70" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block71" onclick="createRandomRow()"><img id="s71" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block72" onclick="createRandomRow()"><img id="s72" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="obsidian1" onclick="createRandomRow()"><img onclick="numberOfObsidians()" id="obs1" draggable="false" class="stone_block" src="${obsidianBlockPNG}" alt="${obsidianBlockPNG}"></div>
+            <div id="stone_block73" onclick="createRandomRow()"><img id="s73" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block74" onclick="createRandomRow()"><img id="s74" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block75" onclick="createRandomRow()"><img id="s75" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block76" onclick="createRandomRow()"><img id="s76" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block77" onclick="createRandomRow()"><img id="s77" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block78" onclick="createRandomRow()"><img id="s78" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block79" onclick="createRandomRow()"><img id="s79" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block80" onclick="createRandomRow()"><img id="s80" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block82" onclick="createRandomRow()"><img id="s82" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block83" onclick="createRandomRow()"><img id="s83" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block84" onclick="createRandomRow()"><img id="s84" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block85" onclick="createRandomRow()"><img id="s85" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block87" onclick="createRandomRow()"><img id="s87" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block88" onclick="createRandomRow()"><img id="s88" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
         </div>
         `;
         row14 = stoneBlocks;
@@ -3581,28 +3538,28 @@ function closeInventoryGUI() {
         row18 = stoneBlocks;
         row19 = `
         <div class="stone-container4">
-            <div id="stone_block67" onclick="createRandomRow()"><img id="s67" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block68" onclick="createRandomRow()"><img id="s68" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block69" onclick="createRandomRow()"><img id="s69" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block70" onclick="createRandomRow()"><img id="s70" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block71" onclick="createRandomRow()"><img id="s71" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block72" onclick="createRandomRow()"><img id="s72" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block73" onclick="createRandomRow()"><img id="s73" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block74" onclick="createRandomRow()"><img id="s74" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block75" onclick="createRandomRow()"><img id="s75" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block76" onclick="createRandomRow()"><img id="s76" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block77" onclick="createRandomRow()"><img id="s77" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block78" onclick="createRandomRow()"><img id="s78" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block79" onclick="createRandomRow()"><img id="s79" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block80" onclick="createRandomRow()"><img id="s80" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="obsidian1" onclick="createRandomRow()"><img onclick="numberOfObsidians()" id="obs1" draggable="false" class="stone_block" src="obsidian.png" alt="obsidian.png"></div>
-            <div id="stone_block82" onclick="createRandomRow()"><img id="s82" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block83" onclick="createRandomRow()"><img id="s83" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block84" onclick="createRandomRow()"><img id="s84" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block85" onclick="createRandomRow()"><img id="s85" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block87" onclick="createRandomRow()"><img id="s87" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
-            <div id="stone_block88" onclick="createRandomRow()"><img id="s88" draggable="false" class="stone_block" src="stone_block.png" alt="stone_block.png"></div>
+            <div id="stone_block67" onclick="createRandomRow()"><img id="s67" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block68" onclick="createRandomRow()"><img id="s68" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block69" onclick="createRandomRow()"><img id="s69" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block70" onclick="createRandomRow()"><img id="s70" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block71" onclick="createRandomRow()"><img id="s71" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block72" onclick="createRandomRow()"><img id="s72" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block73" onclick="createRandomRow()"><img id="s73" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block74" onclick="createRandomRow()"><img id="s74" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block75" onclick="createRandomRow()"><img id="s75" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block76" onclick="createRandomRow()"><img id="s76" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block77" onclick="createRandomRow()"><img id="s77" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block78" onclick="createRandomRow()"><img id="s78" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block79" onclick="createRandomRow()"><img id="s79" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block80" onclick="createRandomRow()"><img id="s80" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="obsidian1" onclick="createRandomRow()"><img onclick="numberOfObsidians()" id="obs1" draggable="false" class="stone_block" src="${obsidianBlockPNG}" alt="${obsidianBlockPNG}"></div>
+            <div id="stone_block82" onclick="createRandomRow()"><img id="s82" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block83" onclick="createRandomRow()"><img id="s83" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block84" onclick="createRandomRow()"><img id="s84" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block85" onclick="createRandomRow()"><img id="s85" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block86" onclick="createRandomRow()"><img id="s86" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block87" onclick="createRandomRow()"><img id="s87" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+            <div id="stone_block88" onclick="createRandomRow()"><img id="s88" draggable="false" class="stone_block" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
         </div>
         `;
         row20 = stoneBlocks;
@@ -3666,7 +3623,7 @@ function closeInventoryGUI() {
 
             log('Server: Succesfully joined the nether.');
         
-            mc.style.background = "url('nether_sky.png')";
+            mc.style.background = `url('${netherSky}')`;
             mc.style.backgroundAttachment = "fixed";
             mc.style.backgroundRepeat = "no-repeat";
         
@@ -3694,7 +3651,7 @@ function closeInventoryGUI() {
 
             log('Server: Succesfully joined the end.');
         
-            mc.style.background = "url('end_sky.png')";
+            mc.style.background = `url('${theEndSky}')`;
             mc.style.backgroundAttachment = "fixed";
         
             creeper.hidden = true;
@@ -3733,9 +3690,9 @@ function closeInventoryGUI() {
                 }
             }
             if (gamemode != 1) {
-                let playerImg = isSteveChosen ? 'steve_standing.png' :
-                            isAlexChosen ? 'alex_standing.png' :
-                            isSkin1Chosen ? 'skin1_standing.png' : 'steve_standing.png';
+                let playerImg = isSteveChosen ? steveStandingPNG :
+                            isAlexChosen ? alexStandingPNG :
+                            isSkin1Chosen ? skin1StandingPNG : steveStandingPNG;
     
             player.src = `damaged_${playerImg}`;
             setTimeout(() => {
@@ -3750,7 +3707,7 @@ function numberOfObsidians() {
     numOfObsidians++;
     hotbarObsidian.textContent = Number(numOfObsidians);
 
-    if (numOfObsidians == 10) {
+    if (numOfObsidians >= 10) {
         do {
             shouldCreatePortal = prompt('Do you want to make a nether portal? (y/n):').toLowerCase();
         } while (shouldCreatePortal != 'y' && shouldCreatePortal != 'n');
@@ -3760,7 +3717,7 @@ function numberOfObsidians() {
             let randomPortalPosition = Math.floor(Math.random() * portalBlockPositions.length);
             portalPosition = portalBlockPositions[randomPortalPosition];
 
-            portalPosition.src = 'portal.png';
+            portalPosition.src = netherPortalPNG;
 
             setTimeout(() => {
                 portalPosition.hidden = true;
@@ -3787,7 +3744,7 @@ numberOfObsidians();
             if (shouldCreatePortal == 'y') {
                 endPortalPosition = s66;
     
-                endPortalPosition.src = 'end_portal.png';
+                endPortalPosition.src = endPortalPNG;
 
                 setTimeout(() => {
                     endPortalPosition.hidden = true;
@@ -3911,33 +3868,33 @@ numberOfObsidians();
 
                 if (isSteveChosen) {
                     if (gamemode != 1) {
-                        player.src = 'damaged_steve_standing.png';
+                        player.src = damagedSteveStandingPNG;
                         setTimeout(() => {
-                        player.src = 'steve_standing.png';
+                        player.src = steveStandingPNG;
                     }, 350);
                     }
                 }
                 else if (isAlexChosen) {
                     if (gamemode != 1) {
-                        player.src = 'damaged_alex_standing.png';
+                        player.src = damagedAlexStandingPNG;
                         setTimeout(() => {
-                        player.src = 'alex_standing.png';
+                        player.src = alexStandingPNG;
                     }, 350);
                     }
                 }
                 else if (isSkin1Chosen) {
                     if (gamemode != 1) {
-                        player.src = 'damaged_skin1_standing.png';
+                        player.src = damagedSkin1StandingPNG;
                         setTimeout(() => {
-                        player.src = 'skin1_standing.png';
+                        player.src = skin1StandingPNG;
                     }, 350);
                     }
                 } 
                 else {
                     if (gamemode != 1) {
-                        player.src = 'damaged_steve_standing.png';
+                        player.src = damagedSteveStandingPNG;
                         setTimeout(() => {
-                        player.src = 'steve_standing.png';
+                        player.src = steveStandingPNG;
                     }, 350);
                     }
                 }
@@ -3968,9 +3925,9 @@ numberOfObsidians();
                     }
                 }
                 if (gamemode != 1) {
-                    let playerImg = isSteveChosen ? 'steve_standing.png' :
-                                isAlexChosen ? 'alex_standing.png' :
-                                isSkin1Chosen ? 'skin1_standing.png' : 'steve_standing.png';
+                    let playerImg = isSteveChosen ? steveStandingPNG :
+                                isAlexChosen ? alexStandingPNG :
+                                isSkin1Chosen ? skin1StandingPNG : steveStandingPNG;
         
                 player.src = `damaged_${playerImg}`;
                 setTimeout(() => {
@@ -4002,9 +3959,9 @@ numberOfObsidians();
                     }
                 }
                 if (gamemode != 1) {
-                    let playerImg = isSteveChosen ? 'steve_standing.png' :
-                                isAlexChosen ? 'alex_standing.png' :
-                                isSkin1Chosen ? 'skin1_standing.png' : 'steve_standing.png';
+                    let playerImg = isSteveChosen ? steveStandingPNG :
+                                isAlexChosen ? alexStandingPNG :
+                                isSkin1Chosen ? skin1StandingPNG : steveStandingPNG;
         
                 player.src = `damaged_${playerImg}`;
                 setTimeout(() => {
@@ -4015,7 +3972,7 @@ numberOfObsidians();
     }
     setInterval(checkEnderDragonCollision, enderDragonReactionTime);
 
-    document.body.addEventListener('keydown', (e) => {
+    window.addEventListener('keydown', (e) => {
         if ((e.ctrlKey && e.key == 'a') ||
             (e.ctrlKey && e.key == 's') ||
             (e.ctrlKey && e.key == 'd')
@@ -4041,7 +3998,7 @@ numberOfObsidians();
                 oakPlanksChosen();
                 break;
             case '2':
-                cobbleStoneChosen();
+                cobbleStoneBlockChosen();
                 break;
             case '3':
                 stoneChosen();

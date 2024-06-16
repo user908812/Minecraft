@@ -27,6 +27,10 @@ function loadUserProfile() {
 }
 loadUserProfile();
 
+function refreshPage() {
+    window.location.reload();
+}
+
 const grassBlockElementsArray = [];
 const dirtBlockElementsArray = [];
 const stoneBlockElementsArray = [];
@@ -88,7 +92,7 @@ function renderCoordinatesOnScoreboard() {
     var XYZDisplay = document.getElementById('xyz').innerHTML = `${playerLeftPos.toFixed(1)} / ${playerTopPos.toFixed(1)} / ${playerRightPos.toFixed(1)}`;
 
     if (playerLeftPos < -50 || playerLeftPos >= 1740) {
-        window.location.reload();
+        refreshPage();
     }
 }
 setInterval(renderCoordinatesOnScoreboard, timeout);
@@ -256,7 +260,7 @@ var playerHP = 10;
 var blazeHP = 15;
 var creeperHP = 8;
 var endermanHP = 12;
-var enderDragonHP = 180;
+var enderDragonHP = 150;
 
 var oakPlanks = false;
 var sandStone = false;
@@ -1183,6 +1187,8 @@ if (running) {
         
             endGameTitles();
             log('Server: Congratulations! You beat the game.');
+
+            setTimeout(refreshPage, 3800);
         }
     }
 
@@ -1193,7 +1199,7 @@ if (running) {
 
     setTimeout(() => {
         overworldPortalPosition.hidden = true;
-    }, 10000);
+    }, 20000);
 
     setInterval(checkOverworldPortalCollision, 100);
     }
@@ -2980,6 +2986,641 @@ if (running) {
     }
     stoneBlockBreak();
 
+    function mineBlocksUnderPlayer() {
+        let playerX = parseInt(player.style.left);
+        let playerY = parseInt(player.style.top);
+        
+        window.addEventListener('keydown', (e) => {
+            if (e.key == 'ArrowDown') {
+                e.preventDefault();
+
+                if (allowedDestroyingBlocks) {
+
+                    if ((playerX >= -50 && playerX <= 1730) && playerY == '650') {
+                        createRandomRow();
+                    }
+
+                    if (playerX >= -50 && playerX <= 30) {
+                        if (playerY == '260') {
+                            g1.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 1 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d1.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 1 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s1.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 1 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s23.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 23 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s45.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 45 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 40 && playerX <= 110) {
+                        if (playerY == '260') {
+                            g2.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 2 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d2.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 2 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s2.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 2 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s24.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 24 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s46.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 46 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 120 && playerX <= 190) {
+                        if (playerY == '260') {
+                            g3.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 3 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d3.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 3 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s3.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 3 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s25.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 25 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s47.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 47 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 200 && playerX <= 270) {
+                        if (playerY == '260') {
+                            g4.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 4 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d4.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 4 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s4.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 4 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s26.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 26 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s48.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 48 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 280 && playerX <= 350) {
+                        if (playerY == '260') {
+                            g5.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 5 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d5.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 5 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s5.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 5 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s27.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 27 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s49.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 49 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 360 && playerX <= 430) {
+                        if (playerY == '260') {
+                            g6.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 6 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d6.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 6 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s6.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 6 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s28.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 28 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s50.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 50 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 440 && playerX <= 510) {
+                        if (playerY == '260') {
+                            g7.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 7 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d7.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 7 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s7.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 7 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s29.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 29 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s51.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 51 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 520 && playerX <= 590) {
+                        if (playerY == '260') {
+                            g8.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 8 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d8.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 8 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s8.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 8 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s30.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 30 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s52.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 52 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 600 && playerX <= 670) {
+                        if (playerY == '260') {
+                            g9.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 9 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d9.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 9 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s9.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 9 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s31.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 31 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s53.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 53 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 680 && playerX <= 750) {
+                        if (playerY == '260') {
+                            g10.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 10 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d10.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 10 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s10.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 10 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s32.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 32 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s54.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 54 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 760 && playerX <= 830) {
+                        if (playerY == '260') {
+                            g11.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 11 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d11.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 11 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s11.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 11 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s33.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 33 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s55.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 55 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 840 && playerX <= 910) {
+                        if (playerY == '260') {
+                            g12.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 12 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d12.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 12 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s12.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 12 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s34.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 34 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s56.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 56 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 920 && playerX <= 990) {
+                        if (playerY == '260') {
+                            g13.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 13 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d13.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 13 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s13.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 13 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s35.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 35 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s57.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 57 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 1000 && playerX <= 1070) {
+                        if (playerY == '260') {
+                            g14.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 14 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d14.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 14 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s14.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 14 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s36.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 36 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s58.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 58 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 1080 && playerX <= 1150) {
+                        if (playerY == '260') {
+                            g15.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 15 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d15.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 15 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s15.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 15 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s37.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 37 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s59.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 59 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 1160 && playerX <= 1230) {
+                        if (playerY == '260') {
+                            g16.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 16 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d16.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 16 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s16.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 16 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s38.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 38 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s60.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 60 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 1240 && playerX <= 1310) {
+                        if (playerY == '260') {
+                            g17.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 17 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d17.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 17 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s17.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 17 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s39.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 39 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s61.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 61 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 1320 && playerX <= 1390) {
+                        if (playerY == '260') {
+                            g18.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 18 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d18.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 18 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s18.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 18 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s40.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 40 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s62.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 62 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 1400 && playerX <= 1470) {
+                        if (playerY == '260') {
+                            g19.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 19 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d19.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 19 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s19.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 19 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s41.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 41 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s63.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 63 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 1480 && playerX <= 1550) {
+                        if (playerY == '260') {
+                            g20.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 20 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d20.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 20 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s20.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 20 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s42.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 42 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s64.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 64 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 1560 && playerX <= 1630) {
+                        if (playerY == '260') {
+                            g21.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 21 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d21.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 21 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s21.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 21 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s43.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 43 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s65.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 65 has been destroyed.`);
+                        }
+                    }
+
+                    if (playerX >= 1640 && playerX <= 1730) {
+                        if (playerY == '260') {
+                            g22.hidden = true;
+                            player.style.top = '350px';
+                            log(`Server: The grass block with ID: 22 has been destroyed.`);
+                        }
+                        else if (playerY == '350') {
+                            d22.hidden = true;
+                            player.style.top = '420px';
+                            log(`Server: The dirt block with ID: 22 has been destroyed.`);
+                        }
+                        else if (playerY == '420') {
+                            s22.hidden = true;
+                            player.style.top = '490px';
+                            log(`Server: The stone block with ID: 22 has been destroyed.`);
+                        }
+                        else if (playerY == '490') {
+                            s44.hidden = true;
+                            player.style.top = '570px';
+                            log(`Server: The stone block with ID: 44 has been destroyed.`);
+                        }
+                        else if (playerY == '570') {
+                            s66.hidden = true;
+                            player.style.top = '650px';
+                            log(`Server: The stone block with ID: 66 has been destroyed.`);
+                        }
+                    }
+                }
+            }
+        })
+    }
+    setInterval(mineBlocksUnderPlayer, timeout);
+
     function oakPlanksChosen() {
         oakPlanks = true;
         sandStone = false;
@@ -3680,7 +4321,7 @@ function closeInventoryGUI() {
                 let actionAfterDeath = prompt('YOU DIED!\n\nWhat you want to do?\nRespawn (r)\nSpectate (s)').toLowerCase();
     
                 if (actionAfterDeath == 'r') {
-                    window.location.reload();
+                    refreshPage();
                 } else if (actionAfterDeath == 's') {
                     let toggleHPDisplay = document.getElementById('toggleHPDisplay');
                     toggleHPDisplay.hidden = true;
@@ -3721,7 +4362,7 @@ function numberOfObsidians() {
 
             setTimeout(() => {
                 portalPosition.hidden = true;
-            }, 10000);
+            }, 20000);
 
             setInterval(checkPortalCollision, 100);
             numOfObsidians = 0;
@@ -3748,7 +4389,7 @@ numberOfObsidians();
 
                 setTimeout(() => {
                     endPortalPosition.hidden = true;
-                }, 10000);
+                }, 20000);
     
                 setInterval(checkEndPortalCollision, 100);
                 numOfBlazeRods = 0;
@@ -3915,7 +4556,7 @@ numberOfObsidians();
                     let actionAfterDeath = prompt('YOU DIED!\n\nWhat you want to do?\nRespawn (r)\nSpectate (s)').toLowerCase();
         
                     if (actionAfterDeath == 'r') {
-                        window.location.reload();
+                        refreshPage();
                     } else if (actionAfterDeath == 's') {
                         let toggleHPDisplay = document.getElementById('toggleHPDisplay');
                         toggleHPDisplay.hidden = true;
@@ -3949,7 +4590,7 @@ numberOfObsidians();
                     let actionAfterDeath = prompt('YOU DIED!\n\nWhat you want to do?\nRespawn (r)\nSpectate (s)').toLowerCase();
         
                     if (actionAfterDeath == 'r') {
-                        window.location.reload();
+                        refreshPage();
                     } else if (actionAfterDeath == 's') {
                         let toggleHPDisplay = document.getElementById('toggleHPDisplay');
                         toggleHPDisplay.hidden = true;
@@ -4037,7 +4678,7 @@ numberOfObsidians();
             playerHP = 10;
         }
     }
-    setInterval(checkPlayerHP, 10000);
+    setInterval(checkPlayerHP, 8000);
 
 } else {
     alert('Error! Game is not running.');

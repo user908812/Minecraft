@@ -50,6 +50,7 @@ const allBlocks = [g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, g14, 
 var speech = new SpeechSynthesisUtterance;
 
 const WHITE = '#fff';
+const BLACK = '#000';
 const gameResolution = '1762x908';
 const hostName = window.location.hostname;
 
@@ -110,7 +111,7 @@ setInterval(renderHoveredBlockIDOnScoreboard, timeout);
 function renderPlayerLocationOnScoreboard() {
     if (isInOverworld && !isInNether && !isInTheEnd) {
         document.getElementById('playerLocation').innerHTML = 'overworld';
-        F3config.style.color = '#000';
+        F3config.style.color = BLACK;
     } else if (isInNether && !isInOverworld && !isInTheEnd) {
         document.getElementById('playerLocation').innerHTML = 'the_nether';
         F3config.style.color = WHITE;
@@ -162,6 +163,7 @@ const alexCrouchingPNG = 'alex_crouching.png';
 const alexCrouchingReversedPNG = 'alex_crouching_reversed.png';
 const damagedAlexStandingPNG = 'damaged_alex_standing.png';
 
+/* CUSTOM SKIN */
 const skin1StandingPNG = 'skin1_standing.png';
 const skin1StandingReversedPNG = 'skin1_standing_reversed.png';
 const skin1CrouchingPNG = 'skin1_crouching.png';
@@ -183,18 +185,30 @@ const damagedEnderDragonPNG = 'damaged_enderDragon.png';
 const blazePNG = 'blaze.png';
 const damagedBlazePNG = 'damaged_blaze.png';
 
+const lowSandBlockPNG = 'low_sand_block.png';
 const sandBlockPNG = 'sand_block.png';
+const highGraphicSandBlock = 'high_sand_block.png';
+const lowSandstoneBlockPNG = 'low_sandstone.png';
 const sandstoneBlockPNG = 'sandstone.png';
+const highGraphicSandstoneBlock = 'high_sandstone.png';
 const lowStoneBlockPNG = 'low_stone_block.png';
 const stoneBlockPNG = 'stone_block.png';
 const highGraphicStoneBlock = 'high_stone_block.png';
+const lowIceBlockPNG = 'low_ice_block.png';
 const iceBlockPNG = 'ice_block.png';
+const highGraphicIceBlockPNG = 'high_ice_block.png';
+const lowWaterBlockPNG = 'low_water_block.png';
 const waterBlockPNG = 'water.png';
+const highWaterBlockPNG = 'high_water_block.png';
+const lowSnowyGrassBlockPNG = 'low_snowy_grass.png';
 const snowyGrassBlockPNG = 'snowy_grass.png';
+const highGraphicSnowyGrassBlockPNG = 'high_snowy_grass.png';
 const lowDirtBlockPNG = 'low_dirt.png';
 const dirtBlockPNG = 'dirt.png';
 const highGraphicDirtBlock = 'high_dirt.png';
+const lowMyceliumBlockPNG = 'low_mycelium_block.png';
 const myceliumBlockPNG = 'mycelium_block.png';
+const highGraphicMyceliumBlockPNG = 'high_mycelium_block.png';
 const oakPlanksBlockPNG = 'oak_plank.png';
 const oakLeavesBlockPNG = 'oak_leaves.png';
 const whiteWoolBlockPNG = 'white_wool.png';
@@ -215,6 +229,8 @@ const ironOreBlockPNG = 'iron_ore.png';
 const goldOreBlockPNG = 'gold_ore.png';
 const emeraldOreBlockPNG = 'emerald_ore.png';
 const coalOreBlockPNG = 'coal_ore.png';
+const polishedAndesiteBlockPNG = 'polished_andesite.png';
+const oakLogBlockPNG = 'oak_log.png';
 
 const endPortalPNG = 'end_portal.png';
 const netherPortalPNG = 'portal.png';
@@ -255,29 +271,35 @@ var ctrlPressed = false;
 var isSteveChosen = false;
 var isAlexChosen = false;
 var isSkin1Chosen = false;
+var isMineMethodActive = false;
 
 var playerHP = 10;
 var blazeHP = 15;
 var creeperHP = 8;
 var endermanHP = 12;
 var enderDragonHP = 150;
+var isDead = false;
 
-var oakPlanks = false;
-var sandStone = false;
-var oakLeaves = false;
-var dirt = false;
+var oakPlanksBlock = false;
+var sandStoneBlock = false;
+var oakLeavesBlock = false;
+var dirtBlock = false;
 var stone = false;
-var whiteWool = false;
+var whiteWoolBlock = false;
 var diamondBlock = false;
 var barrierBlock = false;
 var tntBlock = false;
 var obsidianBlock = false;
-var hotbarHidden = false;
 var diamondOreBlock = false;
 var waterBlock = false;
 var iceBlock = false;
 var cobbleStoneBlock = false;
+var polishedAndesiteBlock = false;
+var coalOreBlock = false;
+var emeraldOreBlock = false;
+var oakLogBlock = false;
 var miningWrongBlocksAlert;
+var hotbarHidden = false;
 var wrongBlocks = 1;
 var wrongBlocksLimit = 4;
 
@@ -291,6 +313,12 @@ var numOfBlazeRods = 0;
 var numOfEnderPearls = 0;
 
 var shouldCreatePortal;
+
+var isNormalBiomeChosen = false;
+var isDesertBiomeChosen = false;
+var isIcyBiomeChosen = false;
+var isSnowyBiomeChosen = false;
+var isMushroomBiomeChosen = false;
 
 if (running) {
 
@@ -343,6 +371,7 @@ if (running) {
 
     function setBiome() {
         if (biome == 1) {
+            isNormalBiomeChosen = true;
             biomes.normal.isNormalBiome = true;
             setInterval(() => {
                 if (isInOverworld && !isInNether && !isInTheEnd) {
@@ -355,6 +384,7 @@ if (running) {
             }, 200);
             log(`Server: The biome is ${biomes.normal.name}.`);
         } else if (biome == 2) {
+            isDesertBiomeChosen = true;
             biomes.desert.isDesertBiome = true;
             setInterval(() => {
                 if (isInOverworld && !isInNether && !isInTheEnd) {
@@ -372,6 +402,7 @@ if (running) {
 
             log(`Server: The biome is ${biomes.desert.name}.`);
         } else if (biome == 3) {
+            isIcyBiomeChosen = true;
             biomes.icy.isIcyBiome = true;
             setInterval(() => {
                 if (isInOverworld && !isInNether && !isInTheEnd) {
@@ -389,6 +420,7 @@ if (running) {
 
             log(`Server: The biome is ${biomes.icy.name}.`);
         } else if (biome == 4) {
+            isSnowyBiomeChosen = true;
             biomes.snowy.isSnowyBiome = true;
             setInterval(() => {
                 if (isInOverworld && !isInNether && !isInTheEnd) {
@@ -406,6 +438,7 @@ if (running) {
 
             log(`Server: The biome is ${biomes.snowy.name}.`);
         } else if (biome == 5) {
+            isMushroomBiomeChosen = true;
             biomes.mushroom.isMushroomBiome = true;
             setInterval(() => {
                 if (isInOverworld && !isInNether && !isInTheEnd) {
@@ -567,24 +600,37 @@ if (running) {
         clickedPlace.style.top = event.clientY + 'px';
         
         if (allowedPlacingBlocks) {
-            if (oakPlanks) {
+            if (oakPlanksBlock) {
                 clickedPlace.style.background = `url('${oakPlanksBlockPNG}')`;
                 log(`Client: Oak planks placed at x: ${event.clientX - 84}.`);
-            } else if (sandStone) {
+            } else if (sandStoneBlock) {
                 clickedPlace.style.background = `url('${sandstoneBlockPNG}')`;
                 log(`Client: Sandstone block placed at x: ${event.clientX - 84}.`);
-            } else if (oakLeaves) {
+            } else if (oakLeavesBlock) {
                 clickedPlace.style.background = `url('${oakLeavesBlockPNG}')`;
                 log(`Client: Oak leaves placed at x: ${event.clientX - 84}.`);
-            } else if (dirt) {
+            } else if (dirtBlock) {
                 clickedPlace.style.background = `url('${dirtBlockPNG}')`;
                 log(`Client: Dirt block placed at x: ${event.clientX - 84}.`);
             } else if (stone) {
                 clickedPlace.style.background = `url('${stoneBlockPNG}')`;
                 log(`Client: Stone block placed at x: ${event.clientX - 84}.`);
-            } else if (whiteWool) {
+            } else if (whiteWoolBlock) {
                 clickedPlace.style.background = `url('${whiteWoolBlockPNG}')`;
                 log(`Client: White wool placed at x: ${event.clientX - 84}.`);
+            } else if (polishedAndesiteBlock) {
+                clickedPlace.style.background = `url('${polishedAndesiteBlockPNG}')`;
+                log(`Client: Polished andesite block placed at x: ${event.clientX - 84}.`);
+            } else if (coalOreBlock) {
+                clickedPlace.style.background = `url('${coalOreBlockPNG}')`;
+                clickedPlace.style.backgroundPosition = 'top left 150px';
+                log(`Client: Coal ore block placed at x: ${event.clientX - 84}.`);
+            } else if (oakLogBlock) {
+                clickedPlace.style.background = `url('${oakLogBlockPNG}')`;
+                log(`Client: Oak log block block placed at x: ${event.clientX - 84}.`);
+            } else if (emeraldOreBlock) {
+                clickedPlace.style.background = `url('${emeraldOreBlockPNG}')`;
+                log(`Client: Emerald ore block block placed at x: ${event.clientX - 84}.`);
             } else if (diamondBlock) {
                 clickedPlace.style.background = `url('${diamondBlockPNG}')`;
                 log(`Client: Diamond block placed at x: ${event.clientX - 84}.`);
@@ -594,9 +640,9 @@ if (running) {
             } else if (barrierBlock) {
                 clickedPlace.style.background = `url('${barrierBlockPNG}')`;
                 log(`Client: Barrier block placed at x: ${event.clientX - 84}.`);
-                setTimeout(() => {
-                    clickedPlace.style.display = 'none';
-                }, 2000);
+
+                setTimeout(() => clickedPlace.hidden = true, 2000);
+                
             } else if (diamondOreBlock) {
                 clickedPlace.style.background = `url('${diamondOreBlockPNG}')`;
                 log(`Client: Diamond ore placed at x: ${event.clientX - 84}.`);
@@ -638,7 +684,7 @@ if (running) {
                 let randomBlock5 = blocksToTNTDestroy[rand5];
 
                 setTimeout(() => {
-                    clickedPlace.style.display = 'none';
+                    clickedPlace.hidden = true;
 
                     switch (numberOfBlocks) {
                         case 1:
@@ -682,7 +728,6 @@ if (running) {
             }
         });
     }
-
     document.addEventListener('contextmenu', updateBlocks);
 
     function openGuiInGameMenu() {
@@ -707,7 +752,7 @@ if (running) {
             </div>
     
             <div class="graphic">
-                <label class="graphic-title" for="graphic">Graphic: <span style="color: red;">(broken)</span></label>
+                <label class="graphic-title" for="graphic">Graphic:</label>
                 <button onclick="setLowGraphic()" class="graphicBtn">Low</button>
                 <button onclick="setNormalGraphic()" class="graphicBtn">Normal</button>
                 <button onclick="setHighGraphic()" class="graphicBtn">High</button>
@@ -769,7 +814,7 @@ if (running) {
             </div>
     
             <div class="graphic">
-                <label class="graphic-title" for="graphic">Graphic: <span style="color: red;">(broken)</span></label>
+                <label class="graphic-title" for="graphic">Graphic:</label>
                 <button onclick="setLowGraphic()" class="graphicBtn">Low</button>
                 <button onclick="setNormalGraphic()" class="graphicBtn">Normal</button>
                 <button onclick="setHighGraphic()" class="graphicBtn">High</button>
@@ -851,17 +896,11 @@ if (running) {
     }
     requestAnimationFrame(updateFPS);
 
-    for (let i = 1; i <= 22; i++) {
-        grassBlockElementsArray.push(document.getElementById('g' + i));
-    }
+    for (let i = 1; i <= 22; i++) grassBlockElementsArray.push(document.getElementById('g' + i));
     
-    for (let i = 1; i <= 22; i++) {
-        dirtBlockElementsArray.push(document.getElementById('d' + i));
-    }
+    for (let i = 1; i <= 22; i++) dirtBlockElementsArray.push(document.getElementById('d' + i));
     
-    for (let i = 1; i <= 88; i++) {
-        stoneBlockElementsArray.push(document.getElementById('s' + i));
-    }
+    for (let i = 1; i <= 88; i++) stoneBlockElementsArray.push(document.getElementById('s' + i));
 
     function setNetherrack() {
         allBlocks.forEach(blockElement => blockElement.src = netherrackBlockPNG);
@@ -873,54 +912,127 @@ if (running) {
     }
 
     function setLowGraphic() {
-        if (isInOverworld && !isInNether && !isInTheEnd) {
-            mc.style.background = lowGraphicSky;
-            creeper.src = lowGraphicCreeper;
+        setTimeout(() => {
+            if (isInOverworld && !isInNether && !isInTheEnd) {
+                mc.style.background = lowGraphicSky;
+                creeper.src = lowGraphicCreeper;
 
-            grassBlockElementsArray.forEach(grassBlockElement => grassBlockElement.src = lowGrassBlockPNG);
-            dirtBlockElementsArray.forEach(dirtBlockElement => dirtBlockElement.src = lowDirtBlockPNG);
-            stoneBlockElementsArray.forEach(stoneBlockElement => stoneBlockElement.src = lowStoneBlockPNG);
-        } 
-        else if (isInNether || !isInOverworld || !isInTheEnd) {
-            mc.style.background = `url('${lowGraphicNetherSky}')`;
-            allBlocks.forEach(blockElement => blockElement.src = lowNetherrackBlockPNG);
-        }
+                if (isNormalBiomeChosen) {
+                    grassBlockElementsArray.forEach(grassBlockElement => grassBlockElement.src = lowGrassBlockPNG);
+                    dirtBlockElementsArray.forEach(dirtBlockElement => dirtBlockElement.src = lowDirtBlockPNG);
+                    stoneBlockElementsArray.forEach(stoneBlockElement => stoneBlockElement.src = lowStoneBlockPNG);
+                } else if (isDesertBiomeChosen) {
+                    grassBlockElementsArray.forEach(grassBlockElement => grassBlockElement.src = lowSandBlockPNG);
+                    dirtBlockElementsArray.forEach(dirtBlockElement => dirtBlockElement.src = lowSandstoneBlockPNG);
+                    stoneBlockElementsArray.forEach(stoneBlockInStoneBlocks => stoneBlockInStoneBlocks.src = lowSandstoneBlockPNG);
+                    stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => stoneBlockThirdLevel.src = lowStoneBlockPNG);
+                } else if (isIcyBiomeChosen) {
+                    grassBlockElementsArray.forEach(grassBlockInGrassBlocks => grassBlockInGrassBlocks.src = lowIceBlockPNG);
+                    dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => dirtBlockInDirtBlocks.src = lowWaterBlockPNG);
+                    stoneBlockElementsArray.forEach(stoneBlockInStoneBlocks => stoneBlockInStoneBlocks.src = lowWaterBlockPNG);
+                    stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => stoneBlockThirdLevel.src = lowStoneBlockPNG);
+                } else if (isSnowyBiomeChosen) {
+                    grassBlockElementsArray.forEach(grassBlockInGrassBlocks => grassBlockInGrassBlocks.src = lowSnowyGrassBlockPNG);
+                    dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => dirtBlockInDirtBlocks.src = lowDirtBlockPNG);
+                    stoneBlockElementsArray.forEach(stoneBlockInStoneBlocks => stoneBlockInStoneBlocks.src = lowStoneBlockPNG);
+                    stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => stoneBlockThirdLevel.src = lowStoneBlockPNG);
+                } else if (isMushroomBiomeChosen) {
+                    grassBlockElementsArray.forEach(grassBlockInGrassBlocks => grassBlockInGrassBlocks.src = lowMyceliumBlockPNG);
+                    dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => dirtBlockInDirtBlocks.src = lowDirtBlockPNG);
+                    stoneBlocksInFirstLevel.forEach(stoneBlockInFirstLevel => stoneBlockInFirstLevel.src = lowDirtBlockPNG);
+                    stoneBlocksInSecondLevel.forEach(stoneBlockInSecondLevel => stoneBlockInSecondLevel.src = lowStoneBlockPNG);
+                    stoneBlocksInThirdLevel.forEach(stoneBlockInThirdLevel => stoneBlockInThirdLevel.src = lowStoneBlockPNG);
+                    stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => stoneBlockThirdLevel.src = lowStoneBlockPNG);
+                }
+            } 
+            else if (isInNether || !isInOverworld || !isInTheEnd) {
+                mc.style.background = `url('${lowGraphicNetherSky}')`;
+                allBlocks.forEach(blockElement => blockElement.src = lowNetherrackBlockPNG);
+            }
+        }, timeout);
     }
 
     function setNormalGraphic() {
-        if (isInOverworld && !isInNether && !isInTheEnd) {
-            mc.style.background = `url(${skyPNG})`;
-            creeper.src = creeperPNG;
+        setTimeout(() => {
+            if (isInOverworld && !isInNether && !isInTheEnd) {
+                mc.style.background = `url(${skyPNG})`;
+                creeper.src = creeperPNG;
 
-        grassBlockElementsArray.forEach(grassBlockElement => grassBlockElement.src = grassBlockPNG);
-        dirtBlockElementsArray.forEach(dirtBlockElement => dirtBlockElement.src = dirtBlockPNG);
-        stoneBlockElementsArray.forEach(stoneBlockElement => stoneBlockElement.src = stoneBlockPNG);
-        } 
-        else if (isInNether || !isInOverworld || !isInTheEnd) {
-            mc.style.background = `url('${netherSky}')`;
-            allBlocks.forEach(blockElement => blockElement.src = netherrackBlockPNG);
-        }
+                if (isNormalBiomeChosen) {
+                    grassBlockElementsArray.forEach(grassBlockElement => grassBlockElement.src = grassBlockPNG);
+                    dirtBlockElementsArray.forEach(dirtBlockElement => dirtBlockElement.src = dirtBlockPNG);
+                    stoneBlockElementsArray.forEach(stoneBlockElement => stoneBlockElement.src = stoneBlockPNG);
+                } else if (isDesertBiomeChosen) {
+                    grassBlockElementsArray.forEach(grassBlockElement => grassBlockElement.src = sandBlockPNG);
+                    dirtBlockElementsArray.forEach(dirtBlockElement => dirtBlockElement.src = sandstoneBlockPNG);
+                    stoneBlockElementsArray.forEach(stoneBlockInStoneBlocks => stoneBlockInStoneBlocks.src = sandstoneBlockPNG);
+                    stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => stoneBlockThirdLevel.src = stoneBlockPNG);
+                } else if (isIcyBiomeChosen) {
+                    grassBlockElementsArray.forEach(grassBlockInGrassBlocks => grassBlockInGrassBlocks.src = iceBlockPNG);
+                    dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => dirtBlockInDirtBlocks.src = waterBlockPNG);
+                    stoneBlockElementsArray.forEach(stoneBlockInStoneBlocks => stoneBlockInStoneBlocks.src = waterBlockPNG);
+                    stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => stoneBlockThirdLevel.src = stoneBlockPNG);
+                } else if (isSnowyBiomeChosen) {
+                    grassBlockElementsArray.forEach(grassBlockInGrassBlocks => grassBlockInGrassBlocks.src = snowyGrassBlockPNG);
+                    dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => dirtBlockInDirtBlocks.src = dirtBlockPNG);
+                    stoneBlockElementsArray.forEach(stoneBlockInStoneBlocks => stoneBlockInStoneBlocks.src = stoneBlockPNG);
+                    stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => stoneBlockThirdLevel.src = stoneBlockPNG);
+                } else if (isMushroomBiomeChosen) {
+                    grassBlockElementsArray.forEach(grassBlockInGrassBlocks => grassBlockInGrassBlocks.src = myceliumBlockPNG);
+                    dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => dirtBlockInDirtBlocks.src = dirtBlockPNG);
+                    stoneBlocksInFirstLevel.forEach(stoneBlockInFirstLevel => stoneBlockInFirstLevel.src = dirtBlockPNG);
+                    stoneBlocksInSecondLevel.forEach(stoneBlockInSecondLevel => stoneBlockInSecondLevel.src = stoneBlockPNG);
+                    stoneBlocksInThirdLevel.forEach(stoneBlockInThirdLevel => stoneBlockInThirdLevel.src = stoneBlockPNG);
+                    stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => stoneBlockThirdLevel.src = stoneBlockPNG);
+                }
+            } 
+            else if (isInNether || !isInOverworld || !isInTheEnd) {
+                mc.style.background = `url('${netherSky}')`;
+                allBlocks.forEach(blockElement => blockElement.src = netherrackBlockPNG);
+            }
+        }, timeout);
     }
 
     function setHighGraphic() {
-        if (isInOverworld && !isInNether && !isInTheEnd) {
-            mc.style.background = `url('${highGraphicSky}')`;
-            creeper.src = highGraphicCreeper;
+        setTimeout(() => {
+            if (isInOverworld && !isInNether && !isInTheEnd) {
+                mc.style.background = `url('${highGraphicSky}')`;
+                creeper.src = highGraphicCreeper;
 
-        grassBlockElementsArray.forEach(grassBlockElement => grassBlockElement.src = highGraphicGrassBlock);
-
-        dirtBlockElementsArray.forEach(dirtBlockElement => dirtBlockElement.src = highGraphicDirtBlock);
-        
-        stoneBlockElementsArray.forEach(stoneBlockElement => stoneBlockElement.src = highGraphicStoneBlock);
-
-        } 
-        else if (isInNether || !isInOverworld || !isInTheEnd) {
-
-            mc.style.background = `url('${highGraphicNetherSky}')`;
-            mc.style.backgroundPosition = 'center';
-
-            allBlocks.forEach(blockElement => blockElement.src = highGraphicNetherrackBlock);
-        }
+                if (isNormalBiomeChosen) {
+                    grassBlockElementsArray.forEach(grassBlockElement => grassBlockElement.src = highGraphicGrassBlock);
+                    dirtBlockElementsArray.forEach(dirtBlockElement => dirtBlockElement.src = highGraphicDirtBlock);
+                    stoneBlockElementsArray.forEach(stoneBlockElement => stoneBlockElement.src = highGraphicStoneBlock);
+                } else if (isDesertBiomeChosen) {
+                    grassBlockElementsArray.forEach(grassBlockElement => grassBlockElement.src = highGraphicSandBlock);
+                    dirtBlockElementsArray.forEach(dirtBlockElement => dirtBlockElement.src = highGraphicSandstoneBlock);
+                    stoneBlockElementsArray.forEach(stoneBlockInStoneBlocks => stoneBlockInStoneBlocks.src = highGraphicSandstoneBlock);
+                    stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => stoneBlockThirdLevel.src = highGraphicStoneBlock);
+                } else if (isIcyBiomeChosen) {
+                    grassBlockElementsArray.forEach(grassBlockInGrassBlocks => grassBlockInGrassBlocks.src = highGraphicIceBlockPNG);
+                    dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => dirtBlockInDirtBlocks.src = highWaterBlockPNG);
+                    stoneBlockElementsArray.forEach(stoneBlockInStoneBlocks => stoneBlockInStoneBlocks.src = highWaterBlockPNG);
+                    stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => stoneBlockThirdLevel.src = highGraphicStoneBlock);
+                } else if (isSnowyBiomeChosen) {
+                    grassBlockElementsArray.forEach(grassBlockInGrassBlocks => grassBlockInGrassBlocks.src = highGraphicSnowyGrassBlockPNG);
+                    dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => dirtBlockInDirtBlocks.src = highGraphicDirtBlock);
+                    stoneBlockElementsArray.forEach(stoneBlockInStoneBlocks => stoneBlockInStoneBlocks.src = highGraphicStoneBlock);
+                    stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => stoneBlockThirdLevel.src = highGraphicStoneBlock);
+                } else if (isMushroomBiomeChosen) {
+                    grassBlockElementsArray.forEach(grassBlockInGrassBlocks => grassBlockInGrassBlocks.src = highGraphicMyceliumBlockPNG);
+                    dirtBlockElementsArray.forEach(dirtBlockInDirtBlocks => dirtBlockInDirtBlocks.src = highGraphicDirtBlock);
+                    stoneBlocksInFirstLevel.forEach(stoneBlockInFirstLevel => stoneBlockInFirstLevel.src = highGraphicDirtBlock);
+                    stoneBlocksInSecondLevel.forEach(stoneBlockInSecondLevel => stoneBlockInSecondLevel.src = highGraphicStoneBlock);
+                    stoneBlocksInThirdLevel.forEach(stoneBlockInThirdLevel => stoneBlockInThirdLevel.src = highGraphicStoneBlock);
+                    stoneBlocksInLastLevel.forEach(stoneBlockThirdLevel => stoneBlockThirdLevel.src = highGraphicStoneBlock);
+                }
+            } 
+            else if (isInNether || !isInOverworld || !isInTheEnd) {
+                mc.style.background = `url('${highGraphicNetherSky}')`;
+                mc.style.backgroundPosition = 'center';
+                allBlocks.forEach(blockElement => blockElement.src = highGraphicNetherrackBlock);
+            }
+        }, timeout);
     }
 
     function handlePlayerMove() {
@@ -956,7 +1068,7 @@ if (running) {
                     }
                     playerCrouching = false;
                 }
-            } else if (e.key == 'ArrowLeft' || e.key == 's' || e.key == 'a') {
+            } else if (e.key == 'ArrowLeft' || e.key == 'a') {
                 if (playerCrouching) {
                     if (isSteveChosen) {
                         player.src = steveCrouchingReversedPNG;
@@ -1164,11 +1276,13 @@ if (running) {
             renderBlaze();
         } else if (method == 'spawnEnderman') {
             renderEnderman();
+        } else if (method == 'mine') {
+            toggleMineMethod();
+        } else if (method == 'f1') {
+            toggleHotbarStatus();
         }
     }
-
-    window.addEventListener('keydown', (e) => e.key == '0' ? renderEnderman() : false);
-    window.addEventListener('keydown', (e) => e.key == 'b' ? renderBlaze() : false);
+    window.addEventListener('keydown', (e) => e.key == '0' ? renderEnderman() : e.key == 'b' ? renderBlaze() : false);
 
     function checkOverworldPortalCollision() {
         let playerRect = player.getBoundingClientRect();
@@ -1197,11 +1311,9 @@ if (running) {
 
     overworldPortalPosition.src = endPortalPNG;
 
-    setTimeout(() => {
-        overworldPortalPosition.hidden = true;
-    }, 20000);
+    setTimeout(() => overworldPortalPosition.hidden = true, 20000);
 
-    setInterval(checkOverworldPortalCollision, 100);
+    setInterval(checkOverworldPortalCollision, timeout);
     }
 
     function renderEnderman() {
@@ -1288,7 +1400,7 @@ if (running) {
                 } else {
                     player.src = steveStandingPNG;
                 }
-            } else if (e.key == 'ArrowLeft' || e.key == 's' || e.key == 'a') {
+            } else if (e.key == 'ArrowLeft' || e.key == 'a') {
                 if (playerCrouching) {
                     player.src = steveCrouchingReversedPNG;
                 } else {
@@ -1323,7 +1435,7 @@ if (running) {
                 } else {
                     player.src = alexStandingPNG;
                 }
-            } else if (e.key == 'ArrowLeft' || e.key == 's' || e.key == 'a') {
+            } else if (e.key == 'ArrowLeft' || e.key == 'a') {
                 if (playerCrouching) {
                     player.src = alexCrouchingReversedPNG;
                 } else {
@@ -1358,7 +1470,7 @@ if (running) {
                 } else {
                     player.src = skin1StandingPNG;
                 }
-            } else if (e.key == 'ArrowLeft' || e.key == 's' || e.key == 'a') {
+            } else if (e.key == 'ArrowLeft' || e.key == 'a') {
                 if (playerCrouching) {
                     player.src = skin1CrouchingReversedPNG;
                 } else {
@@ -1425,11 +1537,13 @@ if (running) {
 
                 if (message == '/kill' || message == '/kill @s' || message == '/kill @p') {
                     player.style.display = 'none';
+                    isDead = true;
                     log(`Server: ${storedUsername} died.`);
                 }
                 if (message == '/kill @a') {
                     creeper.style.display = 'none';
                     player.style.display = 'none';
+                    isDead = true;
                     log(`Server: ${storedUsername} and creeper died.`);
                 }
                 if (message == '/kill @e[type=creeper]') {
@@ -1681,10 +1795,12 @@ if (running) {
             window.speechSynthesis.speak(speech);
             if (message == '/kill' || message == '/kill @s' || message == '/kill @p') {
                 player.style.display = 'none';
+                isDead = true;
             }
             if (message == '/kill @a') {
                 creeper.style.display = 'none';
                 player.style.display = 'none';
+                isDead = true;
             }
             if (message == '/kill @e[type=creeper]') {
                 creeper.style.display = 'none';
@@ -2991,7 +3107,7 @@ if (running) {
         let playerY = parseInt(player.style.top);
         
         window.addEventListener('keydown', (e) => {
-            if (e.key == 'ArrowDown') {
+            if ((e.key == 'ArrowDown' || e.key == 's') || isMineMethodActive) {
                 e.preventDefault();
 
                 if (allowedDestroyingBlocks) {
@@ -3622,12 +3738,12 @@ if (running) {
     setInterval(mineBlocksUnderPlayer, timeout);
 
     function oakPlanksChosen() {
-        oakPlanks = true;
-        sandStone = false;
-        oakLeaves = false;
-        dirt = false;
+        oakPlanksBlock = true;
+        sandStoneBlock = false;
+        oakLeavesBlock = false;
+        dirtBlock = false;
         stone = false;
-        whiteWool = false;
+        whiteWoolBlock = false;
         diamondBlock = false;
         barrierBlock = false;
         tntBlock = false;
@@ -3636,14 +3752,18 @@ if (running) {
         waterBlock = false;
         iceBlock = false;
         cobbleStoneBlock = false;
+        polishedAndesiteBlock = false;
+        oakLogBlock = false;
+        coalOreBlock = false;
+        emeraldOreBlock = false;
     }
     function sandStoneChosen() {
-        sandStone = true;
-        oakPlanks = false;
-        oakLeaves = false;
-        dirt = false;
+        sandStoneBlock = true;
+        oakPlanksBlock = false;
+        oakLeavesBlock = false;
+        dirtBlock = false;
         stone = false;
-        whiteWool = false;
+        whiteWoolBlock = false;
         diamondBlock = false;
         barrierBlock = false;
         tntBlock = false;
@@ -3652,14 +3772,18 @@ if (running) {
         waterBlock = false;
         iceBlock = false;
         cobbleStoneBlock = false;
+        polishedAndesiteBlock = false;
+        oakLogBlock = false;
+        coalOreBlock = false;
+        emeraldOreBlock = false;
     }
     function oakLeavesChosen() {
-        oakLeaves = true;
-        sandStone = false;
-        oakPlanks = false;
-        dirt = false;
+        oakLeavesBlock = true;
+        sandStoneBlock = false;
+        oakPlanksBlock = false;
+        dirtBlock = false;
         stone = false;
-        whiteWool = false;
+        whiteWoolBlock = false;
         diamondBlock = false;
         barrierBlock = false;
         tntBlock = false;
@@ -3668,14 +3792,18 @@ if (running) {
         waterBlock = false;
         iceBlock = false;
         cobbleStoneBlock = false;
+        polishedAndesiteBlock = false;
+        oakLogBlock = false;
+        coalOreBlock = false;
+        emeraldOreBlock = false;
     }
     function dirtChosen() {
-        dirt = true;
-        oakLeaves = false;
-        sandStone = false;
-        oakPlanks = false;
+        dirtBlock = true;
+        oakLeavesBlock = false;
+        sandStoneBlock = false;
+        oakPlanksBlock = false;
         stone = false;
-        whiteWool = false;
+        whiteWoolBlock = false;
         diamondBlock = false;
         barrierBlock = false;
         tntBlock = false;
@@ -3684,14 +3812,18 @@ if (running) {
         waterBlock = false;
         iceBlock = false;
         cobbleStoneBlock = false;
+        polishedAndesiteBlock = false;
+        oakLogBlock = false;
+        coalOreBlock = false;
+        emeraldOreBlock = false;
     }
     function stoneChosen() {
         stone = true;
-        dirt = false;
-        oakLeaves = false;
-        sandStone = false;
-        oakPlanks = false;
-        whiteWool = false;
+        dirtBlock = false;
+        oakLeavesBlock = false;
+        sandStoneBlock = false;
+        oakPlanksBlock = false;
+        whiteWoolBlock = false;
         diamondBlock = false;
         barrierBlock = false;
         tntBlock = false;
@@ -3700,14 +3832,18 @@ if (running) {
         waterBlock = false;
         iceBlock = false;
         cobbleStoneBlock = false;
+        polishedAndesiteBlock = false;
+        oakLogBlock = false;
+        coalOreBlock = false;
+        emeraldOreBlock = false;
     }
     function whiteWoolChosen() {
-        whiteWool = true;
+        whiteWoolBlock = true;
         stone = false;
-        dirt = false;
-        oakLeaves = false;
-        sandStone = false;
-        oakPlanks = false;
+        dirtBlock = false;
+        oakLeavesBlock = false;
+        sandStoneBlock = false;
+        oakPlanksBlock = false;
         diamondBlock = false;
         barrierBlock = false;
         tntBlock = false;
@@ -3716,15 +3852,19 @@ if (running) {
         waterBlock = false;
         iceBlock = false;
         cobbleStoneBlock = false;
+        polishedAndesiteBlock = false;
+        oakLogBlock = false;
+        coalOreBlock = false;
+        emeraldOreBlock = false;
     }
     function diamondBlockChosen() {
         diamondBlock = true;
-        whiteWool = false;
+        whiteWoolBlock = false;
         stone = false;
-        dirt = false;
-        oakLeaves = false;
-        sandStone = false;
-        oakPlanks = false;
+        dirtBlock = false;
+        oakLeavesBlock = false;
+        sandStoneBlock = false;
+        oakPlanksBlock = false;
         barrierBlock = false;
         tntBlock = false;
         obsidianBlock = false;
@@ -3732,54 +3872,70 @@ if (running) {
         waterBlock = false;
         iceBlock = false;
         cobbleStoneBlock = false;
+        polishedAndesiteBlock = false;
+        oakLogBlock = false;
+        coalOreBlock = false;
+        emeraldOreBlock = false;
     }
     function barrierChosen() {
         barrierBlock = true;
         diamondBlock = false;
-        whiteWool = false;
+        whiteWoolBlock = false;
         stone = false;
-        dirt = false;
-        oakLeaves = false;
-        sandStone = false;
-        oakPlanks = false;
+        dirtBlock = false;
+        oakLeavesBlock = false;
+        sandStoneBlock = false;
+        oakPlanksBlock = false;
         tntBlock = false;
         obsidianBlock = false;
         diamondOreBlock = false;
         waterBlock = false;
         iceBlock = false;
         cobbleStoneBlock = false;
+        polishedAndesiteBlock = false;
+        oakLogBlock = false;
+        coalOreBlock = false;
+        emeraldOreBlock = false;
     }
     function tntChosen() {
         tntBlock = true;
         barrierBlock = false;
         diamondBlock = false;
-        whiteWool = false;
+        whiteWoolBlock = false;
         stone = false;
-        dirt = false;
-        oakLeaves = false;
-        sandStone = false;
-        oakPlanks = false;
+        dirtBlock = false;
+        oakLeavesBlock = false;
+        sandStoneBlock = false;
+        oakPlanksBlock = false;
         obsidianBlock = false;
         diamondOreBlock = false;
         waterBlock = false;
         iceBlock = false;
         cobbleStoneBlock = false;
+        polishedAndesiteBlock = false;
+        oakLogBlock = false;
+        coalOreBlock = false;
+        emeraldOreBlock = false;
     }
     function obsidianBlockChosen() {
         obsidianBlock = true;
         tntBlock = false;
         barrierBlock = false;
         diamondBlock = false;
-        whiteWool = false;
+        whiteWoolBlock = false;
         stone = false;
-        dirt = false;
-        oakLeaves = false;
-        sandStone = false;
-        oakPlanks = false;
+        dirtBlock = false;
+        oakLeavesBlock = false;
+        sandStoneBlock = false;
+        oakPlanksBlock = false;
         diamondOreBlock = false;
         waterBlock = false;
         iceBlock = false;
         cobbleStoneBlock = false;
+        polishedAndesiteBlock = false;
+        oakLogBlock = false;
+        coalOreBlock = false;
+        emeraldOreBlock = false;
     }
     function diamondOreChosen() {
         diamondOreBlock = true;
@@ -3787,15 +3943,19 @@ if (running) {
         tntBlock = false;
         barrierBlock = false;
         diamondBlock = false;
-        whiteWool = false;
+        whiteWoolBlock = false;
         stone = false;
-        dirt = false;
-        oakLeaves = false;
-        sandStone = false;
-        oakPlanks = false;
+        dirtBlock = false;
+        oakLeavesBlock = false;
+        sandStoneBlock = false;
+        oakPlanksBlock = false;
         waterBlock = false;
         iceBlock = false;
         cobbleStoneBlock = false;
+        polishedAndesiteBlock = false;
+        oakLogBlock = false;
+        coalOreBlock = false;
+        emeraldOreBlock = false;
     }
     function waterBlockChosen() {
         waterBlock = true;
@@ -3804,14 +3964,18 @@ if (running) {
         tntBlock = false;
         barrierBlock = false;
         diamondBlock = false;
-        whiteWool = false;
+        whiteWoolBlock = false;
         stone = false;
-        dirt = false;
-        oakLeaves = false;
-        sandStone = false;
-        oakPlanks = false;
+        dirtBlock = false;
+        oakLeavesBlock = false;
+        sandStoneBlock = false;
+        oakPlanksBlock = false;
         iceBlock = false;
         cobbleStoneBlock = false;
+        polishedAndesiteBlock = false;
+        oakLogBlock = false;
+        coalOreBlock = false;
+        emeraldOreBlock = false;
     }
     function iceBlockChosen() {
         iceBlock = true;
@@ -3821,13 +3985,17 @@ if (running) {
         tntBlock = false;
         barrierBlock = false;
         diamondBlock = false;
-        whiteWool = false;
+        whiteWoolBlock = false;
         stone = false;
-        dirt = false;
-        oakLeaves = false;
-        sandStone = false;
-        oakPlanks = false;
+        dirtBlock = false;
+        oakLeavesBlock = false;
+        sandStoneBlock = false;
+        oakPlanksBlock = false;
         cobbleStoneBlock = false;
+        polishedAndesiteBlock = false;
+        oakLogBlock = false;
+        coalOreBlock = false;
+        emeraldOreBlock = false;
     }
     function cobbleStoneBlockChosen() {
         cobbleStoneBlock = true;
@@ -3838,12 +4006,96 @@ if (running) {
         tntBlock = false;
         barrierBlock = false;
         diamondBlock = false;
-        whiteWool = false;
+        whiteWoolBlock = false;
         stone = false;
-        dirt = false;
-        oakLeaves = false;
-        sandStone = false;
-        oakPlanks = false;
+        dirtBlock = false;
+        oakLeavesBlock = false;
+        sandStoneBlock = false;
+        oakPlanksBlock = false;
+        polishedAndesiteBlock = false;
+        oakLogBlock = false;
+        coalOreBlock = false;
+        emeraldOreBlock = false;
+    }
+    function polishedAndesiteBlockChosen() {
+        polishedAndesiteBlock = true;
+        cobbleStoneBlock = false;
+        iceBlock = false;
+        waterBlock = false;
+        diamondOreBlock = false;
+        obsidianBlock = false;
+        tntBlock = false;
+        barrierBlock = false;
+        diamondBlock = false;
+        whiteWoolBlock = false;
+        stone = false;
+        dirtBlock = false;
+        oakLeavesBlock = false;
+        sandStoneBlock = false;
+        oakPlanksBlock = false;
+        oakLogBlock = false;
+        coalOreBlock = false;
+        emeraldOreBlock = false;
+    }
+    function oakLogBlockChosen() {
+        oakLogBlock = true;
+        polishedAndesiteBlock = false;
+        cobbleStoneBlock = false;
+        iceBlock = false;
+        waterBlock = false;
+        diamondOreBlock = false;
+        obsidianBlock = false;
+        tntBlock = false;
+        barrierBlock = false;
+        diamondBlock = false;
+        whiteWoolBlock = false;
+        stone = false;
+        dirtBlock = false;
+        oakLeavesBlock = false;
+        sandStoneBlock = false;
+        oakPlanksBlock = false;
+        coalOreBlock = false;
+        emeraldOreBlock = false;
+    }
+    function coalOreBlockChosen() {
+        coalOreBlock = true;
+        oakLogBlock = false;
+        polishedAndesiteBlock = false;
+        cobbleStoneBlock = false;
+        iceBlock = false;
+        waterBlock = false;
+        diamondOreBlock = false;
+        obsidianBlock = false;
+        tntBlock = false;
+        barrierBlock = false;
+        diamondBlock = false;
+        whiteWoolBlock = false;
+        stone = false;
+        dirtBlock = false;
+        oakLeavesBlock = false;
+        sandStoneBlock = false;
+        oakPlanksBlock = false;
+        emeraldOreBlock = false;
+    }
+    function emeraldOreBlockChosen() {
+        emeraldOreBlock = true;
+        coalOreBlock = false;
+        oakLogBlock = false;
+        polishedAndesiteBlock = false;
+        cobbleStoneBlock = false;
+        iceBlock = false;
+        waterBlock = false;
+        diamondOreBlock = false;
+        obsidianBlock = false;
+        tntBlock = false;
+        barrierBlock = false;
+        diamondBlock = false;
+        whiteWoolBlock = false;
+        stone = false;
+        dirtBlock = false;
+        oakLeavesBlock = false;
+        sandStoneBlock = false;
+        oakPlanksBlock = false;
     }
 
     let Inventory = document.createElement('div');
@@ -3865,36 +4117,37 @@ function openInventoryGUI() {
     Inventory.hidden = false;
     let menu = `
     <div class="inventory-container">
-        <div class="gui-inventory">
-            <div class="top-elements">
-                <button onclick="closeInventoryGUI()" class="close">X</button>
-                <h1 class="inventory-title">Inventory</h1>
-            </div>
-            <hr>
+    <div class="gui-inventory">
+        <div class="top-elements">
+            <button onclick="closeInventoryGUI()" class="close">X</button>
+            <h1 class="inventory-title">Inventory</h1>
+        </div>
+        <hr>
+        <div id="blocks-inventory-display">
             <div class="blocks-display">
                 <div class="blockDisplay">
-                    <div class="b"><img title="Oak Leaves" id="glass" draggable="false" onclick="oakLeavesChosen()" width="50" height="50" src="${oakLeavesBlockPNG}" alt="${oakLeavesBlockPNG}"></div>
+                    <div class="b"><img title="Oak Leaves Block" id="glass" draggable="false" onclick="oakLeavesChosen()" width="50" height="50" src="${oakLeavesBlockPNG}" alt="${oakLeavesBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">Oak Leaves</div>
                         <div class="block-id">ID: 18</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="Sandstone" id="sandstone" draggable="false" onclick="sandStoneChosen()" width="50" height="50" src="${sandstoneBlockPNG}" alt="${sandstoneBlockPNG}"></div>
+                    <div class="b"><img title="Sandstone Block" id="sandstone" draggable="false" onclick="sandStoneChosen()" width="50" height="50" src="${sandstoneBlockPNG}" alt="${sandstoneBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">Sandstone</div>
                         <div class="block-id">ID: 24</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="Dirt" id="dirt" draggable="false" onclick="dirtChosen()" width="50" height="50" src="${dirtBlockPNG}" alt="${dirtBlockPNG}"></div>
+                    <div class="b"><img title="Dirt Block" id="dirt" draggable="false" onclick="dirtChosen()" width="50" height="50" src="${dirtBlockPNG}" alt="${dirtBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">Dirt</div>
                         <div class="block-id">ID: 3</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="Stone" id="stone_block" draggable="false" onclick="stoneChosen()" width="50" height="50" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
+                    <div class="b"><img title="Stone Block" id="stone_block" draggable="false" onclick="stoneChosen()" width="50" height="50" src="${stoneBlockPNG}" alt="${stoneBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">Stone</div>
                         <div class="block-id">ID: 1</div>
@@ -3903,7 +4156,7 @@ function openInventoryGUI() {
             </div>
             <div class="blocks-display2">
                 <div class="blockDisplay">
-                    <div class="b"><img title="White Wool" id="white_wool" draggable="false" onclick="whiteWoolChosen()" width="50" height="50" src="${whiteWoolBlockPNG}" alt="${whiteWoolBlockPNG}"></div>
+                    <div class="b"><img title="White Wool Block" id="white_wool" draggable="false" onclick="whiteWoolChosen()" width="50" height="50" src="${whiteWoolBlockPNG}" alt="${whiteWoolBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">White Wool</div>
                         <div class="block-id">ID: 35</div>
@@ -3917,35 +4170,35 @@ function openInventoryGUI() {
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="Barrier" id="barrier" draggable="false" onclick="barrierChosen()" width="50" height="50" src="${barrierBlockPNG}" alt="${barrierBlockPNG}"></div>
+                    <div class="b"><img title="Barrier Block" id="barrier" draggable="false" onclick="barrierChosen()" width="50" height="50" src="${barrierBlockPNG}" alt="${barrierBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">Barrier</div>
                         <div class="block-id">ID: 166</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="TNT" id="tnt" draggable="false" onclick="tntChosen()" width="50" height="50" src="${tntBlockPNG}" alt="${tntBlockPNG}"></div>
+                    <div class="b"><img title="TNT Block" id="tnt" draggable="false" onclick="tntChosen()" width="50" height="50" src="${tntBlockPNG}" alt="${tntBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">TNT</div>
                         <div class="block-id">ID: 46</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="Diamond ore" id="diamond_ore" draggable="false" onclick="diamondOreChosen()" width="50" height="50" src="${diamondOreBlockPNG}" alt="${diamondOreBlockPNG}"></div>
+                    <div class="b"><img title="Diamond Ore Block" id="diamond_ore" draggable="false" onclick="diamondOreChosen()" width="50" height="50" src="${diamondOreBlockPNG}" alt="${diamondOreBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">Diamond Ore</div>
                         <div class="block-id">ID: 56</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b" id="water-block-moving-down"><img title="Water block" id="water_block" draggable="false" onclick="waterBlockChosen()" width="50" height="50" src="${waterBlockPNG}" alt="${waterBlockPNG}"></div>
+                    <div class="b" id="water-block-moving-down"><img title="Water Block" id="water_block" draggable="false" onclick="waterBlockChosen()" width="50" height="50" src="${waterBlockPNG}" alt="${waterBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">Still Water</div>
                         <div class="block-id">ID: 9</div>
                     </div>
                 </div>
                 <div class="blockDisplay">
-                    <div class="b"><img title="Ice block" id="ice_block" draggable="false" onclick="iceBlockChosen()" width="50" height="50" src="${iceBlockPNG}" alt="${iceBlockPNG}"></div>
+                    <div class="b"><img title="Ice Block" id="ice_block" draggable="false" onclick="iceBlockChosen()" width="50" height="50" src="${iceBlockPNG}" alt="${iceBlockPNG}"></div>
                     <div class="block-info">
                         <div class="block-nm">Ice</div>
                         <div class="block-id">ID: 79</div>
@@ -3959,15 +4212,46 @@ function openInventoryGUI() {
                     </div>
                 </div>
             </div>
-
-            <div id="inv-skin-display">
-                <div id="my-nick-display">${storedUsername}</div>
-                <img id="my-skin-display" src=${isSteveChosen ? steveStandingPNG :
-                    isAlexChosen ? alexStandingPNG :
-                    isSkin1Chosen ? skin1StandingPNG : steveStandingPNG} draggable="false" alt="my-skin">
+            <div class="blocks-display3">
+                <div class="blockDisplay">
+                    <div class="b"><img title="Polished Andesite Block" id="polished_andesite" draggable="false" onclick="polishedAndesiteBlockChosen()" width="50" height="50" src="${polishedAndesiteBlockPNG}" alt="${polishedAndesiteBlockPNG}"></div>
+                    <div class="block-info">
+                        <div class="block-nm">Polished Andesite</div>
+                        <div class="block-id">ID: 1:6</div>
+                    </div>
+                </div>
+                <div class="blockDisplay">
+                    <div class="b"><img title="Oak Log Block" id="oak_log" draggable="false" onclick="oakLogBlockChosen()" width="50" height="50" src="${oakLogBlockPNG}" alt="${oakLogBlockPNG}"></div>
+                    <div class="block-info">
+                        <div class="block-nm">Oak Log</div>
+                        <div class="block-id">ID: 17</div>
+                    </div>
+                </div>
+                <div class="blockDisplay">
+                    <div class="b"><img title="Coal Ore Block" id="coal_ore" draggable="false" onclick="coalOreBlockChosen()" width="50" height="50" src="${coalOreBlockPNG}" alt="${coalOreBlockPNG}"></div>
+                    <div class="block-info">
+                        <div class="block-nm">Coal Ore</div>
+                        <div class="block-id">ID: 16</div>
+                    </div>
+                </div>
+                <div class="blockDisplay">
+                    <div class="b"><img title="Emerald Ore Block" id="emerald_ore" draggable="false" onclick="emeraldOreBlockChosen()" width="50" height="50" src="${emeraldOreBlockPNG}" alt="${emeraldOreBlockPNG}"></div>
+                    <div class="block-info">
+                        <div class="block-nm">Emerald Ore</div>
+                        <div class="block-id">ID: 129</div>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <div id="inv-skin-display">
+            <div id="my-nick-display">${storedUsername}</div>
+            <img id="my-skin-display" src=${isSteveChosen ? steveStandingPNG :
+                isAlexChosen ? alexStandingPNG :
+                isSkin1Chosen ? skin1StandingPNG : steveStandingPNG} draggable="false" alt="my-skin">
+        </div>
     </div>
+</div>
     `;
     Inventory.innerHTML = menu;
     document.body.append(Inventory);
@@ -4317,6 +4601,7 @@ function closeInventoryGUI() {
     
             if (playerHP <= 0) {
                 player.hidden = true;
+                isDead = true;
                 log(`Server: ${storedUsername} died.`);
                 let actionAfterDeath = prompt('YOU DIED!\n\nWhat you want to do?\nRespawn (r)\nSpectate (s)').toLowerCase();
     
@@ -4348,7 +4633,7 @@ function numberOfObsidians() {
     numOfObsidians++;
     hotbarObsidian.textContent = Number(numOfObsidians);
 
-    if (numOfObsidians >= 10) {
+    if (!isDead && numOfObsidians >= 10) {
         do {
             shouldCreatePortal = prompt('Do you want to make a nether portal? (y/n):').toLowerCase();
         } while (shouldCreatePortal != 'y' && shouldCreatePortal != 'n');
@@ -4364,7 +4649,7 @@ function numberOfObsidians() {
                 portalPosition.hidden = true;
             }, 20000);
 
-            setInterval(checkPortalCollision, 100);
+            setInterval(checkPortalCollision, timeout);
             numOfObsidians = 0;
             hotbarObsidian.textContent = numOfObsidians;
         } else if (shouldCreatePortal == 'n') {
@@ -4391,7 +4676,7 @@ numberOfObsidians();
                     endPortalPosition.hidden = true;
                 }, 20000);
     
-                setInterval(checkEndPortalCollision, 100);
+                setInterval(checkEndPortalCollision, timeout);
                 numOfBlazeRods = 0;
                 numOfEnderPearls = 0;
             } else if (shouldCreatePortal == 'n') {
@@ -4540,7 +4825,7 @@ numberOfObsidians();
                     }
                 }
 
-            }, 100);
+            }, timeout);
         }
     }
     setInterval(checkCollisionsPeriodically, creeperReactionTime);
@@ -4552,6 +4837,7 @@ numberOfObsidians();
 
                 if (playerHP <= 0) {
                     player.hidden = true;
+                    isDead = true;
                     log(`Server: ${storedUsername} died.`);
                     let actionAfterDeath = prompt('YOU DIED!\n\nWhat you want to do?\nRespawn (r)\nSpectate (s)').toLowerCase();
         
@@ -4586,6 +4872,7 @@ numberOfObsidians();
 
                 if (playerHP <= 0) {
                     player.hidden = true;
+                    isDead = true;
                     log(`Server: ${storedUsername} died.`);
                     let actionAfterDeath = prompt('YOU DIED!\n\nWhat you want to do?\nRespawn (r)\nSpectate (s)').toLowerCase();
         
@@ -4613,17 +4900,8 @@ numberOfObsidians();
     }
     setInterval(checkEnderDragonCollision, enderDragonReactionTime);
 
-    window.addEventListener('keydown', (e) => {
-        if ((e.ctrlKey && e.key == 'a') ||
-            (e.ctrlKey && e.key == 's') ||
-            (e.ctrlKey && e.key == 'd')
-            ) {
-            e.preventDefault();
-        }
-
-        if (e.key == 'F1') {
-            e.preventDefault();
-            hotbarHidden = !hotbarHidden;
+    function toggleHotbarStatus() {
+        hotbarHidden = !hotbarHidden;
             hotbarContainer.hidden = hotbarHidden;
 
             if (!hotbarHidden) {
@@ -4633,6 +4911,21 @@ numberOfObsidians();
                 creeper.style.top = '-626px';
                 blaze.style.top = '-680px';
             }
+    }
+    function toggleMineMethod() {
+        !isMineMethodActive ? isMineMethodActive = true : isMineMethodActive = false;
+    }
+
+    window.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey && e.key == 'a') ||
+            (e.ctrlKey && e.key == 'd')
+            ) {
+            e.preventDefault();
+        }
+
+        if (e.key == 'F1') {
+            e.preventDefault();
+            toggleHotbarStatus();
         }
         switch (e.key) {
             case '1':

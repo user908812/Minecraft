@@ -10,6 +10,20 @@ and hearing the funny sounds.
 - PC
 - Console
 - TV
+### How to play:
+| Keys | Action |
+| ----- | ----- |
+| W A D | Move player |
+| SPACE / ↑ | Jump |
+| S | Mine down |
+| 1-9 | Switch inventory hot bar |
+| CTRL + W/A/D | Sprint move |
+| / | Normal position |
+| ESC | Gui in game menu |
+| F3 | Inventory |
+| B / 0 | Spawn blaze / enderman |
+| F4 / F2 | Open chat / Send message |
+| F1 | Hide hotbar |
 
 Have fun!
 

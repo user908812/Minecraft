@@ -505,7 +505,8 @@ body {
     top: -50px;
     border: 1px solid #000;
     width: 630px;
-    height: 500px;
+    height: auto;
+    padding-bottom: 10px;
     background-color: #333;
 }
 .chat {
@@ -516,16 +517,19 @@ body {
     width: 500px;
     height: 500px;
 }
-.blocks-display {
-    margin-left: 20px;
+.blocks-display, .blocks-display2, .blocks-display3 {
     display: grid;
     grid-template-columns: repeat(4, 120px);
+    margin-left: 20px;
 }
 .blocks-display2 {
     margin-top: 25px;
-    margin-left: 20px;
-    display: grid;
-    grid-template-columns: repeat(4, 120px);
+}
+.blocks-display3 {
+    margin-top: 30px;
+}
+#blocks-inventory-display {
+    overflow-y: auto;
 }
 .b {
    position: relative;

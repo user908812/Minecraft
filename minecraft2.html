@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" ondblclick="event.preventDefault()">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@
     <section id="minecraft">
 
         <div id="mobileControls1">
-            <button id="pauseButton" onclick="openMobileGuiInGameMenu()" title="Pause game">☰</button>
+            <button id="pauseButton" onclick="openMobileGuiInGameMenu()" title="Pause the game">☰</button>
             <button id="chatButton" onclick="openChatButton()" title="Open chat / Send message">💬</button>
             <button id="supriseButton" onclick="supriseButton()" title="DON'T CLICK ME">卍</button>
         </div>
@@ -52,7 +52,9 @@
             <button id="crouchBTN" title="Crouch" class="mobileButton" onclick="mobileControlsMethod('crouch')"><img draggable="false" width="45" height="45" src="crouchBTN.png" alt="crouchBTN.png"></button>
             <button id="rightBTN" title="Go right" class="mobileButton" onclick="mobileControlsMethod('right')"><img draggable="false" width="45" height="45" src="rightBTN.png" alt="rightBTN.png"></button>
             <button id="jumpBTN" title="Jump" class="mobileButton" onclick="mobileControlsMethod('jump')"><img draggable="false" width="45" height="45" src="jumpBTN.png" alt="jumpBTN.png"></button>
+            <button id="mineBTN" title="Mine down (click once and move)" class="mobileButton" onclick="mobileControlsMethod('mine')"><img draggable="false" width="45" height="45" src="mineDownBTN.png" alt="mineDownBTN.png"></button>
             <button id="goUpBTN" title="Go up" class="mobileButton" onclick="mobileControlsMethod('goUp')"><img draggable="false" width="45" height="45" src="goUpBTN.png" alt="goUpBTN.png"></button>
+            <button id="f1BTN" title="Hide hotbar" class="mobileButton" onclick="mobileControlsMethod('f1')"><img draggable="false" width="45" height="45" src="hideHotbarBTN.png" alt="hideHotbarBTN.png"></button>
             <button id="inventoryBTN" title="Inventory" class="mobileButton" onclick="mobileControlsMethod('openInv')"><img draggable="false" width="45" height="45" src="inventoryBTN.png" alt="inventoryBTN.png"></button>
             <button id="spawnBlazeBTN" title="Spawn blaze" class="mobileButton" onclick="mobileControlsMethod('spawnBlaze')"><img draggable="false" width="45" height="45" src="spawnBlazeBTN.png" alt="spawnBlazeBTN.png"></button>
             <button id="spawnEndermanBTN" title="Spawn enderman" class="mobileButton" onclick="mobileControlsMethod('spawnEnderman')"><img draggable="false" width="45" height="45" src="spawnEndermanBTN.png" alt="spawnEndermanBTN.png"></button>
@@ -70,7 +72,7 @@
 
         <div id="clickedPlace"></div>
 
-    <div class="blocks" ondrag="event.preventDefault();">
+    <div class="blocks">
         <div class="grass-container">
             <div id="grass_block1"><img id="g1" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>
             <div id="grass_block2"><img id="g2" draggable="false" class="grass_block" src="grass_block.png" alt="grass_block.png"></div>

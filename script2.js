@@ -15,6 +15,20 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+/* UPDATE LOGS */
+var dateOfUpdate = '21/06/2024';
+
+var thingsAdded = `
+    <li>Fixed bugs</li>
+    <li>New F3 Inventory scroll bar</li>
+    <li class="added">New inventory blocks</li>
+    <li class="important">Fixed graphic</li>
+    <li class="important">New mobile controls</li>
+    <li class="important">The end update</li>
+    `;
+/* ----------- */
+
 function updateTime() {
     let currentTime = new Date();
     let hours = currentTime.getHours().toString().padStart(2, '0');
@@ -72,17 +86,9 @@ function renderLauncherOnSubmit(event) {
         <div class="date"></div>
         <div class="time"></div>
         <div class="news">
-            <div id="newsDisplay"><span class="news-title">News</span> <span class="rainbowText">09/06/2024:</span></div>
+            <div id="newsDisplay"><span class="news-title">News</span> <span class="rainbowText">${dateOfUpdate}:</span></div>
             <ul>
-                <li>Fixed code, bugs and KISS principle</li>
-                <li>Fixed F3 Inventory</li>
-                <li>New F3 Inventory UI</li>
-                <li>Fixed portals</li>
-                <li>Fixed player changing skin when using mobile controls</li>
-                <li class="added">New mob (Enderman)</li>
-                <li class="added">New inventory blocks</li>
-                <li class="important">New mobile controls</li>
-                <li class="important">The end update</li>
+                ${thingsAdded}
             </ul>
         </div>
         <div class="keybinds"> 
@@ -171,7 +177,7 @@ function showMoreKeybinds() {
         F4 (Open chat)\n
         F2 (Send chat message)\n
         F3 (Inventory)\n
-        F1 (No hotbar)\n
+        F1 (Hide hotbar)\n
         RMB / LMB (Place / Destroy block)\n
         ----Chat Commands:----\n
         .math (calculator)\n
